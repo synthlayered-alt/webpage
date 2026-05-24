@@ -507,7 +507,7 @@
             {
                 title: "메디힐 더마 패드 : The Perfect Eco-Pick",
                 category: "BRAND FILM",
-                videoUrl: "https://etdhihayhlponkmmnemj.supabase.co/storage/v1/object/public/video/Mediheal1_1.mp4",
+                videoUrl: "https://etdhihayhlponkmmnemj.supabase.co/storage/v1/object/public/video/Mediheal2_1.mp4",
                 desc: "친환경이라는 무거운 주제를 던지는 대신, 소비자가 일상에서 느끼는 빈 통의 허무함과 패드를 집기 힘든 번거로움에 주목. 이를 인형 뽑기라는 위트 있는 메타포로 풀어내어, 메디힐 더마 패드 2.0의 이지 픽커가 가진 정밀함과 리유저블 리필 시스템의 경제성을 감각적으로 연출.",
                 prompt: "Cinematic medium shot, Upscaling. Hyper-real, high-contrast, cinematic color correction for cosmetic advertisements.",
                 model: "Kling 3.0",
@@ -607,31 +607,31 @@
             } else {
                 grid.innerHTML = pagedItems.map((item) => {
                     const absoluteIndex = portfolioData.findIndex(p => p.title === item.title);
-                    const mappedCat = getMappedCategory(item.category);
-                    let colorClass = 'text-emerald-400';
-                    if (mappedCat === 'short') colorClass = 'text-purple-400';
-                    if (mappedCat === 'cinematic') colorClass = 'text-amber-400';
+			const mappedCat = getMappedCategory(item.category);
+    			let colorClass = 'text-emerald-400';
+    			if (mappedCat === 'short') colorClass = 'text-purple-400';
+    			if (mappedCat === 'cinematic') colorClass = 'text-amber-400';
 
-                    return `
-                        <div class="portfolio-card group border border-neutral-900 hover:border-neutral-700 bg-neutral-950/40 rounded-2xl overflow-hidden transition-all duration-500 flex flex-col justify-between" data-category="${mappedCat}">
-                            <div class="relative aspect-[16/10] overflow-hidden bg-neutral-950 flex items-center justify-center cursor-pointer" onclick="openVideoModal(${absoluteIndex})">
-                                <div class="absolute inset-0 w-full h-full pointer-events-none bg-neutral-900">
-                                    <iframe src="${item.videoUrl}?autoplay=1&mute=1&controls=0&loop=1" class="w-full h-full object-cover opacity-50 group-hover:opacity-85 transition-opacity duration-500 border-0" allow="autoplay"></iframe>
-                                </div>
-                                <div class="absolute w-14 h-14 border border-white/10 rounded-full group-hover:scale-110 group-hover:border-white/40 transition-all duration-300 flex items-center justify-center text-white/80 z-10">
-                                    <i data-lucide="play" class="w-5 h-5 fill-white/10 translate-x-0.5"></i>
-                                </div>
-                                <div class="absolute bottom-3 left-3 px-2 py-1 bg-black/70 backdrop-blur-md rounded text-[9px] font-mono ${colorClass} tracking-wider">${item.model}</div>
-                            </div>
-                            <div class="p-6 space-y-4">
-                                <p class="text-[10px] tracking-widest text-neutral-500 uppercase">${item.category}</p>
-                                <h3 class="text-lg font-serif text-white group-hover:${colorClass} transition-colors">${item.title}</h3>
-                                <p class="text-xs text-neutral-400 leading-relaxed font-light line-clamp-3">${item.desc}</p>
-                                <button onclick="openVideoModal(${absoluteIndex})" class="text-xs font-mono text-white inline-flex items-center gap-1.5 hover:underline pt-2">VIEW DETAILED INSIGHTS <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i></button>
-                            </div>
-                        </div>
-                    `;
-                }).join('');
+    			return `
+        			<div class="portfolio-card group border border-neutral-900 hover:border-neutral-700 bg-neutral-950/40 rounded-2xl overflow-hidden transition-all duration-500 flex flex-col justify-between" data-category="${mappedCat}">
+            				<div class="relative aspect-[16/10] overflow-hidden bg-neutral-950 flex items-center justify-center cursor-pointer" onclick="openVideoModal(${absoluteIndex})">
+                				<div class="absolute inset-0 w-full h-full pointer-events-none bg-neutral-900">
+                    					<iframe src="${item.videoUrl}?autoplay=1&muted=1&mute=1&volume=0&controls=0&loop=1" class="w-full h-full object-cover opacity-50 group-hover:opacity-85 transition-opacity duration-500 border-0"></iframe>
+                				</div>
+                				<div class="absolute w-14 h-14 border border-white/10 rounded-full group-hover:scale-110 group-hover:border-white/40 transition-all duration-300 flex items-center justify-center text-white/80 z-10">
+                    					<i data-lucide="play" class="w-5 h-5 fill-white/10 translate-x-0.5"></i>
+                				</div>
+                				<div class="absolute bottom-3 left-3 px-2 py-1 bg-black/70 backdrop-blur-md rounded text-[9px] font-mono ${colorClass} tracking-wider">${item.model}</div>
+            				</div>
+            				<div class="p-6 space-y-4">
+                				<p class="text-[10px] tracking-widest text-neutral-500 uppercase">${item.category}</p>
+                				<h3 class="text-lg font-serif text-white group-hover:${colorClass} transition-colors">${item.title}</h3>
+                				<p class="text-xs text-neutral-400 leading-relaxed font-light line-clamp-3">${item.desc}</p>
+                				<button onclick="openVideoModal(${absoluteIndex})" class="text-xs font-mono text-white inline-flex items-center gap-1.5 hover:underline pt-2">VIEW DETAILED INSIGHTS <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i></button>
+            				</div>
+        			</div>
+    			`;
+		}).join('');
             }
 
             if (totalPages > 1 && paginationContainer) {
