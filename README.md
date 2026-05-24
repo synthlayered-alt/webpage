@@ -1,1 +1,997 @@
-# webpage
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIVIDEO.ART | AI Generated Video Advertising Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind Configuration for Custom Fonts & Colors -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans KR', 'sans-serif'],
+                        serif: ['Playfair Display', 'Noto Serif KR', 'serif'],
+                    },
+                    colors: {
+                        accent: {
+                            50: '#f0fdf4',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            custom: '#e2e8f0', // Minimalist clean light-gray/silver
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Sans+KR:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Noto+Serif+KR:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons (Simple, elegant SVG icons) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- EmailJS SDK 라이브러리 추가 -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            // [중요] 발급받은 EmailJS Public Key를 여기에 입력하세요.
+            emailjs.init("6inEM4Dj11nyHhAgZ"); 
+        })();
+    </script>
+    <style>
+        /* Smooth page transition custom styles */
+        .tab-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+        }
+        .tab-content.active {
+            display: block;
+            opacity: 1;
+        }
+        /* Hide scrollbars but keep functionality */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        /* Custom noise overlay for cinematic texture */
+        .noise-bg {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
+        }
+    </style>
+</head>
+<body class="bg-[#0a0a0a] text-[#ededed] font-sans antialiased selection:bg-white selection:text-black overflow-x-hidden noise-bg">
+
+    <!-- NAVIGATION BAR -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-neutral-900 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" onclick="switchTab('home')" class="group flex items-center gap-2.5">
+                <span class="w-3 h-3 rounded-full bg-white group-hover:scale-125 transition-transform duration-300"></span>
+                <span class="font-serif text-lg tracking-[0.2em] font-medium text-white group-hover:text-neutral-400 transition-colors duration-300">SYNTH LAYERED</span>
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden md:flex items-center gap-10">
+                <button onclick="switchTab('home')" class="nav-link text-xs tracking-widest uppercase font-medium text-white transition-colors duration-300 hover:text-white" data-tab="home">HOME</button>
+                <button onclick="switchTab('about')" class="nav-link text-xs tracking-widest uppercase font-medium text-neutral-400 transition-colors duration-300 hover:text-white" data-tab="about">ABOUT</button>
+                <button onclick="switchTab('portfolio')" class="nav-link text-xs tracking-widest uppercase font-medium text-neutral-400 transition-colors duration-300 hover:text-white" data-tab="portfolio">PORTFOLIO</button>
+                <button onclick="switchTab('contact')" class="nav-link text-xs tracking-widest uppercase font-medium text-neutral-400 transition-colors duration-300 hover:text-white" data-tab="contact">CONTACT</button>
+            </nav>
+
+            <!-- Mobile Menu Trigger -->
+            <button id="mobile-menu-btn" class="md:hidden flex items-center justify-center p-2 text-neutral-400 hover:text-white focus:outline-none" aria-label="Toggle Menu">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- MOBILE NAVIGATION MENU -->
+    <div id="mobile-menu" class="fixed inset-0 z-40 bg-[#0a0a0a] flex flex-col justify-center px-8 transition-transform duration-500 translate-x-full md:hidden">
+        <button id="mobile-menu-close" class="absolute top-6 right-6 p-2 text-neutral-400 hover:text-white focus:outline-none">
+            <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+        <nav class="flex flex-col gap-8 text-left">
+            <button onclick="switchTab('home'); toggleMobileMenu();" class="text-3xl font-serif tracking-widest text-neutral-400 hover:text-white text-left transition-colors">HOME</button>
+            <button onclick="switchTab('about'); toggleMobileMenu();" class="text-3xl font-serif tracking-widest text-neutral-400 hover:text-white text-left transition-colors">ABOUT</button>
+            <button onclick="switchTab('portfolio'); toggleMobileMenu();" class="text-3xl font-serif tracking-widest text-neutral-400 hover:text-white text-left transition-colors">PORTFOLIO</button>
+            <button onclick="switchTab('contact'); toggleMobileMenu();" class="text-3xl font-serif tracking-widest text-neutral-400 hover:text-white text-left transition-colors">CONTACT</button>
+        </nav>
+        <div class="absolute bottom-12 left-8 text-neutral-500 text-xs tracking-widest">
+            © 2026 SYNTH LAYERED. CREATIVE STUDIO.
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT CONTAINERS -->
+    <main class="pt-20 min-h-screen flex flex-col justify-between">
+        
+        <!-- ================= HOME TAB ================= -->
+        <section id="tab-home" class="tab-content active flex-grow relative overflow-hidden">
+            <!-- 개선사항 1: 배경에 은은하고 입체감 넘치는 네온 그라데이션 무드 오라(Aura) 배치 -->
+            <div class="absolute top-[20%] left-[-10%] w-[500px] h-[500px] bg-emerald-950/10 rounded-full blur-[140px] pointer-events-none"></div>
+            <div class="absolute top-[40%] right-[-10%] w-[600px] h-[600px] bg-neutral-900/40 rounded-full blur-[160px] pointer-events-none"></div>
+
+            <!-- Hero Grid Layout (z-index를 주어 배경 오라 위에 정상 안착시킴) -->
+            <div class="max-w-6xl mx-auto px-6 pt-16 pb-24 md:py-32 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+                
+                <!-- Hero Text Left -->
+                <div class="lg:col-span-7 space-y-8">
+                    <div class="inline-flex items-center gap-2 border border-neutral-800 px-3 py-1.5 rounded-full bg-neutral-900/40">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span class="text-[10px] tracking-widest uppercase font-medium text-neutral-400">Generative AI Film & Advertising</span>
+                    </div>
+                    
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-serif tracking-tight leading-[1.15] text-white">
+                        AI,<br>예술과<br>광고의 <span class="italic text-neutral-400 font-light">경계를 허물다</span>.
+                    </h1>
+                    
+                    <p class="text-neutral-400 text-sm md:text-base leading-relaxed max-w-lg font-light">
+                        생성형 AI 시스템을 결합하여,<br>전통적 제약을 뛰어넘는 초현실적 비주얼과 압도적 몰입감의 브랜드 필름을 제작합니다.<br>시놉시스 구성부터 최종 렌더링까지 정밀한 AI 아트 디렉션의 가치를 확인해 보세요.
+                    </p>
+                    
+                    <div class="pt-4 flex flex-wrap gap-4">
+                        <button onclick="switchTab('portfolio')" class="group relative px-6 py-3.5 bg-white text-black text-xs tracking-widest uppercase font-semibold rounded-md transition-all duration-300 hover:bg-neutral-200 overflow-hidden">
+                            <span class="relative z-10 flex items-center gap-2">
+                                EXPLORE WORKS 
+                                <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                            </span>
+                        </button>
+                        <button onclick="switchTab('about')" class="px-6 py-3.5 border border-neutral-800 hover:border-neutral-500 hover:bg-neutral-900/50 text-white text-xs tracking-widest uppercase font-semibold rounded-md transition-all duration-300">
+                            ABOUT US
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Hero Interactive Visualizer Right -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <!-- 개선사항 4: 비디오 영역 테두리에 은은한 반응형 가우시안 네온 글로우(shadow-*) 레이어 연출 -->
+                    <div class="relative w-full aspect-video max-w-[550px] border border-neutral-900 rounded-2xl bg-neutral-950/40 overflow-hidden group flex items-center justify-center shadow-[0_0_50px_rgba(16,185,129,0.05)] transition-all duration-500 hover:shadow-[0_0_60px_rgba(16,185,129,0.12)]">
+                        <video id="hero-video" src="portfolio.mp4" autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-80 transition-opacity duration-500" onerror="handleHeroVideoError()"></video>
+                        <canvas id="hero-canvas" class="absolute inset-0 w-full h-full opacity-30 pointer-events-none"></canvas>
+                        <div class="absolute inset-x-4 top-4 flex justify-between items-center text-[10px] font-mono text-neutral-500 z-10">
+                            <span>RENDER: ACTIVE</span>
+                            <span id="canvas-fps">FPS: 60.0</span>
+                        </div>
+                        <div class="absolute inset-x-4 bottom-4 flex justify-between items-end z-10">
+                            <div>
+                                <p class="text-xs font-serif text-white tracking-wider">AI NEURAL FLUIDS</p>
+                                <p class="text-[9px] text-neutral-500 font-mono">PROMPT: hyper-detailed, dynamic kinetic, cinematic lighting, 8k</p>
+                            </div>
+                            <div class="w-8 h-8 rounded-full border border-neutral-800 bg-neutral-900/80 flex items-center justify-center text-white/80">
+                                <i data-lucide="cpu" class="w-4 h-4"></i>
+                            </div>
+                        </div>
+                        <div class="absolute w-48 h-48 bg-emerald-500/10 rounded-full blur-[80px] pointer-events-none group-hover:bg-emerald-500/15 transition-all duration-700"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured Numbers Strip -->
+            <div class="border-t border-neutral-900 bg-neutral-950/10 py-12">
+                <div class="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center md:text-left">
+                    <div>
+                        <p class="text-3xl font-serif text-white">15+</p>
+                        <p class="text-[10px] tracking-widest uppercase text-neutral-500 mt-1">AI Projects Completed</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= ABOUT TAB ================= -->
+        <section id="tab-about" class="tab-content flex-grow">
+            <div class="max-w-4xl mx-auto px-6 py-16 md:py-24 space-y-16">
+                <!-- Page Title -->
+                <div class="space-y-4">
+                    <p class="text-xs tracking-[0.2em] uppercase text-neutral-500 font-medium">WHO WE ARE</p>
+                    <h2 class="text-3xl md:text-5xl font-serif text-white font-normal">비전과 철학</h2>
+                </div>
+
+                <!-- Studio Philosophy Card -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+                    <div class="md:col-span-4 text-xs tracking-wider uppercase text-neutral-400 font-mono">
+                        [ Artisanal AI Creative Agency ]
+                    </div>
+                    <div class="md:col-span-8 space-y-6 text-neutral-400 text-sm md:text-base leading-relaxed font-light">
+                        <p>
+                            우리는 단순히 기술의 신기함에 의존하는 것을 경계합니다.<br><strong class="text-white font-medium">진정한 감동은 단단한 크리에이티브 메시지</strong>에서 나옵니다. 생성형 AI가 제공하는 무한한 이미지와 비디오 자원을 정교한 아트 디렉팅 능력으로 가공하여 고밀도 하이엔드 광고 영상을 구체화합니다.
+                        </p>
+                        <p>
+                            복잡한 현실 촬영 구조에서 벗어나 시공간을 자유롭게 넘나드는 비주얼 스토리텔링을 구현합니다. 시나리오 생성, 프롬프트 최적화, 일관성 유지(Consistency Engine), 그리고 섬세한 후반 오디오 마스터링의 파이프라인으로 광고주의 메시지를 트렌디하고 강렬하게 풀어냅니다.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Company Values Section -->
+                <div class="border-t border-neutral-900 pt-16 space-y-8">
+                    <div class="space-y-2">
+                        <p class="text-[10px] tracking-[0.2em] uppercase text-neutral-500 font-mono">[ OUR VALUES ]</p>
+                        <h3 class="text-lg font-serif text-white">핵심 가치</h3>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Value 01 -->
+                        <div class="space-y-4 group">
+                            <div class="flex items-baseline gap-2.5">
+                                <span class="text-xs font-mono text-neutral-600 group-hover:text-white transition-colors duration-300">01</span>
+                                <h4 class="text-base font-serif text-white">진정성 <span class="text-xs text-neutral-500 font-sans block md:inline md:ml-1 font-light">Authenticity</span></h4>
+                            </div>
+                            <p class="text-xs text-neutral-400 leading-relaxed font-light">
+                                모든 존재의 이야기는 전달될 가치가 있습니다. <strong class="text-white font-normal">SYNTH LAYERED</strong>는 고객의 이야기를 있는 그대로 담습니다. 화려하게 포장하거나 획일화된 틀에 맞추는 것이 아니라, 그 브랜드만이 가진 고유한 목소리를 발견하고 증폭시킵니다.
+                            </p>
+                        </div>
+                        <!-- Value 02 -->
+                        <div class="space-y-4 group">
+                            <div class="flex items-baseline gap-2.5">
+                                <span class="text-xs font-mono text-neutral-600 group-hover:text-white transition-colors duration-300">02</span>
+                                <h4 class="text-base font-serif text-white">접근성 <span class="text-xs text-neutral-500 font-sans block md:inline md:ml-1 font-light">Accessibility</span></h4>
+                            </div>
+                            <p class="text-xs text-neutral-400 leading-relaxed font-light">
+                                자본의 크기가 목소리의 크기를 결정해서는 안 됩니다. 5단계 레이어링 공정을 통해 전통 제작사 대비 <strong class="text-white font-normal">80% 이상의 비용을 절감</strong>하고, <strong class="text-white font-normal">48시간 이내 납품</strong>을 실현합니다. 좋은 영상은 더 이상 큰 브랜드만의 특권이 아닙니다.
+                            </p>
+                        </div>
+                        <!-- Value 03 -->
+                        <div class="space-y-4 group">
+                            <div class="flex items-baseline gap-2.5">
+                                <span class="text-xs font-mono text-neutral-600 group-hover:text-white transition-colors duration-300">03</span>
+                                <h4 class="text-base font-serif text-white">의도 <span class="text-xs text-neutral-500 font-sans block md:inline md:ml-1 font-light">Intentionality</span></h4>
+                            </div>
+                            <p class="text-xs text-neutral-400 leading-relaxed font-light">
+                                이야기가 없는 영상은 만들지 않습니다. 모든 프레임에는 이유가 있어야 합니다. AI 슬롭으로 대표되는 의미 없는 대량 생산과 <strong class="text-white font-normal">SYNTH LAYERED</strong>를 구분하는 가장 본질적인 기준입니다. 우리는 빠르고 저렴하게 만들되, 이야기를 잃지 않습니다.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Workflow Stepper -->
+                <div class="border-t border-neutral-900 pt-16 space-y-8">
+                    <h3 class="text-lg font-serif text-white">AI Production Workflow</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="border border-neutral-900 bg-neutral-950/30 p-6 rounded-xl space-y-4 hover:border-neutral-800 transition-colors duration-300">
+                            <span class="text-xs font-mono text-neutral-500">01 / CONCEPT & PROMPTING</span>
+                            <h4 class="text-sm font-medium text-white">기획 및 프롬프트 빌딩</h4>
+                            <p class="text-xs text-neutral-400 leading-relaxed font-light">
+                                브랜드 철학을 담은 메타포와 시퀀스를 설계합니다. 각 컷마다의 세심한 조명, 카메라 앵글, 화풍을 AI 구조로 전환하는 프롬프트를 설계합니다.
+                            </p>
+                        </div>
+                        <div class="border border-neutral-900 bg-neutral-950/30 p-6 rounded-xl space-y-4 hover:border-neutral-800 transition-colors duration-300">
+                            <span class="text-xs font-mono text-neutral-500">02 / GENERATION & FLUID CONVERGENCE</span>
+                            <h4 class="text-sm font-medium text-white">비디오 디퓨전 생성</h4>
+                            <p class="text-xs text-neutral-400 leading-relaxed font-light">
+                                Runway, Luma를 구동해 초고화질 소스를 반복 생성합니다. 시간 축 방향의 비주얼 일관성을 조정하며 풍성한 흐름의 모션을 완성합니다.
+                            </p>
+                        </div>
+                        <div class="border border-neutral-900 bg-neutral-950/30 p-6 rounded-xl space-y-4 hover:border-neutral-800 transition-colors duration-300">
+                            <span class="text-xs font-mono text-neutral-500">03 / UPSCALING & AUDIO</span>
+                            <h4 class="text-sm font-medium text-white">후반 업스케일링 & 사운드</h4>
+                            <p class="text-xs text-neutral-400 leading-relaxed font-light">
+                                AI 초해상도 필터로 4K 화질을 보정하고, ElevenLabs 및 맞춤형 사운드 AI를 결합하여 압도적인 서사적 풍성함과 공간 음향을 더해줍니다.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tool Stack -->
+                <div class="border-t border-neutral-900 pt-16 space-y-6">
+                    <p class="text-xs tracking-widest uppercase text-neutral-500 text-center font-mono">OUR MAIN TOOL STACK</p>
+                    <div class="flex flex-wrap justify-center gap-4 md:gap-8 items-center text-xs font-mono text-neutral-400 opacity-85">
+                        <span class="px-3 py-1.5 border border-neutral-900 bg-neutral-950/50 rounded">NANO BANANA PRO</span>
+                        <span class="px-3 py-1.5 border border-neutral-900 bg-neutral-950/50 rounded">SEEDANCE 2.0</span>
+                        <span class="px-3 py-1.5 border border-neutral-900 bg-neutral-950/50 rounded">MIDJOURNEY</span>
+                        <span class="px-3 py-1.5 border border-neutral-900 bg-neutral-950/50 rounded">KLING 3.0</span>
+                        <span class="px-3 py-1.5 border border-neutral-900 bg-neutral-950/50 rounded">ELEVENLABS AUDIO</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PORTFOLIO TAB ================= -->
+        <section id="tab-portfolio" class="tab-content flex-grow">
+            <div class="max-w-6xl mx-auto px-6 py-16 md:py-24 space-y-12">
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                    <div class="space-y-4">
+                        <p class="text-xs tracking-[0.2em] uppercase text-neutral-500 font-medium">CURATED AI WORKS</p>
+                        <h2 class="text-3xl md:text-5xl font-serif text-white font-normal">포트폴리오</h2>
+                    </div>
+                    <div class="flex flex-wrap gap-2 text-xs font-mono">
+                        <button onclick="filterPortfolio('all')" class="portfolio-filter-btn px-4 py-2 rounded-md bg-white text-black border border-white transition-all duration-300" data-filter="all">ALL</button>
+                        <button onclick="filterPortfolio('brand')" class="portfolio-filter-btn px-4 py-2 rounded-md border border-neutral-800 text-neutral-400 hover:text-white transition-all duration-300" data-filter="brand">BRAND FILM</button>
+                        <button onclick="filterPortfolio('short')" class="portfolio-filter-btn px-4 py-2 rounded-md border border-neutral-800 text-neutral-400 hover:text-white transition-all duration-300" data-filter="short">SHORT-FORM</button>
+                        <button onclick="filterPortfolio('cinematic')" class="portfolio-filter-btn px-4 py-2 rounded-md border border-neutral-800 text-neutral-400 hover:text-white transition-all duration-300" data-filter="cinematic">CINEMATIC FILM</button>
+                    </div>
+                </div>
+
+                <div id="portfolio-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 min-h-[400px]"></div>
+                <div id="portfolio-pagination" class="flex justify-center items-center gap-3 mt-16 pt-8 border-t border-neutral-950 text-xs font-mono"></div>
+            </div>
+        </section>
+
+        <!-- ================= CONTACT TAB ================= -->
+        <section id="tab-contact" class="tab-content flex-grow">
+            <div class="max-w-4xl mx-auto px-6 py-16 md:py-24 grid grid-cols-1 md:grid-cols-12 gap-12">
+                <div class="md:col-span-5 space-y-8">
+                    <div class="space-y-4">
+                        <p class="text-xs tracking-[0.2em] uppercase text-neutral-500 font-medium">INQUIRIES</p>
+                        <h2 class="text-3xl md:text-5xl font-serif text-white font-normal">CONTACT</h2>
+                    </div>
+                    <p class="text-xs md:text-sm text-neutral-400 leading-relaxed font-light">
+                        새로운 상상과 아이디어를 나누는 것은 언제나 환영합니다.<br>
+                        비주얼 컨셉이나 구체적인 제작 방향 등, 생각하고 계신 계획을 편하게 말씀해 주시면 어울리는 크리에이티브 솔루션을 함께 고민해 드리겠습니다.
+                    </p>
+                    
+                    <div class="space-y-4 pt-4 text-xs font-mono">
+                        <div class="flex items-center gap-3">
+                            <i data-lucide="mail" class="w-4 h-4 text-neutral-400"></i>
+                            <span class="text-neutral-300">synthlayered@gmail.com</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i data-lucide="phone" class="w-4 h-4 text-neutral-400"></i>
+                            <span class="text-neutral-300">-</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <i data-lucide="map-pin" class="w-4 h-4 text-neutral-400"></i>
+                            <span class="text-neutral-300">Seoul, </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:col-span-7 bg-neutral-950/40 border border-neutral-900 rounded-2xl p-6 md:p-8">
+                    <form id="contact-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
+                        <div class="space-y-2">
+                            <label for="name" class="block text-xs font-mono uppercase text-neutral-400">성함 또는 기업명</label>
+                            <input type="text" id="name" required class="w-full bg-[#0a0a0a]/80 border border-neutral-850 focus:border-neutral-500 focus:outline-none rounded-md px-4 py-3 text-sm text-white placeholder-neutral-700 transition-colors" placeholder="홍길동 / 스튜디오명">
+                        </div>
+
+                        <div class="space-y-2">
+                            <label for="email" class="block text-xs font-mono uppercase text-neutral-400">이메일 주소</label>
+                            <input type="email" id="email" required class="w-full bg-[#0a0a0a]/80 border border-neutral-850 focus:border-neutral-500 focus:outline-none rounded-md px-4 py-3 text-sm text-white placeholder-neutral-700 transition-colors" placeholder="your@email.com">
+                        </div>
+
+                        <div class="space-y-2">
+                            <span class="block text-xs font-mono uppercase text-neutral-400">프로젝트 타입</span>
+                            <div class="grid grid-cols-3 gap-2.5 text-xs">
+                                <label class="border border-neutral-850 rounded-md p-3 flex items-center justify-center text-center gap-2 cursor-pointer hover:border-neutral-600 transition-all">
+                                    <input type="radio" name="project-type" value="브랜드 필름" checked class="accent-white">
+                                    <span>브랜드 필름</span>
+                                </label>
+                                <label class="border border-neutral-850 rounded-md p-3 flex items-center justify-center text-center gap-2 cursor-pointer hover:border-neutral-600 transition-all">
+                                    <input type="radio" name="project-type" value="숏폼" class="accent-white">
+                                    <span>숏폼</span>
+                                </label>
+                                <label class="border border-neutral-850 rounded-md p-3 flex items-center justify-center text-center gap-2 cursor-pointer hover:border-neutral-600 transition-all">
+                                    <input type="radio" name="project-type" value="시네마틱 필름" class="accent-white">
+                                    <span>시네마틱 필름</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label for="message" class="block text-xs font-mono uppercase text-neutral-400">자유로운 문의 내용</label>
+                            <textarea id="message" rows="4" required class="w-full bg-[#0a0a0a]/80 border border-neutral-850 focus:border-neutral-500 focus:outline-none rounded-md px-4 py-3 text-sm text-white placeholder-neutral-700 transition-colors" placeholder="구현하고 싶으신 영상의 이미지나 마감 기한, 제작 형태 등 나누고 싶으신 이야기를 자유롭게 남겨주세요."></textarea>
+                        </div>
+
+                        <button id="submit-btn" type="submit" class="w-full py-4 bg-white text-black font-semibold text-xs tracking-widest uppercase rounded-md hover:bg-neutral-200 transition-colors flex items-center justify-center gap-2">
+                            SEND MESSAGE <i data-lucide="send" class="w-4 h-4"></i>
+                        </button>
+                    </form>
+
+                    <div id="contact-success-msg" class="hidden mt-6 p-4 border border-emerald-500/30 bg-emerald-950/20 text-emerald-400 rounded-md text-xs leading-relaxed flex items-start gap-3">
+                        <i data-lucide="check-circle-2" class="w-5 h-5 flex-shrink-0"></i>
+                        <div>
+                            <p class="font-semibold">성공적으로 전송되었습니다!</p>
+                            <p class="mt-1 font-light opacity-80">작성해주신 메일 주소로 영업일 기준 24시간 내에 신속히 답변드리겠습니다.</p>
+                        </div>
+                    </div>
+
+                    <div id="contact-error-msg" class="hidden mt-6 p-4 border border-red-500/30 bg-red-950/20 text-red-400 rounded-md text-xs leading-relaxed flex items-start gap-3">
+                        <i data-lucide="alert-circle" class="w-5 h-5 flex-shrink-0"></i>
+                        <div>
+                            <p class="font-semibold">메일 발송에 실패했습니다.</p>
+                            <p class="mt-1 font-light opacity-80">잠시 후 다시 시도하시거나, 상단의 직접 이메일 주소로 연락해 주세요.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="border-t border-neutral-950 bg-neutral-950 py-8">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2 text-neutral-600">
+                <span class="w-1.5 h-1.5 rounded-full bg-neutral-700"></span>
+                <p class="text-[10px] tracking-widest font-mono">© 2026 SYNTH LAYERED. ALL RIGHTS RESERVED.</p>
+            </div>
+            <div class="flex items-center gap-6 text-neutral-500">
+                <!-- 1. 새 창으로 인스타그램 링크 연결 -->
+                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors duration-300 text-xs font-mono">INSTAGRAM</a>
+                <!-- 2. 아직 계정이 없는 곳은 세련된 인앱 커스텀 팝업 트리거 작동 -->
+                <button onclick="showPendingNotice('LINKEDIN')" class="hover:text-white transition-colors duration-300 text-xs font-mono focus:outline-none">LINKEDIN</button>
+                <button onclick="showPendingNotice('ARTSTATION')" class="hover:text-white transition-colors duration-300 text-xs font-mono focus:outline-none">ARTSTATION</button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 커스텀 세련된 미니멀 알림 배너 (웹페이지 디자인 무드에 일치시킴) -->
+    <div id="custom-toast" class="fixed bottom-6 right-6 z-50 transform translate-y-12 opacity-0 pointer-events-none transition-all duration-500 ease-out max-w-sm w-full bg-neutral-950/90 border border-neutral-800 backdrop-blur-md p-4 rounded-xl shadow-2xl flex items-center gap-3 text-neutral-200">
+        <div class="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center text-white/80">
+            <i data-lucide="info" class="w-4 h-4"></i>
+        </div>
+        <div>
+            <p id="toast-title" class="text-xs font-mono font-medium text-white">LINKEDIN</p>
+            <p class="text-[11px] text-neutral-400 font-light mt-0.5">아직 준비 중입니다.</p>
+        </div>
+    </div>
+
+    <div id="portfolio-modal" class="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="bg-neutral-950 border border-neutral-900 rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto no-scrollbar grid grid-cols-1 md:grid-cols-12">
+            <div class="md:col-span-7 bg-[#050505] p-6 flex flex-col justify-between items-center relative min-h-[300px] md:min-h-0 border-r border-neutral-900">
+                <button onclick="closeVideoModal()" class="absolute top-4 right-4 text-neutral-500 hover:text-white z-20">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+                <div class="relative aspect-[16/9] w-full bg-black border border-neutral-900 rounded-lg overflow-hidden flex items-center justify-center my-auto">
+                    <video id="modal-real-video" class="w-full h-full object-cover opacity-90" playsinline></video>
+                    <div class="absolute bottom-3 inset-x-3 flex items-center gap-3 bg-black/60 backdrop-blur-sm px-2.5 py-1.5 rounded text-[9px] font-mono text-neutral-400 z-10">
+                        <button onclick="toggleModalVideoPlay()" class="text-white hover:text-neutral-300">
+                            <i id="modal-play-icon" data-lucide="pause" class="w-3.5 h-3.5 fill-white"></i>
+                        </button>
+                        <span id="video-timer" class="tracking-widest">00:00 / 00:00</span>
+                        <div id="progress-container" class="flex-grow bg-neutral-800 h-1.5 rounded-full overflow-hidden cursor-pointer" onclick="seekVideo(event)">
+                            <div id="video-progress" class="bg-white h-full transition-all duration-100" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full mt-4 flex items-center justify-between text-[10px] font-mono text-neutral-500">
+                    <span>DYNAMIC LATENT SPACE SEED: 7289139</span>
+                    <span>4K UPSCALED</span>
+                </div>
+            </div>
+
+            <div class="md:col-span-5 p-6 md:p-8 flex flex-col justify-between space-y-6">
+                <div class="space-y-4">
+                    <div class="flex justify-between items-start">
+                        <span id="modal-project-tag" class="text-[9px] font-mono text-neutral-500 uppercase border border-neutral-900 px-2 py-0.5 rounded">BRAND FILM</span>
+                        <button onclick="closeVideoModal()" class="hidden md:block text-neutral-500 hover:text-white">
+                            <i data-lucide="x" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                    <h3 id="modal-title" class="text-xl font-serif text-white">제목</h3>
+                    <p id="modal-desc" class="text-xs text-neutral-400 leading-relaxed font-light"></p>
+                </div>
+
+                <div class="space-y-4 border-t border-neutral-900 pt-6">
+                    <h4 class="text-xs font-mono text-white tracking-widest uppercase">[ NEURAL PROMPT STACK ]</h4>
+                    <div class="relative bg-neutral-900/60 p-3 rounded-md border border-neutral-850">
+                        <p id="modal-prompt" class="text-[11px] font-mono text-neutral-300 leading-normal select-all pr-8"></p>
+                        <button onclick="copyPromptToClipboard()" class="absolute right-3 top-3 text-neutral-500 hover:text-white p-1" title="Copy Prompt">
+                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 text-[10px] font-mono text-neutral-400">
+                        <div>
+                            <p class="text-neutral-500">AI MODEL</p>
+                            <p id="modal-model-meta" class="text-white">Kling 3.0</p>
+                        </div>
+                        <div>
+                            <p class="text-neutral-500">ART DIRECTION</p>
+                            <p class="text-white">SYNTH LAYERED</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t border-neutral-900 flex justify-between items-center">
+                    <span id="copied-notice" class="text-[10px] text-emerald-400 font-mono opacity-0 transition-opacity duration-300">Prompt copied!</span>
+                    <button onclick="closeVideoModal()" class="px-5 py-2.5 border border-neutral-800 hover:border-neutral-500 text-neutral-300 hover:text-white rounded-md text-xs font-mono transition-all">CLOSE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT -->
+    <script>
+        const portfolioData = [
+            {
+                title: "튀기지 않아도 치명적인 맛, 오븐마루의 진실",
+                category: "BRAND FILM",
+                videoUrl: "포트폴리오영상/오븐마루.mp4",
+                desc: "'치킨은 유죄(고칼로리/기름짐)'라는 소비자들의 심리적 부채감을 '프로파일링'과 '재판'이라는 수사물 컨셉으로 시각화. 야식의 유혹 앞에서 갈등하는 현대인의 심리를 위트 있게 풀어내어, '구웠으니까 진짜 괜찮은' 오븐마루치킨만의 건강한 브랜드 아이덴티티를 각인시키기 위한 브랜드 필름.",
+                prompt: "Upscaled. Cinematic color correction with low contrast using a strong Black Promist filter, 8k resolution.",
+                model: "Kling 3.0",
+                hue: 160
+            },
+            {
+                title: "Arte Royal: The Silent Luxury",
+                category: "SHORT-FORM",
+                videoUrl: "포트폴리오영상/Arte Royal.mp4",
+                desc: "AI의 매끈한 '스튜디움'을 제품의 완벽한 기능으로 치환하고, 대신 공기 중의 먼지, 빛의 굴절, 액체의 점성 등 비생물적 요소에 '푼크툼(Punctum)'을 설계하여 시청자의 감각을 찌르는 연출.",
+                prompt: "luxury boutique aesthetic, high contrast, clean and sharp focus, soft caustic reflections, elegant water ripples, 8K resolution.",
+                model: "Seedance 2.0",
+                hue: 280
+            },
+            {
+                title: "Golden Hour Bite",
+                category: "SHORT-FORM",
+                videoUrl: "포트폴리오영상/Burger.mp4",
+                desc: "프리미엄 수제버거 브랜드에 트렌디한 감성의 펑키 팝 사운드트랙을 더한 감각적인 시네마틱 숏폼 영상.",
+                prompt: "High-end commercial food photography, shot on Hasselblad X2D, 100mm f/2.8 macro lens, shallow depth of field, sharp focus on the center of the burger, creamy bokeh background. Hyper-realistic, visible food textures, food styling.",
+                model: "Seedance 2.0",
+                hue: 40
+            },
+            {
+                title: "Arirang Blue_ Moonlight Trace",
+                category: "CINEMATIC FILM",
+                videoUrl: "포트폴리오영상/Arirang Blue_ Moonlight Trace.mp4",
+                desc: "전통 민요 '아리랑'이 가진 순환의 정서를 현대 도시의 고독과 결합한 시네마틱 AI 뮤직비디오. 아리랑의 가치를 현대의 AI 기술로 재해석하여, '십 리'라는 물리적 거리감을 '닿을 수 없는 꿈'에 대한 심리적 거리감으로 치환한 필름.",
+                prompt: "Upscaled. Cinematic color correction with low contrast using a strong Black Promist filter, High-quality music video, 8k resolution.",
+                model: "Kling 3.0, Suno AI",
+                hue: 0
+            },
+            {
+                title: "단 한 장이면 충분한, 스킨케어의 새로운 알고리즘",
+                category: "BRAND FILM",
+                videoUrl: "포트폴리오영상/Mediheal1.mp4",
+                desc: "기존 스킨 케어 제품들이 파괴되며 더마힐 더마 패드의 제품이 등장하면서, 번거로운 스킨 케어의 과정을 단 하나로 압축할 수 있음을 연출. 단순한 패드를 넘어 전문적인 스킨케어 알고리즘임을 각인.",
+                prompt: "Upscaling. Hyper-real, high-contrast, cinematic color correction for cosmetic advertisements.",
+                model: "Kling 3.0",
+                hue: 230
+            },
+            {
+                title: "메디힐 더마 패드 : The Perfect Eco-Pick",
+                category: "BRAND FILM",
+                videoUrl: "포트폴리오영상/Mediheal2.mp4",
+                desc: "친환경이라는 무거운 주제를 던지는 대신, 소비자가 일상에서 느끼는 빈 통의 허무함과 패드를 집기 힘든 번거로움에 주목. 이를 인형 뽑기라는 위트 있는 메타포로 풀어내어, 메디힐 더마 패드 2.0의 이지 픽커가 가진 정밀함과 리유저블 리필 시스템의 경제성을 감각적으로 연출.",
+                prompt: "Cinematic medium shot, Upscaling. Hyper-real, high-contrast, cinematic color correction for cosmetic advertisements.",
+                model: "Kling 3.0",
+                hue: 200
+            },
+            {
+                title: "Osulloc: The Purest Connection",
+                category: "BRAND FILM",
+                videoUrl: "포트폴리오영상/Amore.mp4",
+                desc: " 제주의 감각을 기록하여 현대인의 일상을 치유하는 5가지 감각의 일기를 완성하고자 의도. 제주 자연의 거친 질감과 도시 일상의 모습을 교차적으로 노출시키면서, 국내를 넘어 글로벌 시장에서도 소구될 수 있는 오설록만의 독보적인 톤앤 매너를 구축",
+                prompt: "8k resolution, shot on 85mm lens, f/4.0, sharp focus on the glittering ripples, cinematic lighting, luxurious gold and silver color palette.",
+                model: "Luma Dream Machine",
+                hue: 300
+            },
+            {
+                title: "당신의 시간은, 고혼진이 채웁니다",
+                category: "BRAND FILM",
+                videoUrl: "포트폴리오영상/고혼진.mp4",
+                desc: "고혼진의 핵심 슬로건인 '시간을 거스르는 아름다움, 타임리스 뷰티 고혼진'을 '하루'라는 일상적인 시간의 흐름 속에서 구현하고자 기획. 고혼진이 고객의 모든 순간을 아름다움으로 가득 채워준다는 약속을 감성적인 스토리텔링으로 풀어낸 필름.",
+                prompt: "Soft, diffused lighting, cinematic, high resolution, hyperrealistic, Ultra-realistic, macro photography, cinematic, professional product advertisement, high resolution.",
+                model: "Midjourney, Kling 3.0",
+                hue: 190
+            }
+        ];
+
+        let currentTab = 'home';
+        let activeModalVideoIndex = 0;
+        let isModalVideoPlaying = false;
+        let heroAnimFrameId = null;
+        let currentFilter = 'all';
+        let currentPage = 1;
+        const itemsPerPage = 6;
+        let toastTimeout = null;
+
+        const heroCanvas = document.getElementById('hero-canvas');
+        const hCtx = heroCanvas.getContext('2d');
+        const heroVideo = document.getElementById('hero-video');
+        let hWidth, hHeight;
+        let particles = [];
+
+        function handleHeroVideoError() {
+            if (heroVideo) heroVideo.style.display = 'none';
+            if (heroCanvas) heroCanvas.style.opacity = '1';
+        }
+
+        function initHeroCanvas() {
+            hWidth = heroCanvas.width = heroCanvas.parentElement.clientWidth;
+            hHeight = heroCanvas.height = heroCanvas.parentElement.clientHeight;
+            particles = [];
+            for (let i = 0; i < 40; i++) {
+                particles.push({
+                    x: Math.random() * hWidth,
+                    y: Math.random() * hHeight,
+                    radius: Math.random() * 2 + 1,
+                    vx: (Math.random() - 0.5) * 1.2,
+                    vy: (Math.random() - 0.5) * 1.2,
+                    alpha: Math.random() * 0.5 + 0.3
+                });
+            }
+        }
+
+        function animateHeroCanvas() {
+            hCtx.clearRect(0, 0, hWidth, hHeight);
+            for (let i = 0; i < particles.length; i++) {
+                let p1 = particles[i];
+                p1.x += p1.vx;
+                p1.y += p1.vy;
+                if (p1.x < 0 || p1.x > hWidth) p1.vx *= -1;
+                if (p1.y < 0 || p1.y > hHeight) p1.vy *= -1;
+
+                hCtx.beginPath();
+                hCtx.arc(p1.x, p1.y, p1.radius, 0, Math.PI * 2);
+                hCtx.fillStyle = `rgba(16, 185, 129, ${p1.alpha})`;
+                hCtx.fill();
+
+                for (let j = i + 1; j < particles.length; j++) {
+                    let p2 = particles[j];
+                    let dist = Math.hypot(p1.x - p2.x, p1.y - p2.y);
+                    if (dist < 80) {
+                        hCtx.beginPath();
+                        hCtx.moveTo(p1.x, p1.y);
+                        hCtx.lineTo(p2.x, p2.y);
+                        let grad = hCtx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
+                        grad.addColorStop(0, `rgba(16, 185, 129, ${(1 - dist/80) * 0.15})`);
+                        grad.addColorStop(1, `rgba(34, 197, 94, ${(1 - dist/80) * 0.02})`);
+                        hCtx.strokeStyle = grad;
+                        hCtx.lineWidth = 0.8;
+                        hCtx.stroke();
+                    }
+                }
+            }
+            heroAnimFrameId = requestAnimationFrame(animateHeroCanvas);
+        }
+
+        const modalRealVideo = document.getElementById('modal-real-video');
+        const progressContainer = document.getElementById('progress-container');
+
+        if (modalRealVideo) {
+            modalRealVideo.addEventListener('timeupdate', () => {
+                if (modalRealVideo.duration) {
+                    const percent = (modalRealVideo.currentTime / modalRealVideo.duration) * 100;
+                    document.getElementById('video-progress').style.width = `${percent}%`;
+
+                    const curMin = Math.floor(modalRealVideo.currentTime / 60);
+                    const curSec = Math.floor(modalRealVideo.currentTime % 60);
+                    const durMin = Math.floor(modalRealVideo.duration / 60);
+                    const durSec = Math.floor(modalRealVideo.duration % 60);
+
+                    const curStr = `${curMin < 10 ? '0' : ''}${curMin}:${curSec < 10 ? '0' : ''}${curSec}`;
+                    const durStr = `${durMin < 10 ? '0' : ''}${durMin}:${durSec < 10 ? '0' : ''}${durSec}`;
+
+                    document.getElementById('video-timer').textContent = `${curStr} / ${durStr}`;
+                }
+            });
+            modalRealVideo.addEventListener('ended', () => {
+                isModalVideoPlaying = false;
+                setPlayIconState(false);
+            });
+        }
+
+        function seekVideo(event) {
+            if (modalRealVideo && modalRealVideo.duration) {
+                const rect = progressContainer.getBoundingClientRect();
+                const clickX = event.clientX - rect.left;
+                const percent = clickX / rect.width;
+                modalRealVideo.currentTime = percent * modalRealVideo.duration;
+            }
+        }
+
+        function switchTab(tabId) {
+            if (heroAnimFrameId) cancelAnimationFrame(heroAnimFrameId);
+            const sections = document.querySelectorAll('.tab-content');
+            const links = document.querySelectorAll('.nav-link');
+
+            sections.forEach(sec => sec.classList.remove('active'));
+            const targetSection = document.getElementById(`tab-${tabId}`);
+            if (targetSection) {
+                targetSection.classList.add('active');
+                setTimeout(() => targetSection.style.opacity = '1', 50);
+            }
+
+            links.forEach(link => {
+                if (link.getAttribute('data-tab') === tabId) {
+                    link.classList.remove('text-neutral-400');
+                    link.classList.add('text-white');
+                } else {
+                    link.classList.remove('text-white');
+                    link.classList.add('text-neutral-400');
+                }
+            });
+
+            currentTab = tabId;
+            if (tabId === 'home') {
+                initHeroCanvas();
+                animateHeroCanvas();
+                if (heroVideo) heroVideo.play().catch(() => {});
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('translate-x-full');
+        }
+
+        if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+        if (mobileMenuClose) mobileMenuClose.addEventListener('click', toggleMobileMenu);
+
+        function getMappedCategory(categoryString) {
+            const catUpper = categoryString.toUpperCase().replace(/\s/g, '');
+            if (catUpper.includes('BRAND')) return 'brand';
+            if (catUpper.includes('SHORT')) return 'short';
+            if (catUpper.includes('CINEMATIC')) return 'cinematic';
+            return 'brand';
+        }
+
+        function renderPortfolio() {
+            const grid = document.getElementById('portfolio-grid');
+            const paginationContainer = document.getElementById('portfolio-pagination');
+            if (!grid) return;
+
+            const filteredItems = portfolioData.filter(item => {
+                const mappedCat = getMappedCategory(item.category);
+                return currentFilter === 'all' || mappedCat === currentFilter;
+            });
+
+            const totalItems = filteredItems.length;
+            const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
+
+            if (currentPage > totalPages) currentPage = totalPages;
+
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const pagedItems = filteredItems.slice(startIndex, endIndex);
+
+            if (pagedItems.length === 0) {
+                grid.innerHTML = `<div class="col-span-full py-20 text-center text-neutral-500 font-light text-sm">해당 카테고리에 업로드된 영상물이 존재하지 않습니다.</div>`;
+            } else {
+                grid.innerHTML = pagedItems.map((item) => {
+                    const absoluteIndex = portfolioData.findIndex(p => p.title === item.title);
+                    const mappedCat = getMappedCategory(item.category);
+                    let colorClass = 'text-emerald-400';
+                    if (mappedCat === 'short') colorClass = 'text-purple-400';
+                    if (mappedCat === 'cinematic') colorClass = 'text-amber-400';
+
+                    return `
+                        <div class="portfolio-card group border border-neutral-900 hover:border-neutral-700 bg-neutral-950/40 rounded-2xl overflow-hidden transition-all duration-500 flex flex-col justify-between" data-category="${mappedCat}">
+                            <div class="relative aspect-[16/10] overflow-hidden bg-neutral-950 flex items-center justify-center cursor-pointer" onclick="openVideoModal(${absoluteIndex})">
+                                <video src="${item.videoUrl}" autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-85 transition-opacity duration-500" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"></video>
+                                <div class="hidden absolute inset-0 bg-gradient-to-tr from-neutral-950 to-neutral-900 flex flex-col items-center justify-center p-4 text-center">
+                                    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,hsla(${item.hue},85%,30%,0.15)_0,transparent_60%)]"></div>
+                                </div>
+                                <div class="absolute w-14 h-14 border border-white/10 rounded-full group-hover:scale-110 group-hover:border-white/40 transition-all duration-300 flex items-center justify-center text-white/80 z-10">
+                                    <i data-lucide="play" class="w-5 h-5 fill-white/10 translate-x-0.5"></i>
+                                </div>
+                                <div class="absolute bottom-3 left-3 px-2 py-1 bg-black/70 backdrop-blur-md rounded text-[9px] font-mono ${colorClass} tracking-wider">${item.model}</div>
+                            </div>
+                            <div class="p-6 space-y-4">
+                                <p class="text-[10px] tracking-widest text-neutral-500 uppercase">${item.category}</p>
+                                <h3 class="text-lg font-serif text-white group-hover:${colorClass} transition-colors">${item.title}</h3>
+                                <p class="text-xs text-neutral-400 leading-relaxed font-light line-clamp-3">${item.desc}</p>
+                                <button onclick="openVideoModal(${absoluteIndex})" class="text-xs font-mono text-white inline-flex items-center gap-1.5 hover:underline pt-2">VIEW DETAILED INSIGHTS <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i></button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            if (totalPages > 1 && paginationContainer) {
+                let paginationHTML = `<button onclick="changePage(${currentPage - 1})" class="p-2 text-neutral-500 hover:text-white transition-colors duration-200 disabled:opacity-20 disabled:hover:text-neutral-500" ${currentPage === 1 ? 'disabled' : ''}><i data-lucide="chevron-left" class="w-4 h-4"></i></button>`;
+                for (let i = 1; i <= totalPages; i++) {
+                    const isActive = i === currentPage;
+                    paginationHTML += `<button onclick="changePage(${i})" class="w-8 h-8 rounded-full border transition-all duration-300 flex items-center justify-center ${isActive ? 'bg-white text-black border-white font-semibold' : 'border-neutral-900 text-neutral-400 hover:border-neutral-700 hover:text-white'}\">${i}</button>`;
+                }
+                paginationHTML += `<button onclick="changePage(${currentPage + 1})" class="p-2 text-neutral-500 hover:text-white transition-colors duration-200 disabled:opacity-20 disabled:hover:text-neutral-500" ${currentPage === totalPages ? 'disabled' : ''}><i data-lucide="chevron-right" class="w-4 h-4"></i></button>`;
+                paginationContainer.innerHTML = paginationHTML;
+                paginationContainer.style.display = 'flex';
+            } else if (paginationContainer) {
+                paginationContainer.style.display = 'none';
+            }
+
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
+
+        function changePage(pageNumber) {
+            currentPage = pageNumber;
+            renderPortfolio();
+            const portfolioTab = document.getElementById('tab-portfolio');
+            if (portfolioTab) portfolioTab.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function filterPortfolio(category) {
+            currentFilter = category;
+            currentPage = 1;
+            const filterBtns = document.querySelectorAll('.portfolio-filter-btn');
+            filterBtns.forEach(btn => {
+                if (btn.getAttribute('data-filter') === category) {
+                    btn.classList.add('bg-white', 'text-black', 'border-white');
+                    btn.classList.remove('border-neutral-800', 'text-neutral-400');
+                } else {
+                    btn.classList.remove('bg-white', 'text-black', 'border-white');
+                    btn.classList.add('border-neutral-800', 'text-neutral-400');
+                }
+            });
+            renderPortfolio();
+        }
+
+        const modal = document.getElementById('portfolio-modal');
+
+        function openVideoModal(index) {
+            activeModalVideoIndex = index;
+            const item = portfolioData[index];
+
+            document.getElementById('modal-title').textContent = item.title;
+            document.getElementById('modal-desc').textContent = item.desc;
+            document.getElementById('modal-prompt').textContent = item.prompt;
+            document.getElementById('modal-project-tag').textContent = item.category;
+            document.getElementById('modal-model-meta').textContent = item.model;
+
+            modal.classList.remove('pointer-events-none', 'opacity-0');
+            modal.classList.add('opacity-100');
+
+            if (modalRealVideo) {
+                modalRealVideo.src = item.videoUrl;
+                modalRealVideo.load();
+                modalRealVideo.play()
+                    .then(() => {
+                        isModalVideoPlaying = true;
+                        setPlayIconState(true);
+                    })
+                    .catch(err => {
+                        isModalVideoPlaying = false;
+                        setPlayIconState(false);
+                    });
+            }
+        }
+
+        function closeVideoModal() {
+            modal.classList.add('pointer-events-none', 'opacity-0');
+            modal.classList.remove('opacity-100');
+            isModalVideoPlaying = false;
+            if (modalRealVideo) {
+                modalRealVideo.pause();
+                modalRealVideo.src = "";
+            }
+        }
+
+        function toggleModalVideoPlay() {
+            if (!modalRealVideo) return;
+            if (isModalVideoPlaying) {
+                modalRealVideo.pause();
+                isModalVideoPlaying = false;
+                setPlayIconState(false);
+            } else {
+                modalRealVideo.play().then(() => {
+                    isModalVideoPlaying = true;
+                    setPlayIconState(true);
+                }).catch(() => {});
+            }
+        }
+
+        function setPlayIconState(playing) {
+            const playIcon = document.getElementById('modal-play-icon');
+            if (playIcon) {
+                if (playing) {
+                    playIcon.setAttribute('data-lucide', 'pause');
+                    playIcon.classList.add('fill-white');
+                } else {
+                    playIcon.setAttribute('data-lucide', 'play');
+                    playIcon.classList.add('fill-white');
+                }
+                lucide.createIcons();
+            }
+        }
+
+        function copyPromptToClipboard() {
+            const promptText = document.getElementById('modal-prompt').innerText;
+            const tempInput = document.createElement('textarea');
+            tempInput.value = promptText;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    const notice = document.getElementById('copied-notice');
+                    notice.style.opacity = '1';
+                    setTimeout(() => notice.style.opacity = '0', 1800);
+                }
+            } catch (err) {
+                console.error(err);
+            }
+            document.body.removeChild(tempInput);
+        }
+
+        // =============================================================
+        // 실제 메일을 전송하는 handleFormSubmit 비즈니스 로직
+        // =============================================================
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            const form = document.getElementById('contact-form');
+            const submitBtn = document.getElementById('submit-btn');
+            const successBox = document.getElementById('contact-success-msg');
+            const errorBox = document.getElementById('contact-error-msg');
+
+            // 전송 중 UI 피드백 설정 (버튼 비활성화 및 로딩 표시)
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `SENDING... <div class="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin inline-block ml-1"></div>`;
+            successBox.classList.add('hidden');
+            errorBox.classList.add('hidden');
+
+            // 폼 필드 데이터 추출
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const projectType = document.querySelector('input[name="project-type"]:checked').value;
+            const message = document.getElementById('message').value;
+
+            // EmailJS 템플릿에 매핑할 데이터 객체 생성
+            const templateParams = {
+                name: name,
+                email: email,
+                project_type: projectType,
+                message: message,
+                from_email: email // Use Default Email Address에 대치되는 폼 필드 연동
+            };
+
+            // EmailJS API 연동 전송
+            emailjs.send("synthlayered@gmail.com", "template_gmrppsi", templateParams)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    
+                    // 전송 성공 시 폼 초기화 및 완료 피드백 노출
+                    form.reset();
+                    form.style.opacity = '0.4';
+                    form.querySelectorAll('input, textarea, button').forEach(el => el.disabled = true);
+                    successBox.classList.remove('hidden');
+                    successBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, function(error) {
+                    console.error('FAILED...', error);
+                    
+                    // 전송 실패 시 버튼 복구 및 에러 메시지 노출
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = `SEND MESSAGE <i data-lucide="send" class="w-4 h-4"></i>`;
+                    if (typeof lucide !== 'undefined') lucide.createIcons();
+                    
+                    errorBox.classList.remove('hidden');
+                    errorBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                });
+        }
+
+        // =============================================================
+        // [신규] 소셜 미디어 "준비 중입니다" 커스텀 토스트 알림 제어 함수
+        // =============================================================
+        function showPendingNotice(platformName) {
+            const toast = document.getElementById('custom-toast');
+            const toastTitle = document.getElementById('toast-title');
+            
+            if (!toast) return;
+
+            // 기존 타이머 대기열 초기화
+            if (toastTimeout) {
+                clearTimeout(toastTimeout);
+            }
+
+            // 텍스트 매핑 및 아이콘 동기화
+            toastTitle.textContent = platformName;
+            
+            // 토스트 상태창 드러내기 (페이드 인 및 슬라이드 업)
+            toast.classList.remove('translate-y-12', 'opacity-0', 'pointer-events-none');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            // 3초 후 자동으로 스르륵 사라짐 처리
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-12', 'opacity-0', 'pointer-events-none');
+            }, 3000);
+        }
+
+        window.onload = function() {
+            renderPortfolio();
+            initHeroCanvas();
+            animateHeroCanvas();
+            window.addEventListener('resize', () => {
+                if (currentTab === 'home') initHeroCanvas();
+            });
+        };
+    </script>
+</body>
+</html>
