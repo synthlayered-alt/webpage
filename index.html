@@ -407,7 +407,7 @@
                 </button>
                 
                 <div class="relative aspect-[16/9] w-full bg-black border border-neutral-900 rounded-lg overflow-hidden my-auto">
-                    <iframe id="modal-iframe-video" class="w-full h-full object-cover opacity-90 border-0" allow="autoplay; encrypted-media"></iframe>
+                    <video id="modal-real-video" controls autoplay playsinline class="w-full h-full object-cover opacity-90"></video>
                 </div>
                 
                 <div class="w-full mt-4 flex items-center justify-between text-[10px] font-mono text-neutral-500">
@@ -616,7 +616,7 @@
         			<div class="portfolio-card group border border-neutral-900 hover:border-neutral-700 bg-neutral-950/40 rounded-2xl overflow-hidden transition-all duration-500 flex flex-col justify-between" data-category="${mappedCat}">
             				<div class="relative aspect-[16/10] overflow-hidden bg-neutral-950 flex items-center justify-center cursor-pointer" onclick="openVideoModal(${absoluteIndex})">
                 				<div class="absolute inset-0 w-full h-full pointer-events-none bg-neutral-900">
-                    					<iframe src="${item.videoUrl}?autoplay=1&muted=1&mute=1&volume=0&controls=0&loop=1" class="w-full h-full object-cover opacity-50 group-hover:opacity-85 transition-opacity duration-500 border-0"></iframe>
+                    					<video src="${item.videoUrl}" autoplay loop muted playsinline class="w-full h-full object-cover opacity-50 group-hover:opacity-85 transition-opacity duration-500"></video>
                 				</div>
                 				<div class="absolute w-14 h-14 border border-white/10 rounded-full group-hover:scale-110 group-hover:border-white/40 transition-all duration-300 flex items-center justify-center text-white/80 z-10">
                     					<i data-lucide="play" class="w-5 h-5 fill-white/10 translate-x-0.5"></i>
@@ -674,30 +674,36 @@
         }
 
         const modal = document.getElementById('portfolio-modal');
-        const modalIframeVideo = document.getElementById('modal-iframe-video');
+	const modalRealVideo = document.getElementById('modal-real-video'); // 변수명 변경 반영
 
         function openVideoModal(index) {
-            const item = portfolioData[index];
+    		const item = portfolioData[index];
 
-            document.getElementById('modal-title').textContent = item.title;
-            document.getElementById('modal-desc').textContent = item.desc;
-            document.getElementById('modal-prompt').textContent = item.prompt;
-            document.getElementById('modal-project-tag').textContent = item.category;
-            document.getElementById('modal-model-meta').textContent = item.model;
+    		document.getElementById('modal-title').textContent = item.title;
+    		document.getElementById('modal-desc').textContent = item.desc;
+    		document.getElementById('modal-prompt').textContent = item.prompt;
+    		document.getElementById('modal-project-tag').textContent = item.category;
+    		document.getElementById('modal-model-meta').textContent = item.model;
 
-            modal.classList.remove('pointer-events-none', 'opacity-0');
-            modal.classList.add('opacity-100');
+            	modal.classList.remove('pointer-events-none', 'opacity-0');
+    		modal.classList.add('opacity-100');
 
-            if (modalIframeVideo) {
-                modalIframeVideo.src = `${item.videoUrl}?autoplay=1&mute=0`;
-            }
-        }
+            if (modalRealVideo) {
+        	modalRealVideo.src = item.videoUrl;
+        	modalRealVideo.muted = false; // 모달이 열리면 명시적으로 음소거 해제
+        	modalRealVideo.volume = 1.0;  // 볼륨 최대화
+        	modalRealVideo.play().catch(error => {
+            		console.log("모바일 브라우저 보안 정책으로 사용자의 직접 터치 후 재생이 필요할 수 있습니다:", error);
+        		});
+    		}
+	}
 
         function closeVideoModal() {
             modal.classList.add('pointer-events-none', 'opacity-0');
-            modal.classList.remove('opacity-100');
-            if (modalIframeVideo) {
-                modalIframeVideo.src = "";
+	    modal.classList.remove('opacity-100');
+            if (modalRealVideo) {
+                modalRealVideo.pause();
+		modalRealVideo.src = "";
             }
         }
 
