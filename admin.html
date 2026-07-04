@@ -1180,6 +1180,9 @@
                         "Cache-Control": "no-cache"
                     }
                 });
+                
+                alert(`[GET API 디버깅]\n* 대상파일: ${path}\n* HTTP 응답코드: ${res.status}\n* 토큰 앞5글자: "${token.substring(0, 5)}"\n* 토큰 길이: ${token.length}자`);
+
                 if (res.ok) {
                     const fileData = await res.json();
                     sha = fileData.sha;
