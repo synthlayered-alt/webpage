@@ -4,11 +4,42 @@
    multilingual toggles, dynamic grid rendering, and detailed video modals.
    ═══════════════════════════════════════════════════════════════ */
 
-document.addEventListener('DOMContentLoaded', () => {
-  // Initialize Lucide icons
+let globalWorksData = [];
+
+// Supabase Database Async Loader
+async function loadPortfolioData() {
+  globalWorksData = window.SL_WORKS || [];
+
+  const key = localStorage.getItem('sl-sb-anon-key') || "";
+  if (!key || !window.supabase) {
+    console.log("Supabase anon key or SDK is missing. Fallback to works-data.js");
+    return;
+  }
+
+  try {
+    const supabase = window.supabase.createClient("https://etdhihayhlponkmmnemj.supabase.co", key);
+    const { data, error } = await supabase
+      .from('portfolio_settings')
+      .select('value')
+      .eq('key', 'worksData')
+      .single();
+
+    if (data && data.value) {
+      globalWorksData = data.value;
+      console.log("Database worksData loaded successfully from Supabase.");
+    }
+  } catch (err) {
+    console.warn("Supabase fetch failed, fallback to works-data.js.", err);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
   if (window.lucide) {
     window.lucide.createIcons();
   }
+
+  // Wait for Supabase DB load
+  await loadPortfolioData();
 
   initScrollSystem();
   initLanguageSystem();
@@ -206,22 +237,7 @@ function initPortfolioGrid() {
   const paginationContainer = document.getElementById('portfolio-pagination');
   if (!grid) return;
 
-  const CURRENT_VERSION = "v3";
-  let allWorks = [];
-  try {
-    const stored = localStorage.getItem('sl-works-db');
-    const savedVersion = localStorage.getItem('sl-db-version');
-
-    if (stored && savedVersion === CURRENT_VERSION) {
-      allWorks = JSON.parse(stored);
-    } else {
-      allWorks = window.SL_WORKS || [];
-      localStorage.setItem('sl-works-db', JSON.stringify(allWorks));
-      localStorage.setItem('sl-db-version', CURRENT_VERSION);
-    }
-  } catch (e) {
-    allWorks = window.SL_WORKS || [];
-  }
+  const allWorks = globalWorksData;
 
   // Handle URL YouTube / Vimeo parsing helper
   function parseVideoUrl(url) {
@@ -396,17 +412,7 @@ function initVideoModal() {
   window.openVideoModal = function(id) {
     if (!modal || !iframe || !videoPlayer) return;
 
-    let allWorks = [];
-    try {
-      const stored = localStorage.getItem('sl-works-db');
-      if (stored) {
-        allWorks = JSON.parse(stored);
-      } else {
-        allWorks = window.SL_WORKS || [];
-      }
-    } catch (e) {
-      allWorks = window.SL_WORKS || [];
-    }
+    const allWorks = globalWorksData;
 
     const w = allWorks.find(item => item.id === id);
     if (!w) return;
@@ -631,21 +637,31 @@ window.setLayer = function(layerNum) {
 };
 
 // ── 10. GLOBAL HERO VIDEO SETTINGS INITIALIZER ──
-function initGlobalVideoSettings() {
+async function initGlobalVideoSettings() {
   const homeVideo = document.getElementById('hero-video');
   if (!homeVideo) return;
 
-  fetch('settings.json?t=' + new Date().getTime())
-    .then(res => res.json())
-    .then(data => {
-      if (data && data.homeHeroVideo) {
-        homeVideo.src = data.homeHeroVideo;
+  let homeVideoUrl = "https://etdhihayhlponkmmnemj.supabase.co/storage/v1/object/public/video/portfolio_1.mp4";
+
+  const key = localStorage.getItem('sl-sb-anon-key') || "";
+  if (key && window.supabase) {
+    try {
+      const supabase = window.supabase.createClient("https://etdhihayhlponkmmnemj.supabase.co", key);
+      const { data, error } = await supabase
+        .from('portfolio_settings')
+        .select('value')
+        .eq('key', 'homeHeroVideo')
+        .single();
+      
+      if (data && data.value) {
+        homeVideoUrl = data.value;
       }
-    })
-    .catch(err => {
-      console.warn("Failed to load settings.json, falling back to default.", err);
-      homeVideo.src = "https://etdhihayhlponkmmnemj.supabase.co/storage/v1/object/public/video/portfolio_1.mp4";
-    });
+    } catch (err) {
+      console.warn("Failed to load homeHeroVideo from Supabase DB, using default.", err);
+    }
+  }
+
+  homeVideo.src = homeVideoUrl;
 }
 
 // ── 11. SCROLL REVEAL SYSTEM ──
