@@ -1154,9 +1154,9 @@
 
         // GitHub API File Commit Engine
         async function commitFileToGithub(path, content, commitMessage) {
-            const owner = localStorage.getItem('sl-git-owner') || '';
-            const repo = localStorage.getItem('sl-git-repo') || '';
-            const token = localStorage.getItem('sl-git-token') || '';
+            const owner = (localStorage.getItem('sl-git-owner') || '').trim();
+            const repo = (localStorage.getItem('sl-git-repo') || '').trim();
+            const token = (localStorage.getItem('sl-git-token') || '').trim();
 
             if (!owner || !repo || !token) {
                 return false;
@@ -1166,7 +1166,7 @@
             try {
                 const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?t=${new Date().getTime()}`, {
                     headers: {
-                        "Authorization": `token ${token}`,
+                        "Authorization": `Bearer ${token}`,
                         "Accept": "application/vnd.github.v3+json",
                         "Cache-Control": "no-cache"
                     }
@@ -1190,7 +1190,7 @@
             const putRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
                 method: "PUT",
                 headers: {
-                    "Authorization": `token ${token}`,
+                    "Authorization": `Bearer ${token}`,
                     "Content-Type": "application/json",
                     "Accept": "application/vnd.github.v3+json"
                 },
