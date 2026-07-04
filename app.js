@@ -10,7 +10,7 @@ let globalWorksData = [];
 async function loadPortfolioData() {
   globalWorksData = window.SL_WORKS || [];
 
-  const key = localStorage.getItem('sl-sb-anon-key') || "";
+  const key = localStorage.getItem('sl-sb-anon-key') || "sb_publishable_mMGnj1JFSsnR9uDyjWOEhw_bqvYMlTw";
   if (!key || !window.supabase) {
     console.log("Supabase anon key or SDK is missing. Fallback to works-data.js");
     return;
