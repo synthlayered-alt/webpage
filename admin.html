@@ -1174,9 +1174,15 @@
                 if (res.ok) {
                     const fileData = await res.json();
                     sha = fileData.sha;
+                } else if (res.status !== 404) {
+                    const errText = await res.text();
+                    throw new Error(`GitHub 저장소 조회 권한 오류 (${res.status}): ${errText}`);
                 }
             } catch (e) {
-                console.log("File not found, committing as new creation.");
+                if (e.message && e.message.includes("GitHub 저장소 조회 권한 오류")) {
+                    throw e;
+                }
+                console.log("File not found, committing as new creation.", e);
             }
 
             const base64Content = btoa(unescape(encodeURIComponent(content)));
