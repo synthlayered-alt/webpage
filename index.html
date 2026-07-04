@@ -1,792 +1,594 @@
 <!DOCTYPE html>
-<html lang="ko" class="scroll-smooth">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIVIDEO.ART | AI Generated Video Advertising Portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'Noto Sans KR', 'sans-serif'],
-                        serif: ['Playfair Display', 'Noto Serif KR', 'serif'],
-                    },
-                    colors: {
-                        accent: {
-                            50: '#f0fdf4',
-                            500: '#22c55e',
-                            600: '#16a34a',
-                            custom: '#e2e8f0', 
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <title>SYNTH LAYERED | Premium AI Video Advertising Production</title>
+    
+    <!-- Google Fonts & Pretendard -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Sans+KR:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Noto+Serif+KR:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Do+Hyeon&family=Inter:wght@300;400;500;600;700;850&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+    
+    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- EmailJS SDK -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script type="text/javascript">
         (function() {
             emailjs.init("6inEM4Dj11nyHhAgZ"); 
         })();
     </script>
-    <style>
-        .tab-content {
-            display: none;
-            opacity: 0;
-            transition: opacity 0.4s ease-in-out;
-        }
-        .tab-content.active {
-            display: block;
-            opacity: 1;
-        }
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-        .noise-bg {
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
-        }
-    </style>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-[#0a0a0a] text-[#ededed] font-sans antialiased selection:bg-white selection:text-black overflow-x-hidden noise-bg">
+<body class="light-mode">
 
-    <header class="fixed top-0 left-0 w-full z-50 bg-[#0a0a0a]/40 backdrop-blur-md border-b border-neutral-900/30 transition-all duration-300">
-        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
-            <a href="#" onclick="switchTab('home')" class="group flex items-center gap-2.5">
-                <span class="w-3 h-3 rounded-full bg-white group-hover:scale-125 transition-transform duration-300"></span>
-                <span class="font-serif text-lg tracking-[0.2em] font-medium text-white group-hover:text-neutral-400 transition-colors duration-300">SYNTH LAYERED</span>
+    <!-- NAVIGATION BAR -->
+    <nav id="nav">
+        <a href="#home" class="nav-logo">
+            <span class="logo-dot"></span>
+            <span class="logo-text">SYNTH LAYERED</span>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <ul class="nav-links">
+            <li><a href="#home" class="nav-link active" data-sec="home">HOME</a></li>
+            <li><a href="#about" class="nav-link" data-sec="about">ABOUT</a></li>
+            <li><a href="#portfolio" class="nav-link" data-sec="portfolio">PORTFOLIO</a></li>
+            <li><a href="#contact" class="nav-link" data-sec="contact">CONTACT</a></li>
+        </ul>
+
+        <!-- Right Side Flags & CTA -->
+        <div class="nav-right">
+            <div class="lang-flags-desktop">
+                <button class="lang-flag-btn on" data-lang="kr" title="한국어" onclick="setLanguage('kr')">
+                    <img loading="lazy" src="https://flagcdn.com/kr.svg" alt="한국어" class="flag-img"/>
+                </button>
+                <button class="lang-flag-btn" data-lang="en" title="English" onclick="setLanguage('en')">
+                    <img loading="lazy" src="https://flagcdn.com/us.svg" alt="English" class="flag-img"/>
+                </button>
+                <button class="lang-flag-btn" data-lang="ja" title="日本語" onclick="setLanguage('ja')">
+                    <img loading="lazy" src="https://flagcdn.com/jp.svg" alt="日本語" class="flag-img"/>
+                </button>
+            </div>
+            
+            <a href="#contact" class="nav-cta-btn">
+                <span class="ko">문의하기</span>
+                <span class="en">Inquire</span>
+                <span class="ja">お問い合わせ</span>
             </a>
-
-            <nav class="hidden md:flex items-center gap-10">
-                <button onclick="switchTab('home')" class="nav-link text-xs tracking-widest uppercase font-medium text-white transition-colors duration-300 hover:text-white" data-tab="home">HOME</button>
-                <button onclick="switchTab('about')" class="nav-link text-xs tracking-widest uppercase font-medium text-neutral-400 transition-colors duration-300 hover:text-white" data-tab="about">ABOUT</button>
-                <button onclick="switchTab('portfolio')" class="nav-link text-xs tracking-widest uppercase font-medium text-neutral-400 transition-colors duration-300 hover:text-white" data-tab="portfolio">PORTFOLIO</button>
-                <button onclick="switchTab('contact')" class="nav-link text-xs tracking-widest uppercase font-medium text-neutral-400 transition-colors duration-300 hover:text-white" data-tab="contact">CONTACT</button>
-            </nav>
-
-            <button id="mobile-menu-btn" class="md:hidden flex items-center justify-center p-2 text-neutral-400 hover:text-white focus:outline-none" aria-label="Toggle Menu">
+            
+            <!-- Mobile Menu Btn -->
+            <button id="nav-menu-btn" aria-label="메뉴" onclick="toggleMobileMenu()">
                 <i data-lucide="menu" class="w-6 h-6"></i>
             </button>
         </div>
-    </header>
+    </nav>
+    <div id="scroll-progress" class="scroll-progress-bar"></div>
 
-    <div id="mobile-menu" class="fixed inset-0 z-40 bg-[#0a0a0a] flex flex-col justify-center px-8 transition-transform duration-500 translate-x-full md:hidden">
-        <button id="mobile-menu-close" class="absolute top-6 right-6 p-2 text-neutral-400 hover:text-white focus:outline-none">
+    <!-- MOBILE OVERLAY MENU -->
+    <div id="mobile-menu" role="dialog" aria-modal="true">
+        <button id="mobile-menu-close" onclick="closeMobileMenu()" aria-label="닫기">
             <i data-lucide="x" class="w-6 h-6"></i>
         </button>
-        <nav class="flex flex-col gap-8 text-left">
-            <button onclick="switchTab('home'); toggleMobileMenu();" class="text-3xl font-serif tracking-widest text-neutral-400 hover:text-white text-left transition-colors">HOME</button>
-            <button onclick="switchTab('about'); toggleMobileMenu();" class="text-3xl font-serif tracking-widest text-neutral-400 hover:text-white text-left transition-colors">ABOUT</button>
-            <button onclick="switchTab('portfolio'); toggleMobileMenu();" class="text-3xl font-serif tracking-widest text-neutral-400 hover:text-white text-left transition-colors">PORTFOLIO</button>
-            <button onclick="switchTab('contact'); toggleMobileMenu();" class="text-3xl font-serif tracking-widest text-neutral-400 hover:text-white text-left transition-colors">CONTACT</button>
+        <nav>
+            <a href="#home" onclick="closeMobileMenu()" data-sec="home" class="active">HOME</a>
+            <a href="#about" onclick="closeMobileMenu()" data-sec="about">ABOUT</a>
+            <a href="#portfolio" onclick="closeMobileMenu()" data-sec="portfolio">PORTFOLIO</a>
+            <a href="#contact" onclick="closeMobileMenu()" data-sec="contact">CONTACT</a>
         </nav>
-        <div class="absolute bottom-12 left-8 text-neutral-500 text-xs tracking-widest">
-            © 2026 SYNTH LAYERED. CREATIVE STUDIO.
+        <div id="mobile-menu-lang">
+            <button onclick="setLanguage('kr'); closeMobileMenu();" class="on" data-lang="kr">KR</button>
+            <button onclick="setLanguage('en'); closeMobileMenu();" data-lang="en">EN</button>
+            <button onclick="setLanguage('ja'); closeMobileMenu();" data-lang="ja">JA</button>
         </div>
     </div>
 
-    <main class="min-h-screen flex flex-col justify-between">
+    <!-- MAIN SINGLE-PAGE WRAPPER -->
+    <main>
         
-        <section id="tab-home" class="tab-content active flex-grow relative overflow-hidden">
+        <!-- ================= HOME / HERO SECTION ================= -->
+        <!-- ================= HOME / HERO SECTION ================= -->
+        <section id="home" class="section-hero">
+            <!-- Background Video -->
+            <div class="hero-video-container">
+                <video id="hero-video" src="https://etdhihayhlponkmmnemj.supabase.co/storage/v1/object/public/video/portfolio_1.mp4" autoplay loop muted playsinline></video>
+                <div class="hero-shadow-overlay"></div>
+            </div>
             
-            <div class="relative w-full h-screen bg-black overflow-hidden flex items-center">
+            <!-- Content Overlay -->
+            <div class="hero-content">
+                <!-- Eyebrow Badge -->
+                <div class="hero-badge-wrap">
+                    <span class="hero-badge-dot"></span>
+                    <span class="hero-eyebrow-text">COMMERCIAL AI AD AGENCY</span>
+                </div>
+
+                <!-- Logo Image -->
+                <div class="hero-logo-wrap">
+                    <img src="images/logo.png" alt="SYNTH LAYERED" class="hero-logo-img">
+                </div>
                 
-                <div class="absolute inset-0 w-full h-full pointer-events-none scale-[1.05]">
-                    <video id="hero-video" src="https://etdhihayhlponkmmnemj.supabase.co/storage/v1/object/public/video/portfolio_1.mp4" autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-80 transition-opacity duration-500" onerror="handleHeroVideoError()"></video>
+                <h1 class="hero-title">
+                    <span class="ko">기술이 평준화 된 시대,<br><span class="highlight">본질</span>은 <span class="highlight">기획</span>입니다.</span>
+                    <span class="en">The gap, in the age of AI,<br>is <span class="highlight">planning</span>.</span>
+                    <span class="ja">誰も가 크리에이터가 되는 <span class="highlight">AI 時代</span>、<br>본질은 <span class="highlight">企画</span>입니다.</span>
+                </h1>
+                <p class="hero-desc">
+                    <span class="ko">생성형 AI로 제작 장벽은 무너졌습니다. 그러나 마케팅 논리가 배제된 시각적 화려함은 소음에 불과합니다. 당사는 기획을 먼저 조율한 뒤 렌더링을 시작합니다.</span>
+                    <span class="en">AI lowered the barrier to entry for content creation. However, visual spectacle without strategy is noise. We engineer strategy first, then render.</span>
+                    <span class="ja">生成型AIで制作の壁は崩れました。그러나 마케팅 소구점이 배제된 시각적 화려함은 소음에 불과합니다. 당사는 기획을 먼저 조율한 뒤 작업을 전개합니다.</span>
+                </p>
+                <div class="hero-actions">
+                    <a href="#portfolio" class="btn-primary">
+                        <span class="ko">포트폴리오 보기 &rarr;</span>
+                        <span class="en">View Portfolio &rarr;</span>
+                        <span class="ja">実績を見る &rarr;</span>
+                    </a>
+                    <a href="#contact" class="btn-secondary">
+                        <span class="ko">협업 문의</span>
+                        <span class="en">Contact Us</span>
+                        <span class="ja">お問い合わせ</span>
+                    </a>
                 </div>
+            </div>
 
-                <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/40 to-black/60 z-10"></div>
-                <div class="absolute top-[30%] left-[-10%] w-[600px] h-[600px] bg-emerald-950/15 rounded-full blur-[160px] pointer-events-none z-10"></div>
+            <!-- Scroll Indicator -->
+            <div class="hero-scroll-indicator">
+                <span class="scroll-text">SCROLL</span>
+                <span class="scroll-line"></span>
+            </div>
+        </section>
 
-                <div class="relative w-full max-w-6xl mx-auto px-6 z-20 pt-20 flex flex-col justify-center h-full">
-                    <div class="max-w-2xl space-y-6 md:space-y-8">
-                        <div class="inline-flex items-center gap-2 border border-white/10 px-3 py-1.5 rounded-full bg-white/5 backdrop-blur-sm">
-                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                            <span class="text-[10px] tracking-widest uppercase font-medium text-neutral-300">Generative AI Film & Advertising</span>
+        <!-- ================= WHO IS ASTRA / ABOUT SECTION ================= -->
+        <section id="about" class="section-padding border-top">
+            <div class="section-container">
+                <!-- Core Philosophy Section -->
+                <div class="philosophy-grid">
+                    <div class="ph-card-wrapper reveal-element reveal-left">
+                        <div class="ph-card-blur"></div>
+                        <div class="ph-card-glass">
+                            <span class="ph-badge">Core Philosophy</span>
+                            <h4 class="ph-card-title">
+                                <span class="ko">"기술이 평준화된 시대,<br>비주얼보다 본질은<br><span style="color: var(--accent-gold);">기획</span>에 있습니다"</span>
+                                <span class="en">"In an era of leveled tech,<br>the core lies in <span style="color: var(--accent-gold);">Planning</span>,<br>not just visuals"</span>
+                                <span class="ja">"技術が標準化された時代、<br>ビジュアルより本質は<br><span style="color: var(--accent-gold);">企画</span>にあります"</span>
+                            </h4>
+                            <p class="ph-card-desc">
+                                <span class="ko">생성형 AI로 제작 장벽은 무너졌습니다. 그러나 마케팅 논리가 배제된 시각적 화려함은 소음에 불과합니다. 당사는 기획을 먼저 조율한 뒤 렌더링을 시작합니다.</span>
+                                <span class="en">Generative AI broke the creation wall. Yet, visual spectacle without marketing logic is merely noise. We align the concept before the first render starts.</span>
+                                <span class="ja">생성형 AI로 제작 장벽은 무너졌습니다. 그러나 마케팅 소구점이 배제된 화려함은 소음에 불과합니다. 당사는 기획을 먼저 조율한 뒤 작업을 전개합니다.</span>
+                            </p>
+                            <div class="ph-card-foot">
+                                <span>Logic First Architecture</span>
+                                <i data-lucide="sparkles" class="w-5 h-5" style="color: var(--accent-gold);"></i>
+                            </div>
                         </div>
-                        
-                        <h1 class="text-4xl sm:text-5xl md:text-7xl font-serif tracking-tight leading-[1.15] text-white">
-                            AI,<br>예술과<br>광고의 <span class="italic text-neutral-400 font-light">경계를 허물다</span>.
-                        </h1>
-                        
-                        <p class="text-neutral-300 text-sm md:text-base leading-relaxed max-w-lg font-light backdrop-blur-[2px]">
-                            생성형 AI 시스템을 결합하여, 전통적 제약을 뛰어넘는 초현실적 비주얼과 압도적 몰입감의 브랜드 필름을 제작합니다. 시놉시스 구성부터 최종 렌더링까지 정밀한 AI 아트 디렉션의 가치를 확인해 보세요.
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; gap: 24px;" class="reveal-element reveal-right">
+                        <span class="section-eyebrow">OUR PHILOSOPHY</span>
+                        <h2 class="section-title">
+                            <span class="ko">우리는 기술을 자랑하지 않습니다.<br>브랜드의 울림을 설계합니다.</span>
+                            <span class="en">We do not show off technology.<br>We engineer brand resonance.</span>
+                            <span class="ja">私たちは技術を誇りません。<br>ブランドの響きを設計します.</span>
+                        </h2>
+                        <p class="hero-desc" style="margin-bottom: 0;">
+                            <span class="ko">우리가 일반 오퍼레이터 대행사와 근본적으로 다른 점은 철저한 '마케팅 논리 중심의 적층 구조'에 있습니다. 우연히 잘 나온 결과를 택하는 무책임한 타협을 완강히 거부하며, 타겟의 심리를 꿰뚫는 전략이 수립된 뒤 엔진을 구동합니다.</span>
+                            <span class="en">Our fundamental difference from general operators lies in our rigorous 'marketing logic-driven layering structure'. We strictly reject relying on lucky generations, starting our engines only after establishing a strategy that pierces the consumer mind.</span>
+                            <span class="ja">우리가 일반 오퍼레이터들과 근본적으로 다른 점은 철저한 '마케팅 논리 중심의 적층 구조'에 있습니다. 우연에 의존하는 타협을 거부하며, 타겟의 심리를 꿰뚫는 전략이 수립된 뒤 제작을 시작합니다.</span>
                         </p>
                         
-                        <div class="pt-4 flex flex-wrap gap-4">
-                            <button onclick="switchTab('portfolio')" class="group relative px-6 py-3.5 bg-white text-black text-xs tracking-widest uppercase font-semibold rounded-md transition-all duration-300 hover:bg-neutral-200 overflow-hidden shadow-lg shadow-white/5">
-                                <span class="relative z-10 flex items-center gap-2">
-                                    EXPLORE WORKS 
-                                    <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
-                                </span>
+                        <div class="ph-bullet-row">
+                            <div class="ph-bullet-item">
+                                <div class="ph-bullet-check"><i data-lucide="check" class="w-3.5 h-3.5"></i></div>
+                                <div>
+                                    <h5 class="ph-bullet-header">
+                                        <span class="ko">100% 무결 저작권 자산</span>
+                                        <span class="en">100% Clean Copyright</span>
+                                        <span class="ja">100% 安全なライセンス</span>
+                                    </h5>
+                                    <p class="ph-bullet-body">
+                                        <span class="ko">음향과 보이스 엔진의 정식 라이선스를 사용하여 배포 제한이 전혀 없습니다.</span>
+                                        <span class="en">Official licenses for all audio/voice elements, removing any distribution blocks.</span>
+                                        <span class="ja">음향과 보이스 엔진의 정식 라이선스를 사용하여 배포 및 유포 제한이 전혀 없습니다.</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="ph-bullet-item">
+                                <div class="ph-bullet-check"><i data-lucide="check" class="w-3.5 h-3.5"></i></div>
+                                <div>
+                                    <h5 class="ph-bullet-header">
+                                        <span class="ko">사전 비주얼 동기화 매칭</span>
+                                        <span class="en">Pre-Visual Keyframes</span>
+                                        <span class="ja">事前ビジュアル同期</span>
+                                    </h5>
+                                    <p class="ph-bullet-body">
+                                        <span class="ko">L2 단계에서 이미지 시퀀스를 먼저 컨펌하여 제작 오차율을 최소화합니다.</span>
+                                        <span class="en">Confirming image keyframes in L2 first to minimize production error margins.</span>
+                                        <span class="ja">L2 단계에서 비주얼 시퀀스를 먼저 컨펌하여 제작 오차율을 완벽히 통제합니다.</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- section-container를 일시적으로 닫아줌 -->
+
+            <!-- Workflow Section (1240px 확장 컨테이너) -->
+            <div class="workflow-section-wrap" style="margin-top: 100px; padding: 0 32px; box-sizing: border-box;">
+                <hr class="section-divider">
+                    <div class="section-header-center reveal-element reveal-scale">
+                        <span class="section-eyebrow">WORKFLOW</span>
+                        <h2 class="section-title" style="margin-bottom: 16px;">
+                            <span class="ko">5단계 인공지능 광고 제작 공정</span>
+                            <span class="en">5-Step AI Production Workflow</span>
+                            <span class="ja">5段階AI動画制作プロセス</span>
+                        </h2>
+                        <p class="hero-desc" style="margin: 0 auto; max-width: 680px;">
+                            <span class="ko">기획 논리부터 최종 마스터링까지, 소리 없이 고도화된 레이어 프로세스를 투명하게 공개합니다.</span>
+                            <span class="en">From logic planning to final mastering, we transparently disclose our advanced layer process.</span>
+                            <span class="ja">企画論理から最終マスタリングまで、静かに高度화된 레이어 프로세스를 투명하게 공개합니다.</span>
+                        </p>
+                    </div>
+
+                    <div class="workflow-grid reveal-element reveal-scale">
+                        <!-- Buttons Left -->
+                        <div class="wf-list">
+                            <button onclick="setLayer(1)" id="tab-1" class="wf-tab-btn active-tab">
+                                <span class="wf-tab-num">L1</span>
+                                <div>
+                                    <h4 class="wf-tab-title">Logic Layer (기획 및 시나리오)</h4>
+                                    <p class="wf-tab-subtitle">Targeting / Prompt Engineering</p>
+                                </div>
                             </button>
-                            <button onclick="switchTab('about')" class="px-6 py-3.5 border border-white/20 hover:border-white/50 bg-black/20 hover:bg-white/5 text-white text-xs tracking-widest uppercase font-semibold rounded-md transition-all duration-300 backdrop-blur-sm">
-                                ABOUT US
+                            <button onclick="setLayer(2)" id="tab-2" class="wf-tab-btn">
+                                <span class="wf-tab-num">L2</span>
+                                <div>
+                                    <h4 class="wf-tab-title">Image Layer (사전 비주얼 매칭)</h4>
+                                    <p class="wf-tab-subtitle">Consistency Keyframes</p>
+                                </div>
+                            </button>
+                            <button onclick="setLayer(3)" id="tab-3" class="wf-tab-btn">
+                                <span class="wf-tab-num">L3</span>
+                                <div>
+                                    <h4 class="wf-tab-title">Motion Layer (비디오 디퓨전 연산)</h4>
+                                    <p class="wf-tab-subtitle">Image-to-Video Animation</p>
+                                </div>
+                            </button>
+                            <button onclick="setLayer(4)" id="tab-4" class="wf-tab-btn">
+                                <span class="wf-tab-num">L4</span>
+                                <div>
+                                    <h4 class="wf-tab-title">Audio Layer (청각 합성 다이렉션)</h4>
+                                    <p class="wf-tab-subtitle">AI Voiceover & Scoring</p>
+                                </div>
+                            </button>
+                            <button onclick="setLayer(5)" id="tab-5" class="wf-tab-btn">
+                                <span class="wf-tab-num">L5</span>
+                                <div>
+                                    <h4 class="wf-tab-title">Mastering (컷편집 및 업스케일러)</h4>
+                                    <p class="wf-tab-subtitle">4K High Definition Resolution</p>
+                                </div>
                             </button>
                         </div>
-                    </div>
-                </div>
 
-                <div class="absolute bottom-10 right-6 z-20 hidden lg:flex flex-col items-end text-right font-mono text-[10px] text-neutral-400/80 space-y-1.5 bg-black/40 p-4 rounded-xl border border-white/5 backdrop-blur-md">
-                    <div class="flex items-center gap-2 text-[9px] text-emerald-400">
-                        <span class="w-1 h-1 rounded-full bg-emerald-400 animate-ping"></span>
-                        <span>LATENT CINEMATIC STREAM: ACTIVE</span>
-                    </div>
-                    <p class="text-white font-serif tracking-wider text-xs">AI NEURAL FLUIDS (HERO)</p>
-                    <p class="max-w-xs text-neutral-500 text-[9px] leading-normal">PROMPT: hyper-detailed, dynamic kinetic, cinematic lighting, 8k resolution, masterful camera slide</p>
-                </div>
-            </div>
+                        <!-- Panel Right -->
+                        <div class="wf-detail-panel">
+                            <div class="wf-bg-icon">
+                                <i id="panel-icon" data-lucide="brain" class="w-36 h-36" style="opacity: 0.03;"></i>
+                            </div>
 
-            <div class="border-t border-neutral-900 bg-neutral-950/40 backdrop-blur-sm py-16 relative z-20">
-                <div class="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center md:text-left">
-                    <div>
-                        <p class="text-4xl font-serif text-white font-light">15+</p>
-                        <p class="text-[10px] tracking-widest uppercase text-neutral-500 mt-2 font-mono">AI Projects Completed</p>
+                            <div>
+                                <span class="wf-panel-badge" id="panel-stage-badge">STAGE 01</span>
+                                <h3 class="wf-panel-title" id="panel-title">Logic Layer (기획 및 시나리오)</h3>
+                                
+                                <p class="wf-panel-desc1" id="panel-desc-1">자체 개발한 AI 모듈을 바탕으로 광고주 브랜드에 대한 분석을 진행합니다. 타겟 집단 분석, 소구점을 수립하여 단순 대본을 넘어 AI 이미지/영상 생성을 위한 척추가 될 고유 마케팅 프롬프트 아키텍처를 설계하는 모든 시퀀스의 사령탑입니다.</p>
+                                <p class="wf-panel-desc2" id="panel-desc-2">"기술의 발전이 인간의 영혼과 만나는 가장 중요한 접점이며, 오직 100% 브랜드 맞춤형 오리지널 기획 시나리오만을 인도합니다."</p>
+                            </div>
+
+                            <div class="wf-panel-foot">
+                                <div>
+                                    <p class="wf-panel-tools-label">Core Engine Tools</p>
+                                    <p class="wf-panel-tools-val" id="panel-tools">Claude Opus, Antigravity, In-house developed AI module</p>
+                                </div>
+                                <div class="wf-panel-status">
+                                    <span class="wf-panel-status-dot"></span>
+                                    <span id="panel-status">품질 정합도 확보</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <p class="text-4xl font-serif text-white font-light">80%</p>
-                        <p class="text-[10px] tracking-widest uppercase text-neutral-500 mt-2 font-mono">Cost Reduction Rate</p>
+            </div> <!-- .workflow-section-wrap을 닫음 -->
+
+            <!-- section-container를 다시 열어 하단 콘텐츠 수렴 -->
+            <div class="section-container">
+                <!-- Flexible L2 Static Image Delivery Section (inspired by 'the act' category grid) -->
+                <hr class="section-divider">
+                <div class="l2-delivery-section">
+                    <div class="l2-header-row reveal-element reveal-left">
+                        <div class="l2-header-left">
+                            <span class="section-eyebrow">Flexible Studio Alternatives</span>
+                            <h2 class="serif-heading section-title">
+                                <span class="ko">움직이는 영상 대신,<br><span style="color: var(--accent-gold);">L2 이미지 단독 납품</span></span>
+                                <span class="en">Instead of moving video,<br><span style="color: var(--accent-gold);">L2 Static Image Delivery</span></span>
+                                <span class="ja">動画の代わりに、<br><span style="color: var(--accent-gold);">L2静止画単体の納品</span></span>
+                            </h2>
+                        </div>
+                        <div class="l2-header-right">
+                            <p class="l2-desc">
+                                <span class="ko">소셜 커머스 전용 착장 룩북 이미지, 자연광 뷰티 제품 촬영, 브랜드 3D 공간 연출 등이 목적이시라면 굳이 동영상 렌더링 비용을 지불하실 필요가 없습니다. 당사 고유의 정밀 가상 렌더러를 통해 실제 카메라 스튜디오 촬영을 뛰어넘는 상업용 초고해상도(4K) 스틸 이미지 패키지를 전송합니다.</span>
+                                <span class="en">If your goal is social commerce lookbooks, natural beauty product shots, or virtual 3D brand rooms, you don't need to pay for full video rendering. We deliver commercial 4K static image packages using our custom workflow.</span>
+                                <span class="ja">ソーシャルコマース専用のルックブック画像、自然光のビューティー製品撮影、ブランド3D空間の演出などが目的であれば, 動画レンダリング費用은 불필요합니다. 가상 스튜디오 촬영을 뛰어넘는 상업용 초고해상도(4K) 스틸 이미지 패키지를 납품합니다.</span>
+                            </p>
+                            <a href="#contact" class="btn-pill-outline">
+                                <span class="ko">제안서 문의하기</span>
+                                <span class="en">Inquire Proposals</span>
+                                <span class="ja">提案書のお問い合わせ</span>
+                            </a>
+                        </div>
                     </div>
-                    <div>
-                        <p class="text-4xl font-serif text-white font-light">72h</p>
-                        <p class="text-[10px] tracking-widest uppercase text-neutral-500 mt-2 font-mono">Turnaround Delivery</p>
-                    </div>
-                    <div>
-                        <p class="text-4xl font-serif text-white font-light">4K</p>
-                        <p class="text-[10px] tracking-widest uppercase text-neutral-500 mt-2 font-mono">Upscaled Ultra Resolution</p>
+
+                    <!-- 4-Column Category Grid inspired by 'the act' -->
+                    <div class="l2-category-grid reveal-element reveal-scale">
+                        <!-- Card 1 -->
+                        <div class="l2-category-card">
+                            <div class="l2-card-header">
+                                <span class="l2-card-bracket">[ fashion ]</span>
+                                <span class="l2-card-arrow"><i data-lucide="arrow-up-right" class="w-4 h-4"></i></span>
+                            </div>
+                            <div class="l2-image-box">
+                                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80" alt="L2 Fashion Model">
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="l2-category-card">
+                            <div class="l2-card-header">
+                                <span class="l2-card-bracket">[ beauty ]</span>
+                                <span class="l2-card-arrow"><i data-lucide="arrow-up-right" class="w-4 h-4"></i></span>
+                            </div>
+                            <div class="l2-image-box">
+                                <img src="images/l2_beauty_context.png" alt="L2 Beauty Context" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=400&q=80';">
+                            </div>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="l2-category-card">
+                            <div class="l2-card-header">
+                                <span class="l2-card-bracket">[ conceptual ]</span>
+                                <span class="l2-card-arrow"><i data-lucide="arrow-up-right" class="w-4 h-4"></i></span>
+                            </div>
+                            <div class="l2-image-box">
+                                <img src="images/l2_luxury_objects.png" alt="L2 Luxury Objects" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=400&q=80';">
+                            </div>
+                        </div>
+
+                        <!-- Card 4 -->
+                        <div class="l2-category-card">
+                            <div class="l2-card-header">
+                                <span class="l2-card-bracket">[ room/space ]</span>
+                                <span class="l2-card-arrow"><i data-lucide="arrow-up-right" class="w-4 h-4"></i></span>
+                            </div>
+                            <div class="l2-image-box">
+                                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80" alt="L2 Concept Rooms">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="tab-about" class="tab-content flex-grow pt-28">
-            <div class="max-w-4xl mx-auto px-6 py-16 md:py-24 space-y-16">
-                <div class="space-y-4">
-                    <p class="text-xs tracking-[0.2em] uppercase text-neutral-500 font-medium">WHO WE ARE</p>
-                    <h2 class="text-3xl md:text-5xl font-serif text-white font-normal">비전과 철학</h2>
-                </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-                    <div class="md:col-span-4 text-xs tracking-wider uppercase text-neutral-400 font-mono">
-                        [ Artisanal AI Creative Agency ]
-                    </div>
-                    <div class="md:col-span-8 space-y-6 text-neutral-400 text-sm md:text-base leading-relaxed font-light">
-                        <p>
-                            우리는 단순히 기술의 신기함에 의존하는 것을 경계합니다.<br><strong class="text-white font-medium">진정한 감동은 단단한 크리에이티브 메시지</strong>에서 나옵니다. 생성형 AI가 제공하는 무한한 이미지와 비디오 자원을 정교한 아트 디렉팅 능력으로 가공하여 고밀도 하이엔드 광고 영상을 구체화합니다.
-                        </p>
-                        <p>
-                            복잡한 현실 촬영 구조에서 벗어나 시공간을 자유롭게 넘나드는 비주얼 스토리텔링을 구현합니다. 시나리오 생성, 프롬프트 최적화, 일관성 유지(Consistency Engine), 그리고 섬세한 후반 오디오 마스터링의 파이프라인으로 광고주의 메시지를 트렌디하고 강렬하게 풀어냅니다.
-                        </p>
-                    </div>
-                </div>
+        <!-- ================= PORTFOLIO / SELECTED CAMPAIGNS SECTION ================= -->
+        <section id="portfolio" class="section-padding border-top">
+            <!-- Decorative Background Serif Text (inspired by Devialet / 'the act' / 'sage') -->
+            <div class="section-bg-title">archive</div>
 
-                <div class="border-t border-neutral-900 pt-16 space-y-8">
-                    <div class="space-y-2">
-                        <p class="text-[10px] tracking-[0.2em] uppercase text-neutral-500 font-mono">[ OUR VALUES ]</p>
-                        <h3 class="text-lg font-serif text-white">핵심 가치</h3>
+            <div class="section-container">
+                <div class="portfolio-header-row reveal-element reveal-left">
+                    <div>
+                        <span class="section-eyebrow">PORTFOLIO</span>
+                        <h2 class="serif-heading section-title">
+                            <span class="ko">VIDEO ARCHIVE</span>
+                            <span class="en">VIDEO ARCHIVE</span>
+                            <span class="ja">VIDEO ARCHIVE</span>
+                        </h2>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div class="space-y-4 group">
-                            <div class="flex items-baseline gap-2.5">
-                                <span class="text-xs font-mono text-neutral-600 group-hover:text-white transition-colors duration-300">01</span>
-                                <h4 class="text-base font-serif text-white">진정성 <span class="text-xs text-neutral-500 font-sans block md:inline md:ml-1 font-light">Authenticity</span></h4>
-                            </div>
-                            <p class="text-xs text-neutral-400 leading-relaxed font-light">
-                                모든 존재의 이야기는 전달될 가치가 있습니다. <strong class="text-white font-normal">SYNTH LAYERED</strong>는 고객의 이야기를 있는 그대로 담습니다. 화려하게 포장하거나 획일화된 틀에 맞추는 것이 아니라, 그 브랜드만이 가진 고유한 목소리를 발견하고 증폭시킵니다.
-                            </p>
-                        </div>
-                        <div class="space-y-4 group">
-                            <div class="flex items-baseline gap-2.5">
-                                <span class="text-xs font-mono text-neutral-600 group-hover:text-white transition-colors duration-300">02</span>
-                                <h4 class="text-base font-serif text-white">접근성 <span class="text-xs text-neutral-500 font-sans block md:inline md:ml-1 font-light">Accessibility</span></h4>
-                            </div>
-                            <p class="text-xs text-neutral-400 leading-relaxed font-light">
-                                자본의 크기가 목소리의 크기를 결정해서는 안 됩니다. 5단계 레이어링 공정을 통해 전통 제작사 대비 <strong class="text-white font-normal">80% 이상의 비용을 절감</strong>하고, <strong class="text-white font-normal">48시간 이내 납품</strong>을 실현합니다. 좋은 영상은 더 이상 큰 브랜드만의 특권이 아닙니다.
-                            </p>
-                        </div>
-                        <div class="space-y-4 group">
-                            <div class="flex items-baseline gap-2.5">
-                                <span class="text-xs font-mono text-neutral-600 group-hover:text-white transition-colors duration-300">03</span>
-                                <h4 class="text-base font-serif text-white">의도 <span class="text-xs text-neutral-500 font-sans block md:inline md:ml-1 font-light">Intentionality</span></h4>
-                            </div>
-                            <p class="text-xs text-neutral-400 leading-relaxed font-light">
-                                이야기가 없는 영상은 만들지 않습니다. 모든 프레임에는 이유가 있어야 합니다. AI 슬롭으로 대표되는 의미 없는 대량 생산과 <strong class="text-white font-normal">SYNTH LAYERED</strong>를 구분하는 가장 본질적인 기준입니다. 우리는 빠르고 저렴하게 만들되, 이야기를 잃지 않습니다.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="border-t border-neutral-900 pt-16 space-y-8">
-                    <h3 class="text-lg font-serif text-white">AI Production Workflow</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="border border-neutral-900 bg-neutral-950/30 p-6 rounded-xl space-y-4 hover:border-neutral-800 transition-colors duration-300">
-                            <span class="text-xs font-mono text-neutral-500">01 / CONCEPT & PROMPTING</span>
-                            <h4 class="text-sm font-medium text-white">기획 및 프롬프트 빌딩</h4>
-                            <p class="text-xs text-neutral-400 leading-relaxed font-light">
-                                브랜드 철학을 담은 메타포와 시퀀스를 설계합니다. 각 컷마다의 세심한 조명, 카메라 앵글, 화풍을 AI 구조로 전환하는 프롬프트를 설계합니다.
-                            </p>
-                        </div>
-                        <div class="border border-neutral-900 bg-neutral-950/30 p-6 rounded-xl space-y-4 hover:border-neutral-800 transition-colors duration-300">
-                            <span class="text-xs font-mono text-neutral-500">02 / GENERATION & FLUID CONVERGENCE</span>
-                            <h4 class="text-sm font-medium text-white">비디오 디퓨전 생성</h4>
-                            <p class="text-xs text-neutral-400 leading-relaxed font-light">
-                                Runway, Luma를 구동해 초고화질 소스를 반복 생성합니다. 시간 축 방향의 비주얼 일관성을 조정하며 풍성한 흐름의 모션을 완성합니다.
-                            </p>
-                        </div>
-                        <div class="border border-neutral-900 bg-neutral-950/30 p-6 rounded-xl space-y-4 hover:border-neutral-800 transition-colors duration-300">
-                            <span class="text-xs font-mono text-neutral-500">03 / UPSCALING & AUDIO</span>
-                            <h4 class="text-sm font-medium text-white">후반 업스케일링 & 사운드</h4>
-                            <p class="text-xs text-neutral-400 leading-relaxed font-light">
-                                AI 초해상도 필터로 4K 화질을 보정하고, ElevenLabs 및 맞춤형 사운드 AI를 결합하여 압도적인 서사적 풍성함과 공간 음향을 더해줍니다.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="border-t border-neutral-900 pt-16 space-y-6">
-                    <p class="text-xs tracking-widest uppercase text-neutral-500 text-center font-mono">OUR MAIN TOOL STACK</p>
-                    <div class="flex flex-wrap justify-center gap-4 md:gap-8 items-center text-xs font-mono text-neutral-400 opacity-85">
-                        <span class="px-3 py-1.5 border border-neutral-900 bg-neutral-950/50 rounded">NANO BANANA PRO</span>
-                        <span class="px-3 py-1.5 border border-neutral-900 bg-neutral-950/50 rounded">SEEDANCE 2.0</span>
-                        <span class="px-3 py-1.5 border border-neutral-900 bg-neutral-950/50 rounded">MIDJOURNEY</span>
-                        <span class="px-3 py-1.5 border border-neutral-900 bg-neutral-950/50 rounded">KLING 3.0</span>
-                        <span class="px-3 py-1.5 border border-neutral-900 bg-neutral-950/50 rounded">ELEVENLABS AUDIO</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="tab-portfolio" class="tab-content flex-grow pt-28">
-            <div class="max-w-6xl mx-auto px-6 py-16 md:py-24 space-y-12">
-                <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
-                    <div class="space-y-4">
-                        <p class="text-xs tracking-[0.2em] uppercase text-neutral-500 font-medium">CURATED AI WORKS</p>
-                        <h2 class="text-3xl md:text-5xl font-serif text-white font-normal">포트폴리오</h2>
-                    </div>
-                    <div class="flex flex-wrap gap-2 text-xs font-mono">
-                        <button onclick="filterPortfolio('all')" class="portfolio-filter-btn px-4 py-2 rounded-md bg-white text-black border border-white transition-all duration-300" data-filter="all">ALL</button>
-                        <button onclick="filterPortfolio('brand')" class="portfolio-filter-btn px-4 py-2 rounded-md border border-neutral-800 text-neutral-400 hover:text-white transition-all duration-300" data-filter="brand">BRAND FILM</button>
-                        <button onclick="filterPortfolio('short')" class="portfolio-filter-btn px-4 py-2 rounded-md border border-neutral-800 text-neutral-400 hover:text-white transition-all duration-300" data-filter="short">SHORT-FORM</button>
-                        <button onclick="filterPortfolio('cinematic')" class="portfolio-filter-btn px-4 py-2 rounded-md border border-neutral-800 text-neutral-400 hover:text-white transition-all duration-300" data-filter="cinematic">CINEMATIC FILM</button>
-                    </div>
-                </div>
-
-                <div id="portfolio-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 min-h-[400px]"></div>
-                <div id="portfolio-pagination" class="flex justify-center items-center gap-3 mt-16 pt-8 border-t border-neutral-950 text-xs font-mono"></div>
-            </div>
-        </section>
-
-        <section id="tab-contact" class="tab-content flex-grow pt-28">
-            <div class="max-w-4xl mx-auto px-6 py-16 md:py-24 grid grid-cols-1 md:grid-cols-12 gap-12">
-                <div class="md:col-span-5 space-y-8">
-                    <div class="space-y-4">
-                        <p class="text-xs tracking-[0.2em] uppercase text-neutral-500 font-medium">INQUIRIES</p>
-                        <h2 class="text-3xl md:text-5xl font-serif text-white font-normal">CONTACT</h2>
-                    </div>
-                    <p class="text-xs md:text-sm text-neutral-400 leading-relaxed font-light">
-                        새로운 상상과 아이디어를 나누는 것은 언제나 환영합니다.<br>
-                        비주얼 컨셉이나 구체적인 제작 방향 등, 생각하고 계신 계획을 편하게 말씀해 주시면 어울리는 크리에이티브 솔루션을 함께 고민해 드리겠습니다.
-                    </p>
                     
-                    <div class="space-y-4 pt-4 text-xs font-mono">
-                        <div class="flex items-center gap-3">
-                            <i data-lucide="mail" class="w-4 h-4 text-neutral-400"></i>
-                            <span class="text-neutral-300">synthlayered@gmail.com</span>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <i data-lucide="phone" class="w-4 h-4 text-neutral-400"></i>
-                            <span class="text-neutral-300">-</span>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <i data-lucide="map-pin" class="w-4 h-4 text-neutral-400"></i>
-                            <span class="text-neutral-300">Seoul, </span>
+                    <!-- Filters -->
+                    <div class="portfolio-toolbar reveal-element reveal-right">
+                        <div class="portfolio-cat-tabs">
+                            <button onclick="filterPortfolio('all')" class="portfolio-filter-btn active" data-filter="all">ALL</button>
+                            <button onclick="filterPortfolio('BRAND_FILM')" class="portfolio-filter-btn" data-filter="BRAND_FILM">
+                                <span class="ko">브랜드 필름</span>
+                                <span class="en">Brand Film</span>
+                                <span class="ja">ブランドフィルム</span>
+                            </button>
+                            <button onclick="filterPortfolio('SHORT_FORM')" class="portfolio-filter-btn" data-filter="SHORT_FORM">
+                                <span class="ko">숏폼</span>
+                                <span class="en">Short Form</span>
+                                <span class="ja">ショートフォーム</span>
+                            </button>
+                            <button onclick="filterPortfolio('CINEMATIC_FILM')" class="portfolio-filter-btn" data-filter="CINEMATIC_FILM">
+                                <span class="ko">시네마틱 필름</span>
+                                <span class="en">Cinematic Film</span>
+                                <span class="ja">シネマティックフィルム</span>
+                            </button>
                         </div>
                     </div>
                 </div>
 
-                <div class="md:col-span-7 bg-neutral-950/40 border border-neutral-900 rounded-2xl p-6 md:p-8">
-                    <form id="contact-form" onsubmit="handleFormSubmit(event)" class="space-y-6">
-                        <div class="space-y-2">
-                            <label for="name" class="block text-xs font-mono uppercase text-neutral-400">성함 또는 기업명</label>
-                            <input type="text" id="name" required class="w-full bg-[#0a0a0a]/80 border border-neutral-850 focus:border-neutral-500 focus:outline-none rounded-md px-4 py-3 text-sm text-white placeholder-neutral-700 transition-colors" placeholder="홍길동 / 스튜디오명">
-                        </div>
+                <!-- PORTFOLIO GRID (ASTRA 2-Column Grid Layout) -->
+                <div id="portfolio-grid" class="portfolio-grid-layout"></div>
+                
+                <!-- PAGINATION -->
+                <div id="portfolio-pagination" class="portfolio-pagination-layout"></div>
+                
+                <div class="works-archive-note">
+                    <p>
+                        <span class="ko">일부 프로젝트는 클라이언트와의 기밀 유지 계약(NDA)에 따라 비공개 처리되었습니다.<br>비공개 제작 Deck 및 제안 파일은 문의 시 이메일로 별도 전송 드립니다.</span>
+                        <span class="en">Some projects are hidden due to Non-Disclosure Agreements (NDA).<br>Private production decks and proposal documents are shared upon inquiry.</span>
+                        <span class="ja">一部のプロジェクトは機密保持契約（NDA）に基づき非公開となっております。<br>非公開の制作デックおよび提案資料は、お問い合わせの際にメールにて別途お送りいたします。</span>
+                    </p>
+                </div>
+            </div>
+        </section>
 
-                        <div class="space-y-2">
-                            <label for="email" class="block text-xs font-mono uppercase text-neutral-400">이메일 주소</label>
-                            <input type="email" id="email" required class="w-full bg-[#0a0a0a]/80 border border-neutral-850 focus:border-neutral-500 focus:outline-none rounded-md px-4 py-3 text-sm text-white placeholder-neutral-700 transition-colors" placeholder="your@email.com">
-                        </div>
-
-                        <div class="space-y-2">
-                            <span class="block text-xs font-mono uppercase text-neutral-400">프로젝트 타입</span>
-                            <div class="grid grid-cols-3 gap-2.5 text-xs">
-                                <label class="border border-neutral-850 rounded-md p-3 flex items-center justify-center text-center gap-2 cursor-pointer hover:border-neutral-600 transition-all">
-                                    <input type="radio" name="project-type" value="브랜드 필름" checked class="accent-white">
-                                    <span>브랜드 필름</span>
-                                </label>
-                                <label class="border border-neutral-850 rounded-md p-3 flex items-center justify-center text-center gap-2 cursor-pointer hover:border-neutral-600 transition-all">
-                                    <input type="radio" name="project-type" value="숏폼" class="accent-white">
-                                    <span>숏폼</span>
-                                </label>
-                                <label class="border border-neutral-850 rounded-md p-3 flex items-center justify-center text-center gap-2 cursor-pointer hover:border-neutral-600 transition-all">
-                                    <input type="radio" name="project-type" value="시네마틱 필름" class="accent-white">
-                                    <span>시네마틱 필름</span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="space-y-2">
-                            <label for="message" class="block text-xs font-mono uppercase text-neutral-400">자유로운 문의 내용</label>
-                            <textarea id="message" rows="4" required class="w-full bg-[#0a0a0a]/80 border border-neutral-850 focus:border-neutral-500 focus:outline-none rounded-md px-4 py-3 text-sm text-white placeholder-neutral-700 transition-colors" placeholder="구현하고 싶으신 영상의 이미지나 마감 기한, 제작 형태 등 나누고 싶으신 이야기를 자유롭게 남겨주세요."></textarea>
-                        </div>
-
-                        <button id="submit-btn" type="submit" class="w-full py-4 bg-white text-black font-semibold text-xs tracking-widest uppercase rounded-md hover:bg-neutral-200 transition-colors flex items-center justify-center gap-2">
-                            SEND MESSAGE <i data-lucide="send" class="w-4 h-4"></i>
-                        </button>
-                    </form>
-
-                    <div id="contact-success-msg" class="hidden mt-6 p-4 border border-emerald-500/30 bg-emerald-950/20 text-emerald-400 rounded-md text-xs leading-relaxed flex items-start gap-3">
-                        <i data-lucide="check-circle-2" class="w-5 h-5 flex-shrink-0"></i>
-                        <div>
-                            <p class="font-semibold">성공적으로 전송되었습니다!</p>
-                            <p class="mt-1 font-light opacity-80">작성해주신 메일 주소로 영업일 기준 24시간 내에 신속히 답변드리겠습니다.</p>
+        <!-- ================= CONTACT / INQUIRY SECTION ================= -->
+        <section id="contact" class="section-padding border-top">
+            <div class="section-container">
+                <div class="contact-layout reveal-element reveal-right">
+                    <!-- Left text -->
+                    <div class="contact-info">
+                        <span class="section-eyebrow">Collaboration</span>
+                        <h2 class="contact-title">
+                            <span class="ko">기획이 필요한 시점에<br>편하게 연락해 보세요.</span>
+                            <span class="en">Let's talk where<br>strategy is required.</span>
+                            <span class="ja">企画が必要な瞬間に<br>対話を開始しましょう。</span>
+                        </h2>
+                        <p class="contact-desc">
+                            <span class="ko">비즈니스 목표, 일정, 예산 규모 등을 남겨주시면 24시간 내에 답변 드리겠습니다.</span>
+                            <span class="en">Share your goal, timeline, and budget. We will respond within 24 hours.</span>
+                            <span class="ja">ビジネスの目標、日程、予算規模などをご記入いただければ、24時間以内に回答いたします.</span>
+                        </p>
+                        <div class="contact-meta-info">
+                            <p><strong>EMAIL:</strong> synthlayered@gmail.com</p>
+                            <p><strong>LOC:</strong> Gwangjin GU, Seoul, Republic of Korea</p>
                         </div>
                     </div>
 
-                    <div id="contact-error-msg" class="hidden mt-6 p-4 border border-red-500/30 bg-red-950/20 text-red-400 rounded-md text-xs leading-relaxed flex items-start gap-3">
-                        <i data-lucide="alert-circle" class="w-5 h-5 flex-shrink-0"></i>
-                        <div>
-                            <p class="font-semibold">메일 발송에 실패했습니다.</p>
-                            <p class="mt-1 font-light opacity-80">잠시 후 다시 시도하시거나, 상단의 직접 이메일 주소로 연락해 주세요.</p>
+                    <!-- Right form -->
+                    <div class="contact-form-wrap">
+                        <form id="contact-form" onsubmit="handleContactSubmit(event)">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="user-name">Name</label>
+                                    <input type="text" id="user-name" name="name" required class="form-control" placeholder="성함 / 담당자명">
+                                </div>
+                                <div class="form-group">
+                                    <label for="user-company">Company</label>
+                                    <input type="text" id="user-company" name="company" required class="form-control" placeholder="회사명 / 브랜드명">
+                                </div>
+                                <div class="form-group col-span-2">
+                                    <label for="user-email">Email</label>
+                                    <input type="email" id="user-email" name="email" required class="form-control" placeholder="이메일 주소">
+                                </div>
+                                <div class="form-group col-span-2">
+                                    <label for="user-msg">Message</label>
+                                    <textarea id="user-msg" name="message" required class="form-control" placeholder="제작 범위, 희망 일정, 예산 등 문의 상세 내용을 적어주세요."></textarea>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-submit">
+                                <span class="ko">협업 신청하기</span>
+                                <span class="en">SEND INQUIRY</span>
+                                <span class="ja">お問い合わせを送信</span>
+                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </button>
+                            <div id="form-status-msg" style="display:none; margin-top: 15px; font-size: 12px; font-family: monospace;"></div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- FAQ Accordion Section -->
+                <div style="margin-top: 100px;">
+                    <hr class="section-divider">
+                    <div class="section-header-center reveal-element reveal-scale" style="margin-bottom: 48px;">
+                        <span class="section-eyebrow">FAQ</span>
+                        <h2 class="section-title">가장 자주 하시는 질문</h2>
+                    </div>
+
+                    <div class="faq-list">
+                        <div class="faq-item">
+                            <button onclick="toggleFaq(1)" class="faq-trigger">
+                                <span>Q. AI로 제작된 영상, 저작권 및 상업적 사용 제한에서 안전합니까?</span>
+                                <i id="faq-icon-1" data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300"></i>
+                            </button>
+                            <div id="faq-content-1" class="faq-content hidden">
+                                <p><strong>네, 법적으로 100% 안전합니다.</strong> SYNTH LAYERED는 상업적 배포 라이선스가 완벽히 보증된 비디오 및 이미지 레퍼런스 합성 엔진만을 사용합니다. 또한 제작에 탑재되는 보이스 엔진 및 Suno 음악 트랙 역시 상업적 무제한 배포 라이선스를 취득한 자산이므로 SNS 광고, 오프라인 상영 등 모든 채널에 영구적으로 안심하고 활용하실 수 있습니다.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <button onclick="toggleFaq(2)" class="faq-trigger">
+                                <span>Q. 다른 AI 오퍼레이터 대행사와 퀄리티 제어에서 어떤 차별점이 있나요?</span>
+                                <i id="faq-icon-2" data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300"></i>
+                            </button>
+                            <div id="faq-content-2" class="faq-content hidden">
+                                <p><strong>철저한 마케팅 시나리오(L1)와 비주얼 키프레임(L2) 확정에 따른 '적층식 통제'에 있습니다.</strong> 대다수의 AI 대행사는 수백 개의 무작위 생성물 중 우연히 잘 나온 것에 타협하여 대본을 역산해 낍니다. 이는 영상 흐름이 부자연스럽고 퀄리티가 불규칙합니다. 당사는 타겟 소구점을 수립하여 감독님의 사전 비주얼 승인을 얻은 컷들만 비디오 렌더링에 착수하므로 시각적 완성도와 개연성이 차원이 다릅니다.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <button onclick="toggleFaq(3)" class="faq-trigger">
+                                <span>Q. 이미지 단독 납품(L2 이미지 팩)은 어떤 경우에 적합한가요?</span>
+                                <i id="faq-icon-3" data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300"></i>
+                            </button>
+                            <div id="faq-content-3" class="faq-content hidden">
+                                <p><strong>움직이는 비디오 광고가 아닌 인스타그램 피드 룩북, 스마트스토어 연출 촬영, 카탈로그 뷰티 컷 등이 목표일 때 완벽한 해답입니다.</strong> 비디오 렌더링 요금을 절감하고, 당사의 고정밀 8K 렌더러와 고정 캐릭터 레퍼런스를 통해 실제 고가의 모델 섭외 및 야외 스튜디오 촬영을 뛰어넘는 상업용 스틸 이미지를 24시간 내에 받아보실 수 있습니다.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+
     </main>
 
-    <footer class="border-t border-neutral-950 bg-neutral-950 py-8">
-        <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div class="flex items-center gap-2 text-neutral-600">
-                <span class="w-1.5 h-1.5 rounded-full bg-neutral-700"></span>
-                <p class="text-[10px] tracking-widest font-mono">© 2026 SYNTH LAYERED. ALL RIGHTS RESERVED.</p>
-            </div>
-            <div class="flex items-center gap-6 text-neutral-500">
-                <a href="https://www.instagram.com/synth_layered/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors duration-300 text-xs font-mono">INSTAGRAM</a>
-                <button onclick="showPendingNotice('LINKEDIN')" class="hover:text-white transition-colors duration-300 text-xs font-mono focus:outline-none">LINKEDIN</button>
-                <button onclick="showPendingNotice('ARTSTATION')" class="hover:text-white transition-colors duration-300 text-xs font-mono focus:outline-none">ARTSTATION</button>
-            </div>
-        </div>
-    </footer>
-
-    <div id="custom-toast" class="fixed bottom-6 right-6 z-50 transform translate-y-12 opacity-0 pointer-events-none transition-all duration-500 ease-out max-w-sm w-full bg-neutral-950/90 border border-neutral-800 backdrop-blur-md p-4 rounded-xl shadow-2xl flex items-center gap-3 text-neutral-200">
-        <div class="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center text-white/80">
-            <i data-lucide="info" class="w-4 h-4"></i>
-        </div>
-        <div>
-            <p id="toast-title" class="text-xs font-mono font-medium text-white">LINKEDIN</p>
-            <p class="text-[11px] text-neutral-400 font-light mt-0.5">아직 준비 중입니다.</p>
-        </div>
-    </div>
-
-    <div id="portfolio-modal" class="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
-        <div class="bg-neutral-950 border border-neutral-900 rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto no-scrollbar grid grid-cols-1 md:grid-cols-12">
-            
-            <div class="md:col-span-7 bg-[#050505] p-6 flex flex-col justify-between items-center relative min-h-[350px] md:min-h-0 border-r border-neutral-900">
-                <button onclick="closeVideoModal()" class="absolute top-4 right-4 text-neutral-500 hover:text-white z-30">
+    <!-- TWO-COLUMN DETAILED MODAL PLAYER OVERLAYS (ASTRA styled) -->
+    <div id="videoModal" class="video-modal-overlay" onclick="if(event.target===this) closeVideoModal()">
+        <div class="video-modal-inner">
+            <!-- Left Side Player -->
+            <div class="modal-left-cinema">
+                <button class="video-modal-close-mobile" onclick="closeVideoModal()" aria-label="닫기">
                     <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
-                
-                <div class="relative aspect-[16/9] w-full bg-black border border-neutral-900 rounded-lg overflow-hidden my-auto">
-                    <video id="modal-real-video" controls autoplay playsinline class="w-full h-full object-cover opacity-90"></video>
-                </div>
-                
-                <div class="w-full mt-4 flex items-center justify-between text-[10px] font-mono text-neutral-500">
-                    <span>DYNAMIC LATENT SPACE SEED: 7289139</span>
-                    <span>4K UPSCALED</span>
+                <div class="video-container-box">
+                    <!-- Dynamic Iframe/Video will play here -->
+                    <iframe id="modalVideo" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" style="display: none;"></iframe>
+                    <video id="modalVideoPlayer" src="" controls autoplay playsinline style="display: none; width: 100%; height: 100%; object-fit: contain;"></video>
                 </div>
             </div>
-
-            <div class="md:col-span-5 p-6 md:p-8 flex flex-col justify-between space-y-6">
-                <div class="space-y-4">
-                    <div class="flex justify-between items-start">
-                        <span id="modal-project-tag" class="text-[9px] font-mono text-neutral-500 uppercase border border-neutral-900 px-2 py-0.5 rounded">BRAND FILM</span>
-                        <button onclick="closeVideoModal()" class="hidden md:block text-neutral-500 hover:text-white">
-                            <i data-lucide="x" class="w-5 h-5"></i>
+            
+            <!-- Right Side Project Insights -->
+            <div class="modal-right-details">
+                <div class="modal-details-head">
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start; width:100%;">
+                        <span class="video-modal-client" id="modalClient">CLIENT NAME</span>
+                        <button class="video-modal-close-desktop" onclick="closeVideoModal()" aria-label="닫기">
+                            <i data-lucide="x" class="w-6 h-6"></i>
                         </button>
                     </div>
-                    <h3 id="modal-title" class="text-xl font-serif text-white">제목</h3>
-                    <p id="modal-desc" class="text-xs text-neutral-400 leading-relaxed font-light"></p>
+                    <h3 class="video-modal-title" id="modalTitle">Project Title</h3>
+                    <p class="video-modal-category" id="modalCategory">Category Tag</p>
                 </div>
-
-                <div class="space-y-4 border-t border-neutral-900 pt-6">
-                    <h4 class="text-xs font-mono text-white tracking-widest uppercase">[ NEURAL PROMPT STACK ]</h4>
-                    <div class="relative bg-neutral-900/60 p-3 rounded-md border border-neutral-850">
-                        <p id="modal-prompt" class="text-[11px] font-mono text-neutral-300 leading-normal select-all pr-8"></p>
-                        <button onclick="copyPromptToClipboard()" class="absolute right-3 top-3 text-neutral-500 hover:text-white p-1" title="Copy Prompt">
-                            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                        </button>
-                    </div>
-                    <div class="grid grid-cols-2 gap-4 text-[10px] font-mono text-neutral-400">
-                        <div>
-                            <p class="text-neutral-500">AI MODEL</p>
-                            <p id="modal-model-meta" class="text-white">Kling 3.0</p>
-                        </div>
-                        <div>
-                            <p class="text-neutral-500">ART DIRECTION</p>
-                            <p class="text-white">SYNTH LAYERED</p>
-                        </div>
+                
+                <div class="modal-details-body">
+                    <div class="modal-insight-section">
+                        <h5 class="insight-label">PROJECT DESCRIPTION</h5>
+                        <p class="insight-value" id="modalDesc">Insight descriptions...</p>
                     </div>
                 </div>
-
-                <div class="pt-4 border-t border-neutral-900 flex justify-between items-center">
-                    <span id="copied-notice" class="text-[10px] text-emerald-400 font-mono opacity-0 transition-opacity duration-300">Prompt copied!</span>
-                    <button onclick="closeVideoModal()" class="px-5 py-2.5 border border-neutral-800 hover:border-neutral-500 text-neutral-300 hover:text-white rounded-md text-xs font-mono transition-all">CLOSE</button>
+                
+                <div class="modal-details-foot">
+                    <button class="btn-modal-close" onclick="closeVideoModal()">Close</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <script>
-        // 구글 드라이브 /preview 주소로 완벽 고정 매핑
-        const portfolioData = [
-            {
-                title: "튀기지 않아도 치명적인 맛, 오븐마루의 진실",
-                category: "BRAND FILM",
-                videoUrl: "https://etdhihayhlponkmmnemj.supabase.co/storage/v1/object/public/video/ovenmaru_1.mp4",
-                desc: "'치킨은 유죄(고칼로리/기름짐)'라는 소비자들의 심리적 부채감을 '프로파일링'과 '재판'이라는 수사물 컨셉으로 시각화. 야식의 유혹 앞에서 갈등하는 현대인의 심리를 위트 있게 풀어내어, '구웠으니까 진짜 괜찮은' 오븐마루치킨만의 건강한 브랜드 아이덴티티를 각인시키기 위한 브랜드 필름.",
-                prompt: "Upscaled. Cinematic color correction with low contrast using a strong Black Promist filter, 8k resolution.",
-                model: "Kling 3.0",
-                hue: 160
-            },
-            {
-                title: "Arte Royal: The Silent Luxury",
-                category: "SHORT-FORM",
-                videoUrl: "https://etdhihayhlponkmmnemj.supabase.co/storage/v1/object/public/video/arteroyal_1.mp4",
-                desc: "AI의 매끈한 '스튜디움'을 제품의 완벽한 기능으로 치환하고, 대신 공기 중의 먼지, 빛의 굴절, 액체의 점성 등 비생물적 요소에 '푼크툼(Punctum)'을 설계하여 시청자의 감각을 찌르는 연출.",
-                prompt: "luxury boutique aesthetic, high contrast, clean and sharp focus, soft caustic reflections, elegant water ripples, 8K resolution.",
-                model: "Seedance 2.0",
-                hue: 280
-            },
-            {
-                title: "Golden Hour Bite",
-                category: "SHORT-FORM",
-                videoUrl: "https://etdhihayhlponkmmnemj.supabase.co/storage/v1/object/public/video/burger.mp4",
-                desc: "프리미엄 수제버거 브랜드에 트렌디한 감성의 펑키 팝 사운드트랙을 더한 감각적인 시네마틱 숏폼 영상.",
-                prompt: "High-end commercial food photography, shot on Hasselblad X2D, 100mm f/2.8 macro lens, shallow depth of field, sharp focus on the center of the burger, creamy bokeh background. Hyper-realistic, visible food textures, food styling.",
-                model: "Seedance 2.0",
-                hue: 40
-            },
-            {
-                title: "Arirang Blue_ Moonlight Trace",
-                category: "CINEMATIC FILM",
-                videoUrl: "https://etdhihayhlponkmmnemj.supabase.co/storage/v1/object/public/video/arirangblue_1.mp4",
-                desc: "전통 민요 '아리랑'이 가진 순환의 정서를 현대 도시의 고독과 결합한 시네마틱 AI 뮤직비디오. 아리랑의 가치를 현대의 AI 기술로 재해석하여, '십 리'라는 물리적 거리감을 '닿을 수 없는 꿈'에 대한 심리적 거리감으로 치환한 필름.",
-                prompt: "Upscaled. Cinematic color correction with low contrast using a strong Black Promist filter, High-quality music video, 8k resolution.",
-                model: "Kling 3.0, Suno AI",
-                hue: 0
-            },
-            {
-                title: "단 한 장이면 충분한, 스킨케어의 새로운 알고리즘",
-                category: "BRAND FILM",
-                videoUrl: "https://etdhihayhlponkmmnemj.supabase.co/storage/v1/object/public/video/Mediheal1_1.mp4",
-                desc: "기존 스킨 케어 제품들이 파괴되며 더마힐 더마 패드의 제품이 등장하면서, 번거로운 스킨 케어의 과정을 단 하나로 압축할 수 있음을 연출. 단순한 패드를 넘어 전문적인 스킨케어 알고리즘임을 각인.",
-                prompt: "Upscaling. Hyper-real, high-contrast, cinematic color correction for cosmetic advertisements.",
-                model: "Kling 3.0",
-                hue: 230
-            },
-            {
-                title: "메디힐 더마 패드 : The Perfect Eco-Pick",
-                category: "BRAND FILM",
-                videoUrl: "https://etdhihayhlponkmmnemj.supabase.co/storage/v1/object/public/video/Mediheal2_1.mp4",
-                desc: "친환경이라는 무거운 주제를 던지는 대신, 소비자가 일상에서 느끼는 빈 통의 허무함과 패드를 집기 힘든 번거로움에 주목. 이를 인형 뽑기라는 위트 있는 메타포로 풀어내어, 메디힐 더마 패드 2.0의 이지 픽커가 가진 정밀함과 리유저블 리필 시스템의 경제성을 감각적으로 연출.",
-                prompt: "Cinematic medium shot, Upscaling. Hyper-real, high-contrast, cinematic color correction for cosmetic advertisements.",
-                model: "Kling 3.0",
-                hue: 200
-            },
-            {
-                title: "Osulloc: The Purest Connection",
-                category: "BRAND FILM",
-                videoUrl: "https://etdhihayhlponkmmnemj.supabase.co/storage/v1/object/public/video/amore_1_1_1.mp4",
-                desc: " 제주의 감각을 기록하여 현대인의 일상을 치유하는 5가지 감각의 일기를 완성하고자 의도. 제주 자연의 거친 질감과 도시 일상의 모습을 교차적으로 노출시키면서, 국내를 넘어 글로벌 시장에서도 소구될 수 있는 오설록만의 독보적인 톤앤 매너를 구축",
-                prompt: "8k resolution, shot on 85mm lens, f/4.0, sharp focus on the glittering ripples, cinematic lighting, luxurious gold and silver color palette.",
-                model: "Luma Dream Machine",
-                hue: 300
-            },
-            {
-                title: "당신의 시간은, 고혼진이 채웁니다",
-                category: "BRAND FILM",
-                videoUrl: "https://etdhihayhlponkmmnemj.supabase.co/storage/v1/object/public/video/kohonjin_1.mp4",
-                desc: "고혼진의 핵심 슬로건인 '시간을 거스르는 아름다움, 타임리스 뷰티 고혼진'을 '하루'라는 일상적인 시간의 흐름 속에서 구현하고자 기획. 고혼진이 고객의 모든 순간을 아름다움으로 가득 채워준다는 약속을 감성적인 스토리텔링으로 풀어낸 필름.",
-                prompt: "Soft, diffused lighting, cinematic, high resolution, hyperrealistic, Ultra-realistic, macro photography, cinematic, professional product advertisement, high resolution.",
-                model: "Midjourney, Kling 3.0",
-                hue: 190
-            }
-        ];
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-logo">SYNTH LAYERED</div>
+        <div>&copy; 2026 SYNTH LAYERED. All Rights Reserved.</div>
+        <a href="admin.html" class="footer-admin-link">Console</a>
+    </footer>
 
-        let currentTab = 'home';
-        let currentFilter = 'all';
-        let currentPage = 1;
-        const itemsPerPage = 6;
-        let toastTimeout = null;
-
-        function switchTab(tabId) {
-            const sections = document.querySelectorAll('.tab-content');
-            const links = document.querySelectorAll('.nav-link');
-
-            sections.forEach(sec => sec.classList.remove('active'));
-            const targetSection = document.getElementById(`tab-${tabId}`);
-            if (targetSection) {
-                targetSection.classList.add('active');
-                setTimeout(() => targetSection.style.opacity = '1', 50);
-            }
-
-            links.forEach(link => {
-                if (link.getAttribute('data-tab') === tabId) {
-                    link.classList.remove('text-neutral-400');
-                    link.classList.add('text-white');
-                } else {
-                    link.classList.remove('text-white');
-                    link.classList.add('text-neutral-400');
-                }
-            });
-
-            currentTab = tabId;
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenuClose = document.getElementById('mobile-menu-close');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        function toggleMobileMenu() {
-            mobileMenu.classList.toggle('translate-x-full');
-        }
-
-        if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMobileMenu);
-        if (mobileMenuClose) mobileMenuClose.addEventListener('click', toggleMobileMenu);
-
-        function getMappedCategory(categoryString) {
-            const catUpper = categoryString.toUpperCase().replace(/\s/g, '');
-            if (catUpper.includes('BRAND')) return 'brand';
-            if (catUpper.includes('SHORT')) return 'short';
-            if (catUpper.includes('CINEMATIC')) return 'cinematic';
-            return 'brand';
-        }
-
-        function renderPortfolio() {
-            const grid = document.getElementById('portfolio-grid');
-            const paginationContainer = document.getElementById('portfolio-pagination');
-            if (!grid) return;
-
-            const filteredItems = portfolioData.filter(item => {
-                const mappedCat = getMappedCategory(item.category);
-                return currentFilter === 'all' || mappedCat === currentFilter;
-            });
-
-            const totalItems = filteredItems.length;
-            const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
-
-            if (currentPage > totalPages) currentPage = totalPages;
-
-            const startIndex = (currentPage - 1) * itemsPerPage;
-            const endIndex = startIndex + itemsPerPage;
-            const pagedItems = filteredItems.slice(startIndex, endIndex);
-
-            if (pagedItems.length === 0) {
-                grid.innerHTML = `<div class="col-span-full py-20 text-center text-neutral-500 font-light text-sm">해당 카테고리에 업로드된 영상물이 존재하지 않습니다.</div>`;
-            } else {
-                grid.innerHTML = pagedItems.map((item) => {
-                    const absoluteIndex = portfolioData.findIndex(p => p.title === item.title);
-			const mappedCat = getMappedCategory(item.category);
-    			let colorClass = 'text-emerald-400';
-    			if (mappedCat === 'short') colorClass = 'text-purple-400';
-    			if (mappedCat === 'cinematic') colorClass = 'text-amber-400';
-
-    			return `
-        			<div class="portfolio-card group border border-neutral-900 hover:border-neutral-700 bg-neutral-950/40 rounded-2xl overflow-hidden transition-all duration-500 flex flex-col justify-between" data-category="${mappedCat}">
-            				<div class="relative aspect-[16/10] overflow-hidden bg-neutral-950 flex items-center justify-center cursor-pointer" onclick="openVideoModal(${absoluteIndex})">
-                				<div class="absolute inset-0 w-full h-full pointer-events-none bg-neutral-900">
-                    					<video src="${item.videoUrl}" autoplay loop muted playsinline class="w-full h-full object-cover opacity-50 group-hover:opacity-85 transition-opacity duration-500"></video>
-                				</div>
-                				<div class="absolute w-14 h-14 border border-white/10 rounded-full group-hover:scale-110 group-hover:border-white/40 transition-all duration-300 flex items-center justify-center text-white/80 z-10">
-                    					<i data-lucide="play" class="w-5 h-5 fill-white/10 translate-x-0.5"></i>
-                				</div>
-                				<div class="absolute bottom-3 left-3 px-2 py-1 bg-black/70 backdrop-blur-md rounded text-[9px] font-mono ${colorClass} tracking-wider">${item.model}</div>
-            				</div>
-            				<div class="p-6 space-y-4">
-                				<p class="text-[10px] tracking-widest text-neutral-500 uppercase">${item.category}</p>
-                				<h3 class="text-lg font-serif text-white group-hover:${colorClass} transition-colors">${item.title}</h3>
-                				<p class="text-xs text-neutral-400 leading-relaxed font-light line-clamp-3">${item.desc}</p>
-                				<button onclick="openVideoModal(${absoluteIndex})" class="text-xs font-mono text-white inline-flex items-center gap-1.5 hover:underline pt-2">VIEW DETAILED INSIGHTS <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i></button>
-            				</div>
-        			</div>
-    			`;
-		}).join('');
-            }
-
-            if (totalPages > 1 && paginationContainer) {
-                let paginationHTML = `<button onclick="changePage(${currentPage - 1})" class="p-2 text-neutral-500 hover:text-white transition-colors duration-200 disabled:opacity-20 disabled:hover:text-neutral-500" ${currentPage === 1 ? 'disabled' : ''}><i data-lucide="chevron-left" class="w-4 h-4"></i></button>`;
-                for (let i = 1; i <= totalPages; i++) {
-                    const isActive = i === currentPage;
-                    paginationHTML += `<button onclick="changePage(${i})" class="w-8 h-8 rounded-full border transition-all duration-300 flex items-center justify-center ${isActive ? 'bg-white text-black border-white font-semibold' : 'border-neutral-900 text-neutral-400 hover:border-neutral-700 hover:text-white'}\">${i}</button>`;
-                }
-                paginationHTML += `<button onclick="changePage(${currentPage + 1})" class="p-2 text-neutral-500 hover:text-white transition-colors duration-200 disabled:opacity-20 disabled:hover:text-neutral-500" ${currentPage === totalPages ? 'disabled' : ''}><i data-lucide="chevron-right" class="w-4 h-4"></i></button>`;
-                paginationContainer.innerHTML = paginationHTML;
-                paginationContainer.style.display = 'flex';
-            } else if (paginationContainer) {
-                paginationContainer.style.display = 'none';
-            }
-
-            if (typeof lucide !== 'undefined') lucide.createIcons();
-        }
-
-        function changePage(pageNumber) {
-            currentPage = pageNumber;
-            renderPortfolio();
-            const portfolioTab = document.getElementById('tab-portfolio');
-            if (portfolioTab) portfolioTab.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function filterPortfolio(category) {
-            currentFilter = category;
-            currentPage = 1;
-            const filterBtns = document.querySelectorAll('.portfolio-filter-btn');
-            filterBtns.forEach(btn => {
-                if (btn.getAttribute('data-filter') === category) {
-                    btn.classList.add('bg-white', 'text-black', 'border-white');
-                    btn.classList.remove('border-neutral-800', 'text-neutral-400');
-                } else {
-                    btn.classList.remove('bg-white', 'text-black', 'border-white');
-                    btn.classList.add('border-neutral-800', 'text-neutral-400');
-                }
-            });
-            renderPortfolio();
-        }
-
-        const modal = document.getElementById('portfolio-modal');
-	const modalRealVideo = document.getElementById('modal-real-video'); // 변수명 변경 반영
-
-        function openVideoModal(index) {
-    		const item = portfolioData[index];
-
-    		document.getElementById('modal-title').textContent = item.title;
-    		document.getElementById('modal-desc').textContent = item.desc;
-    		document.getElementById('modal-prompt').textContent = item.prompt;
-    		document.getElementById('modal-project-tag').textContent = item.category;
-    		document.getElementById('modal-model-meta').textContent = item.model;
-
-            	modal.classList.remove('pointer-events-none', 'opacity-0');
-    		modal.classList.add('opacity-100');
-
-            if (modalRealVideo) {
-        	modalRealVideo.src = item.videoUrl;
-        	modalRealVideo.muted = false; // 모달이 열리면 명시적으로 음소거 해제
-        	modalRealVideo.volume = 1.0;  // 볼륨 최대화
-        	modalRealVideo.play().catch(error => {
-            		console.log("모바일 브라우저 보안 정책으로 사용자의 직접 터치 후 재생이 필요할 수 있습니다:", error);
-        		});
-    		}
-	}
-
-        function closeVideoModal() {
-            modal.classList.add('pointer-events-none', 'opacity-0');
-	    modal.classList.remove('opacity-100');
-            if (modalRealVideo) {
-                modalRealVideo.pause();
-		modalRealVideo.src = "";
-            }
-        }
-
-        function copyPromptToClipboard() {
-            const promptText = document.getElementById('modal-prompt').innerText;
-            const tempInput = document.createElement('textarea');
-            tempInput.value = promptText;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            try {
-                const successful = document.execCommand('copy');
-                if (successful) {
-                    const notice = document.getElementById('copied-notice');
-                    notice.style.opacity = '1';
-                    setTimeout(() => notice.style.opacity = '0', 1800);
-                }
-            } catch (err) {
-                console.error(err);
-            }
-            document.body.removeChild(tempInput);
-        }
-
-        function handleFormSubmit(event) {
-            event.preventDefault();
-            const form = document.getElementById('contact-form');
-            const submitBtn = document.getElementById('submit-btn');
-            const successBox = document.getElementById('contact-success-msg');
-            const errorBox = document.getElementById('contact-error-msg');
-
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = `SENDING... <div class="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin inline-block ml-1"></div>`;
-            successBox.classList.add('hidden');
-            errorBox.classList.add('hidden');
-
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const projectType = document.querySelector('input[name="project-type"]:checked').value;
-            const message = document.getElementById('message').value;
-
-            const templateParams = {
-                name: name,
-                email: email,
-                project_type: projectType,
-                message: message,
-                from_email: email
-            };
-
-            emailjs.send("synthlayered@gmail.com", "template_gmrppsi", templateParams)
-                .then(function(response) {
-                    form.reset();
-                    form.style.opacity = '0.4';
-                    form.querySelectorAll('input, textarea, button').forEach(el => el.disabled = true);
-                    successBox.classList.remove('hidden');
-                    successBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                }, function(error) {
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = `SEND MESSAGE <i data-lucide="send" class="w-4 h-4"></i>`;
-                    if (typeof lucide !== 'undefined') lucide.createIcons();
-                    errorBox.classList.remove('hidden');
-                    errorBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                });
-        }
-
-        function showPendingNotice(platformName) {
-            const toast = document.getElementById('custom-toast');
-            const toastTitle = document.getElementById('toast-title');
-            if (!toast) return;
-
-            if (toastTimeout) clearTimeout(toastTimeout);
-            toastTitle.textContent = platformName;
-            
-            toast.classList.remove('translate-y-12', 'opacity-0', 'pointer-events-none');
-            toast.classList.add('translate-y-0', 'opacity-100');
-
-            toastTimeout = setTimeout(() => {
-                toast.classList.remove('translate-y-0', 'opacity-100');
-                toast.classList.add('translate-y-12', 'opacity-0', 'pointer-events-none');
-            }, 3000);
-        }
-
-        window.onload = function() {
-            renderPortfolio();
-        };
-    </script>
+    <!-- Core App JS -->
+    <script src="app.js"></script>
 </body>
 </html>
