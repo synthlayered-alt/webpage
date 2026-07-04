@@ -7,7 +7,7 @@
 let globalWorksData = [];
 
 // Supabase Global Anon API Key (깃허브 웹상에서 이곳만 본인의 키로 교체하시면 모든 기능에 즉시 일괄 적용됩니다.)
-const SB_ANON_KEY = localStorage.getItem('sl-sb-anon-key') || "";
+const SB_ANON_KEY = localStorage.getItem('sl-sb-anon-key') || "sb_publishable_mMGnj1JFSsnR9uDyjWOEhw_bqvYMlTw";
 
 // Supabase Database Async Loader
 async function loadPortfolioData() {
