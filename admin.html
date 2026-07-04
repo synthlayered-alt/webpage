@@ -1154,13 +1154,22 @@
 
         // GitHub API File Commit Engine
         async function commitFileToGithub(path, content, commitMessage) {
-            const owner = (localStorage.getItem('sl-git-owner') || '').trim();
-            const repo = (localStorage.getItem('sl-git-repo') || '').trim();
-            const token = (localStorage.getItem('sl-git-token') || '').trim();
+            const ownerInput = document.getElementById('git-owner');
+            const repoInput = document.getElementById('git-repo');
+            const tokenInput = document.getElementById('git-token');
+
+            const owner = (ownerInput ? ownerInput.value : (localStorage.getItem('sl-git-owner') || '')).trim();
+            const repo = (repoInput ? repoInput.value : (localStorage.getItem('sl-git-repo') || '')).trim();
+            const token = (tokenInput ? tokenInput.value : (localStorage.getItem('sl-git-token') || '')).trim();
 
             if (!owner || !repo || !token) {
-                return false;
+                throw new Error("GitHub 연동 정보(Owner, Repository, PAT Token)를 입력창에 빠짐없이 입력해 주세요.");
             }
+
+            // 실시간 백업 저장
+            localStorage.setItem('sl-git-owner', owner);
+            localStorage.setItem('sl-git-repo', repo);
+            localStorage.setItem('sl-git-token', token);
 
             let sha = "";
             try {
@@ -1177,6 +1186,8 @@
                 } else if (res.status !== 404) {
                     const errText = await res.text();
                     throw new Error(`GitHub 저장소 조회 권한 오류 (${res.status}): ${errText}`);
+                } else {
+                    console.log(`[GET 404] File not found at: https://api.github.com/repos/${owner}/${repo}/contents/${path}`);
                 }
             } catch (e) {
                 if (e.message && e.message.includes("GitHub 저장소 조회 권한 오류")) {
@@ -1204,7 +1215,7 @@
 
             if (!putRes.ok) {
                 const errText = await putRes.text();
-                throw new Error(`GitHub Pages API 전송 실패 (${putRes.status}): ${errText}`);
+                throw new Error(`GitHub Pages API 전송 실패 (${putRes.status}): ${errText}\n\n* 요청 대상 저장소: https://github.com/${owner}/${repo}\n* 타겟 파일 경로: ${path}\n* 조회된 SHA값: "${sha || '없음(신규파일생성시도)'}"`);
             }
 
             return true;
