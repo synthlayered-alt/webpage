@@ -1185,7 +1185,7 @@
         // Supabase DB Row Upsert Engine
         async function saveSettingsToSupabase(key, value) {
             const url = "https://etdhihayhlponkmmnemj.supabase.co";
-            const anonKey = (localStorage.getItem('sl-sb-anon-key') || '').trim();
+            const anonKey = (localStorage.getItem('sl-sb-anon-key') || 'sb_publishable_mMGnj1JFSsnR9uDyjWOEhw_bqvYMlTw').trim();
 
             if (!anonKey) {
                 throw new Error("Supabase Database 연동을 위해 Anon Public Key를 먼저 등록해 주세요.");
