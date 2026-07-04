@@ -632,23 +632,20 @@ window.setLayer = function(layerNum) {
 
 // ── 10. GLOBAL HERO VIDEO SETTINGS INITIALIZER ──
 function initGlobalVideoSettings() {
-  let settings = {
-    homeHeroVideo: "https://etdhihayhlponkmmnemj.supabase.co/storage/v1/object/public/video/portfolio_1.mp4"
-  };
-
-  try {
-    const stored = localStorage.getItem('sl-global-settings');
-    if (stored) {
-      settings = JSON.parse(stored);
-    } else if (window.SL_SETTINGS) {
-      settings = window.SL_SETTINGS;
-    }
-  } catch (e) {}
-
   const homeVideo = document.getElementById('hero-video');
-  if (homeVideo && settings.homeHeroVideo) {
-    homeVideo.src = settings.homeHeroVideo;
-  }
+  if (!homeVideo) return;
+
+  fetch('settings.json?t=' + new Date().getTime())
+    .then(res => res.json())
+    .then(data => {
+      if (data && data.homeHeroVideo) {
+        homeVideo.src = data.homeHeroVideo;
+      }
+    })
+    .catch(err => {
+      console.warn("Failed to load settings.json, falling back to default.", err);
+      homeVideo.src = "https://etdhihayhlponkmmnemj.supabase.co/storage/v1/object/public/video/portfolio_1.mp4";
+    });
 }
 
 // ── 11. SCROLL REVEAL SYSTEM ──

@@ -605,7 +605,33 @@
                         <i data-lucide="save" class="w-4 h-4"></i>
                         <span>헤더 비디오 설정 저장하기</span>
                     </button>
-                </form>
+            </section>
+
+            <!-- 3. GitHub Pages Auto Deployment Settings -->
+            <section class="admin-card">
+                <div class="admin-title-row">
+                    <h2 class="admin-card-title">
+                        <i data-lucide="github" class="w-5 h-5 text-stone-700"></i>
+                        <span>GitHub Pages 실시간 자동 배포 연동</span>
+                    </h2>
+                </div>
+                <div class="admin-form-group">
+                    <label class="admin-form-label" for="git-owner">GitHub 계정 아이디 (Owner)</label>
+                    <input type="text" id="git-owner" placeholder="예: synthlayered-alt" class="admin-input">
+                </div>
+                <div class="admin-form-group">
+                    <label class="admin-form-label" for="git-repo">저장소 이름 (Repository)</label>
+                    <input type="text" id="git-repo" placeholder="예: webpage" class="admin-input">
+                </div>
+                <div class="admin-form-group">
+                    <label class="admin-form-label" for="git-token">Personal Access Token (PAT)</label>
+                    <input type="password" id="git-token" placeholder="ghp_로 시작하는 깃허브 토큰 입력" class="admin-input" autocomplete="new-password">
+                    <span style="font-size: 10px; color: #888;">* 보안 안내: 입력하신 토큰은 사용자 브라우저의 로컬 메모리에만 안전하게 보관되며 서버로 전송되지 않습니다.</span>
+                </div>
+                <button type="button" onclick="saveGitSettings()" class="admin-btn btn-export">
+                    <i data-lucide="key" class="w-4 h-4"></i>
+                    <span>연동 설정 저장하기</span>
+                </button>
             </section>
         </div>
 
@@ -832,6 +858,13 @@
 
             document.getElementById('cfg-home-video').value = settings.homeHeroVideo || '';
             document.getElementById('cfg-portfolio-video').value = settings.portfolioHeroVideo || '';
+
+            // Load git settings from localStorage
+            try {
+                document.getElementById('git-owner').value = localStorage.getItem('sl-git-owner') || '';
+                document.getElementById('git-repo').value = localStorage.getItem('sl-git-repo') || '';
+                document.getElementById('git-token').value = localStorage.getItem('sl-git-token') || '';
+            } catch(e) {}
 
             renderAdminTable();
         });
@@ -1106,14 +1139,161 @@
             renderAdminTable();
         };
 
-        // Save DB to localStorage
-        window.saveDatabase = function() {
-            localStorage.setItem('sl-works-db', JSON.stringify(currentDb));
-            alert('로컬 저장소에 성공적으로 동기화되었습니다. 메인 포트폴리오 페이지에서 바로 확인하실 수 있습니다.');
+        // Save Git Configuration to LocalStorage
+        window.saveGitSettings = function() {
+            const owner = document.getElementById('git-owner').value.trim();
+            const repo = document.getElementById('git-repo').value.trim();
+            const token = document.getElementById('git-token').value.trim();
+
+            localStorage.setItem('sl-git-owner', owner);
+            localStorage.setItem('sl-git-repo', repo);
+            localStorage.setItem('sl-git-token', token);
+
+            alert('GitHub 연동 설정이 로컬 브라우저에 안전하게 저장되었습니다. 이제 변경사항을 저장(Save)하면 깃허브 배포가 자동으로 연동됩니다.');
         };
 
-        // Save global settings for background videos
-        window.saveGlobalSettings = function(e) {
+        // GitHub API File Commit Engine
+        async function commitFileToGithub(path, content, commitMessage) {
+            const owner = localStorage.getItem('sl-git-owner') || '';
+            const repo = localStorage.getItem('sl-git-repo') || '';
+            const token = localStorage.getItem('sl-git-token') || '';
+
+            if (!owner || !repo || !token) {
+                return false;
+            }
+
+            let sha = "";
+            try {
+                const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
+                    headers: {
+                        "Authorization": `token ${token}`,
+                        "Accept": "application/vnd.github.v3+json"
+                    }
+                });
+                if (res.ok) {
+                    const fileData = await res.json();
+                    sha = fileData.sha;
+                }
+            } catch (e) {
+                console.log("File not found, committing as new creation.");
+            }
+
+            const base64Content = btoa(unescape(encodeURIComponent(content)));
+
+            const putRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
+                method: "PUT",
+                headers: {
+                    "Authorization": `token ${token}`,
+                    "Content-Type": "application/json",
+                    "Accept": "application/vnd.github.v3+json"
+                },
+                body: JSON.stringify({
+                    message: commitMessage,
+                    content: base64Content,
+                    sha: sha || undefined,
+                    branch: "main"
+                })
+            });
+
+            if (!putRes.ok) {
+                const errText = await putRes.text();
+                throw new Error(`GitHub Pages API 전송 실패 (${putRes.status}): ${errText}`);
+            }
+
+            return true;
+        }
+
+        // Show elegant deployment overlay
+        function showDeployingProgress() {
+            const prev = document.getElementById('git-loading-overlay');
+            if (prev) prev.remove();
+
+            const overlay = document.createElement('div');
+            overlay.id = "git-loading-overlay";
+            overlay.style = `
+                position: fixed;
+                top: 0; left: 0; width: 100vw; height: 100vh;
+                background: rgba(18, 9, 20, 0.92);
+                color: #ede5eb;
+                z-index: 99999;
+                display: flex; flex-direction: column;
+                justify-content: center; align-items: center;
+                font-family: 'Inter', 'Noto Sans KR', sans-serif;
+            `;
+            overlay.innerHTML = `
+                <div style="text-align: center; max-width: 480px; padding: 40px; background: #180d1c; border-radius: 16px; border: 1px solid rgba(237, 229, 235, 0.1); box-shadow: 0 24px 64px rgba(0,0,0,0.5);">
+                    <div style="font-size: 40px; margin-bottom: 24px; animation: spin 2s linear infinite;">🔄</div>
+                    <h3 style="font-size: 22px; margin-bottom: 12px; font-family: 'Do Hyeon', sans-serif; color: var(--accent-gold);">GitHub Pages 실시간 배포 중...</h3>
+                    <p style="font-size: 13px; color: #a99da6; line-height: 1.6; margin-bottom: 16px;">
+                        수정된 설정이 깃허브 원격 저장소에 성공적으로 푸시되었습니다!
+                    </p>
+                    <p style="font-size: 11px; color: #8a7a87; line-height: 1.6; margin-bottom: 24px;">
+                        깃허브 Pages 클라우드가 빌드를 완성하여 라이브 사이트에 올리는 데 **약 1분 ~ 1분 30초**가 걸립니다. 실시간 배포 사이트에서 강력 새로고침(Ctrl+F5)을 통해 변경 사항을 확인해 보세요!
+                    </p>
+                    <button onclick="document.getElementById('git-loading-overlay').remove()" class="admin-btn btn-save" style="margin-top: 10px; font-size: 11px; padding: 10px 20px; border-radius: 6px; cursor: pointer; border: none; background-color: var(--accent-gold-dark); color: #fff;">확인 완료 (창 닫기)</button>
+                </div>
+            `;
+            
+            if (!document.getElementById('spin-keyframe-style')) {
+                const style = document.createElement('style');
+                style.id = "spin-keyframe-style";
+                style.innerHTML = `
+                    @keyframes spin {
+                        0% { transform: rotate(0deg); }
+                        100% { transform: rotate(360deg); }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+            
+            document.body.appendChild(overlay);
+        }
+
+        // Helper to compile works-data.js content
+        function compileWorksDataContent(db, settings) {
+            let fileContent = `/* ═══════════════════════════════════════════════════════════════
+   SYNTH LAYERED — PORTFOLIO WORKS DATA
+   All portfolio project information is kept in this single file.
+   Adding or editing here dynamically renders updates across the site.
+   ═══════════════════════════════════════════════════════════════ */\n\n`;
+            
+            fileContent += `const SL_WORKS = ${JSON.stringify(db, null, 2)};\n\n`;
+            fileContent += `const SL_SETTINGS = ${JSON.stringify(settings, null, 2)};\n\n`;
+            fileContent += `// Globally expose the portfolio works data and settings\n`;
+            fileContent += `window.SL_WORKS = SL_WORKS;\n`;
+            fileContent += `window.SL_SETTINGS = SL_SETTINGS;\n`;
+            return fileContent;
+        }
+
+        // Save DB to localStorage and push to GitHub
+        window.saveDatabase = async function() {
+            localStorage.setItem('sl-works-db', JSON.stringify(currentDb));
+            
+            let settings = {
+                homeHeroVideo: "https://etdhihayhlponkmmnemj.supabase.co/storage/v1/object/public/video/portfolio_1.mp4",
+                portfolioHeroVideo: "https://etdhihayhlponkmmnemj.supabase.co/storage/v1/object/public/video/portfolio_1.mp4"
+            };
+            try {
+                const stored = localStorage.getItem('sl-global-settings');
+                if (stored) settings = JSON.parse(stored);
+            } catch(e) {}
+
+            const worksDataText = compileWorksDataContent(currentDb, settings);
+
+            try {
+                const pushed = await commitFileToGithub('works-data.js', worksDataText, 'Update works-data.js via admin console');
+                if (pushed) {
+                    showDeployingProgress();
+                } else {
+                    alert('로컬 브라우저 저장소에만 저장되었습니다. (깃허브 연동 설정을 입력하고 저장하시면 실시간 배포 사이트에도 자동으로 업로드됩니다.)');
+                }
+            } catch (err) {
+                alert(`로컬에는 저장되었으나 깃허브 전송 중 오류가 발생했습니다:\n${err.message}`);
+            }
+        };
+
+        // Save global settings for background videos and push to GitHub
+        window.saveGlobalSettings = async function(e) {
             if (e) e.preventDefault();
             const homeVal = document.getElementById('cfg-home-video').value.trim();
             const portVal = document.getElementById('cfg-portfolio-video').value.trim();
@@ -1124,7 +1304,22 @@
             };
 
             localStorage.setItem('sl-global-settings', JSON.stringify(newSettings));
-            alert('헤더 영상 설정이 로컬 메모리에 저장되었습니다. 포트폴리오 메인 페이지에 실시간 반영되며, "내보내기"를 누르면 works-data.js 설정 파일에도 통합됩니다.');
+            
+            const settingsJsonText = JSON.stringify({ homeHeroVideo: newSettings.homeHeroVideo }, null, 2);
+            const worksDataText = compileWorksDataContent(currentDb, newSettings);
+
+            try {
+                const token = localStorage.getItem('sl-git-token');
+                if (token) {
+                    await commitFileToGithub('settings.json', settingsJsonText, 'Update settings.json via admin console');
+                    await commitFileToGithub('works-data.js', worksDataText, 'Update global video settings via admin console');
+                    showDeployingProgress();
+                } else {
+                    alert('헤더 영상 설정이 로컬 메모리에 저장되었습니다. (깃허브 연동 설정을 입력하고 저장하시면 실시간 배포 사이트에도 자동으로 업로드됩니다.)');
+                }
+            } catch (err) {
+                alert(`로컬에는 저장되었으나 깃허브 전송 중 오류가 발생했습니다:\n${err.message}`);
+            }
         };
 
         // Reset to original Works default config
@@ -1143,7 +1338,6 @@
 
         // Export config text file (works-data.js)
         window.exportConfigFile = function() {
-            // Read settings
             let settings = {
                 homeHeroVideo: "https://etdhihayhlponkmmnemj.supabase.co/storage/v1/object/public/video/portfolio_1.mp4",
                 portfolioHeroVideo: "https://etdhihayhlponkmmnemj.supabase.co/storage/v1/object/public/video/portfolio_1.mp4"
@@ -1155,20 +1349,8 @@
                 }
             } catch(e) {}
 
-            // Build JS text content
-            let fileContent = `/* ═══════════════════════════════════════════════════════════════
-   SYNTH LAYERED — PORTFOLIO WORKS DATA
-   All portfolio project information is kept in this single file.
-   Adding or editing here dynamically renders updates across the site.
-   ═══════════════════════════════════════════════════════════════ */\n\n`;
-            
-            fileContent += `const SL_WORKS = ${JSON.stringify(currentDb, null, 2)};\n\n`;
-            fileContent += `const SL_SETTINGS = ${JSON.stringify(settings, null, 2)};\n\n`;
-            fileContent += `// Globally expose the portfolio works data and settings\n`;
-            fileContent += `window.SL_WORKS = SL_WORKS;\n`;
-            fileContent += `window.SL_SETTINGS = SL_SETTINGS;\n`;
+            const fileContent = compileWorksDataContent(currentDb, settings);
 
-            // Trigger file download
             const blob = new Blob([fileContent], { type: 'application/javascript;charset=utf-8;' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
