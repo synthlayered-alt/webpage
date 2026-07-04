@@ -6,11 +6,14 @@
 
 let globalWorksData = [];
 
+// Supabase Global Anon API Key (깃허브 웹상에서 이곳만 본인의 키로 교체하시면 모든 기능에 즉시 일괄 적용됩니다.)
+const SB_ANON_KEY = localStorage.getItem('sl-sb-anon-key') || "";
+
 // Supabase Database Async Loader
 async function loadPortfolioData() {
   globalWorksData = window.SL_WORKS || [];
 
-  const key = localStorage.getItem('sl-sb-anon-key') || "sb_publishable_mMGnj1JFSsnR9uDyjWOEhw_bqvYMlTw";
+  const key = SB_ANON_KEY;
   if (!key || !window.supabase) {
     console.log("Supabase anon key or SDK is missing. Fallback to works-data.js");
     return;
@@ -643,7 +646,7 @@ async function initGlobalVideoSettings() {
 
   let homeVideoUrl = "https://etdhihayhlponkmmnemj.supabase.co/storage/v1/object/public/video/portfolio_1.mp4";
 
-  const key = localStorage.getItem('sl-sb-anon-key') || "";
+  const key = SB_ANON_KEY;
   if (key && window.supabase) {
     try {
       const supabase = window.supabase.createClient("https://etdhihayhlponkmmnemj.supabase.co", key);
