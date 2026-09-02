@@ -10,8 +10,8 @@ const SL_WORKS = [
     "client": "OVENMARU",
     "title": {
       "kr": "튀기지 않아도 치명적인 맛, 오븐마루의 진실",
-      "en": "튀기지 않아도 치명적인 맛, 오븐마루의 진실",
-      "ja": "튀기지 않아도 치명적인 맛, 오븐마루의 진실"
+      "en": "Unforgivably Delicious: The Truth of Ovenmaru",
+      "ja": "揚げなくても致死的な旨さ、オーブンマ루の真実"
     },
     "category": {
       "kr": "브랜드 필름",
@@ -31,8 +31,8 @@ const SL_WORKS = [
     },
     "description": {
       "kr": "맛과 건강, 두 마리 토끼를 잡는 것이 위증이라고요?\n오븐마루가 그 편견을 깨기 위해 법정에 섰습니다.\n\n기름기는 빼고 풍미는 보존한 굽기의 미학.\n오직 오븐마루에서만 만날 수 있는 '무죄'의 맛을 경험하세요.",
-      "en": "맛과 건강, 두 마리 토끼를 잡는 것이 위증이라고요?\n오븐마루가 그 편견을 깨기 위해 법정에 섰습니다.\n\n기름기는 빼고 풍미는 보존한 굽기의 미학.\n오직 오븐마루에서만 만날 수 있는 '무죄'의 맛을 경험하세요.",
-      "ja": "맛과 건강, 두 마리 토끼를 잡는 것이 위증이라고요?\n오븐마루가 그 편견을 깨기 위해 법정에 섰습니다.\n\n기름기는 빼고 풍미는 보존한 굽기의 미학.\n오직 오븐마루에서만 만날 수 있는 '무죄'의 맛을 경험하세요."
+      "en": "Is capturing both taste and health perjury?\nOvenmaru takes the stand to shatter prejudice.\n\nThe art of baking: removing excess fat while preserving rich flavor.\nExperience the guilt-free taste available only at Ovenmaru.",
+      "ja": "味と健康の両立は偽証なのか？\nオーブンマルがその偏見を打ち破るべく法廷に立ちました。\n\n脂っこさを抜き風味を保つ焼きの美学。\nオーブンマルだけで出会える「無罪」の味をご体験ください。"
     },
     "thumbnail": "https://img.youtube.com/vi/4kzViiPKaH0/hqdefault.jpg",
     "hero": "https://img.youtube.com/vi/4kzViiPKaH0/hqdefault.jpg",
@@ -57,8 +57,8 @@ const SL_WORKS = [
     "client": "웅진식품",
     "title": {
       "kr": "맑은 아침, 나의 생차 리추얼",
-      "en": "맑은 아침, 나의 생차 리추얼",
-      "ja": "맑은 아침, 나의 생차 리추얼"
+      "en": "Clear Morning, My Fresh Tea Ritual",
+      "ja": "澄んだ朝、私の生茶リチュ얼"
     },
     "category": {
       "kr": "브랜드 필름",
@@ -78,8 +78,8 @@ const SL_WORKS = [
     },
     "description": {
       "kr": "아침에 눈을 뜨는 순간, 당신의 하루는 어떻게 시작되나요?\n\n바쁘게 흘러가는 일상 속에서 텁텁한 갈증을 비워내고,\n나만의 가장 맑고 싱그러운 리추얼로 하루의 첫 단추를 채워보세요.\n\n갓 수확한 국산 생찻잎을 그대로 우려내어 떫은맛은 줄이고,\n신선하고 깔끔한 풍미만 가득 담아낸 웅진 식품의 신제품 ‘생차(生茶)’를 소개합니다.",
-      "en": "아침에 눈을 뜨는 순간, 당신의 하루는 어떻게 시작되나요?\n\n바쁘게 흘러가는 일상 속에서 텁텁한 갈증을 비워내고,\n나만의 가장 맑고 싱그러운 리추얼로 하루의 첫 단추를 채워보세요.\n\n갓 수확한 국산 생찻잎을 그대로 우려내어 떫은맛은 줄이고,\n신선하고 깔끔한 풍미만 가득 담아낸 웅진 식품의 신제품 ‘생차(生茶)’를 소개합니다.",
-      "ja": "아침에 눈을 뜨는 순간, 당신의 하루는 어떻게 시작되나요?\n\n바쁘게 흘러가는 일상 속에서 텁텁한 갈증을 비워내고,\n나만의 가장 맑고 싱그러운 리추얼로 하루의 첫 단추를 채워보세요.\n\n갓 수확한 국산 생찻잎을 그대로 우려내어 떫은맛은 줄이고,\n신선하고 깔끔한 풍미만 가득 담아낸 웅진 식품의 신제품 ‘생차(生茶)’를 소개합니다."
+      "en": "The moment you open your eyes in the morning, how does your day begin?\n\nClear away heavy thirst in busy daily life,\nand start your day with your purest, freshest tea ritual.\n\nIntroducing Woongjin Foods' new 'Raw Tea', brewed directly from freshly harvested leaves.",
+      "ja": "朝目覚めた瞬間、あなたの1日はどのように始まりますか？\n\n忙しい日常の中で喉の渇きを潤し、\n自分だけの澄んだフレッシュなリチュアルで朝をスタート。\n\n摘みたての国産生茶葉を丁寧に抽出し、すっきりとした味わいに仕上げた雄津食品の新商品「生茶」をご紹介します。"
     },
     "thumbnail": "https://img.youtube.com/vi/O8Md_Z6L7g0/hqdefault.jpg",
     "hero": "https://img.youtube.com/vi/O8Md_Z6L7g0/hqdefault.jpg",

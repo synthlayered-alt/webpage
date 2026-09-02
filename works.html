@@ -4,16 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="strict-origin-when-cross-origin">
-    <meta name="description" content="SYNTH LAYERED - 프리미엄 상업용 AI 영상 광고 포트폴리오 아카이브">
+    <meta name="description" content="SYNTH LAYERED - Selected Works & Commercial AI Video Production Archive">
     
-    <!-- Open Graph / Meta Tags -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="SYNTH LAYERED | Commercial AI Video Archive">
-    <meta property="og:description" content="기획 중심의 상업용 AI 영상 광고 프로덕션 SYNTH LAYERED 포트폴리오 아카이브">
+    <meta property="og:title" content="SELECTED WORKS | SYNTH LAYERED">
+    <meta property="og:description" content="Commercial AI Video Advertising & Brand Film Production Archive">
     <meta property="og:image" content="images/logo.png">
-    <meta name="twitter:card" content="summary_large_image">
 
-    <title>SYNTH LAYERED | Commercial AI Video Archive</title>
+    <title>SELECTED WORKS | SYNTH LAYERED</title>
     
     <!-- DNS Prefetching & Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,18 +33,6 @@
     <div class="ambient-gradient-canvas"></div>
     <div class="global-noise-layer"></div>
 
-    <!-- ── INTRO SPLASH SCREEN (Once per session) ── -->
-    <div id="intro-splash" class="intro-splash-screen">
-        <div class="intro-noise-overlay"></div>
-        <div class="intro-content-wrap">
-            <h2 class="intro-brand-title">SYNTH</h2>
-            <div class="intro-brand-sub">
-                <span>SYNTH LAYERED</span>
-                <span>Commercial AI Film Production</span>
-            </div>
-        </div>
-    </div>
-
     <!-- ── CUSTOM MAGNETIC CURSOR ── -->
     <div id="cursor-dot" class="cursor-dot"></div>
     <div id="cursor-follower" class="cursor-follower">
@@ -56,7 +42,7 @@
     <!-- ── NAVIGATION BAR ── -->
     <nav id="nav">
         <div class="nav-left-group">
-            <a href="#portfolio" class="nav-logo" data-cursor="HOME">
+            <a href="index.html#home" class="nav-logo" data-cursor="HOME">
                 <span class="logo-dot"></span>
                 <span class="logo-text">SYNTH LAYERED</span>
             </a>
@@ -68,8 +54,8 @@
 
         <!-- Desktop Navigation Links -->
         <ul class="nav-links">
-            <li><a href="#portfolio" class="nav-link active" data-sec="portfolio" data-cursor="LINK">PORTFOLIO</a></li>
-            <li><a href="#contact" class="nav-link" data-sec="contact" data-cursor="LINK">CONTACT</a></li>
+            <li><a href="index.html#portfolio" class="nav-link active" data-cursor="LINK">PORTFOLIO</a></li>
+            <li><a href="index.html#contact" class="nav-link" data-cursor="LINK">CONTACT</a></li>
         </ul>
 
         <!-- Right Side Controls & CTA -->
@@ -86,7 +72,7 @@
                 </button>
             </div>
             
-            <a href="#contact" class="nav-cta-btn" data-cursor="INQUIRE">
+            <a href="index.html#contact" class="nav-cta-btn" data-cursor="INQUIRE">
                 <span class="ko">문의하기</span>
                 <span class="en">Inquire</span>
                 <span class="ja">お問い合わせ</span>
@@ -106,8 +92,8 @@
             <i data-lucide="x" class="w-6 h-6"></i>
         </button>
         <nav>
-            <a href="#portfolio" onclick="closeMobileMenu()" data-sec="portfolio" class="active">PORTFOLIO</a>
-            <a href="#contact" onclick="closeMobileMenu()" data-sec="contact">CONTACT</a>
+            <a href="index.html#portfolio" onclick="closeMobileMenu()" class="active">PORTFOLIO</a>
+            <a href="index.html#contact" onclick="closeMobileMenu()">CONTACT</a>
         </nav>
         <div id="mobile-menu-lang">
             <button onclick="setLanguage('kr'); closeMobileMenu();" class="on" data-lang="kr">KR</button>
@@ -116,11 +102,10 @@
         </div>
     </div>
 
-    <!-- ── MAIN PAGE CONTENT ── -->
-    <main style="padding-top: 110px; min-height: 85vh;">
+    <!-- ── MAIN WORKS ARCHIVE CONTENT ── -->
+    <main style="padding-top: 130px; min-height: 85vh;">
         
-        <!-- ================= 01 / PORTFOLIO ARCHIVE (Expanding Showcase Carousel) ================= -->
-        <section id="portfolio" class="section-padding" style="padding-top: 30px;">
+        <section id="portfolio" class="section-padding" style="padding-top: 20px;">
             <div class="section-container">
                 <div class="portfolio-top-bar">
                     <div class="portfolio-hero-title-wrap">
@@ -185,138 +170,69 @@
             </div>
         </section>
 
-
-        <!-- ================= 02 / CONTACT & INQUIRY ================= -->
-        <section id="contact" class="section-padding border-top">
-            <div class="section-container">
-                <div class="editorial-header">
-                    <span class="editorial-idx">02</span>
-                    <span class="editorial-slash">/</span>
-                    <span class="editorial-label">CONTACT & INQUIRY</span>
-                </div>
-
-                <div class="contact-layout">
-                    <!-- Left Column -->
-                    <div class="contact-info">
-                        <span class="section-eyebrow">Collaboration</span>
-                        <p class="contact-desc" style="margin-top: 14px; font-size: 1rem;">
-                            <span class="ko">비즈니스 목표, 일정, 예산 규모 등을 남겨주시면 24시간 내에 신속하게 답변 드리겠습니다.</span>
-                            <span class="en">Share your goal, timeline, and budget. We will respond within 24 hours.</span>
-                            <span class="ja">ビジネスの目標、日程、予算規模などをご記入いただければ、24時間以内に回答いたします。</span>
-                        </p>
-                        <div class="contact-meta-info" style="margin-top: 32px;">
-                            <p><strong>EMAIL:</strong> synthlayered@gmail.com</p>
-                            <p><strong>LOCATION:</strong> Gwangjin-gu, Seoul, Republic of Korea</p>
-                            <p><strong>HOURS:</strong> Mon - Fri, 09:00 - 18:00 KST</p>
-                        </div>
-                    </div>
-
-                    <!-- Right Column: Form -->
-                    <div class="contact-form-wrap">
-                        <form id="contact-form" onsubmit="handleContactSubmit(event)">
-                            <div class="form-grid">
-                                <div class="form-group">
-                                    <label for="user-name">Name</label>
-                                    <input type="text" id="user-name" name="name" required class="form-control" placeholder="성함 / 담당자명">
-                                </div>
-                                <div class="form-group">
-                                    <label for="user-company">Company</label>
-                                    <input type="text" id="user-company" name="company" required class="form-control" placeholder="회사명 / 브랜드명">
-                                </div>
-                                <div class="form-group col-span-2">
-                                    <label for="user-email">Email</label>
-                                    <input type="email" id="user-email" name="email" required class="form-control" placeholder="이메일 주소">
-                                </div>
-                                <div class="form-group col-span-2">
-                                    <label for="user-msg">Message</label>
-                                    <textarea id="user-msg" name="message" required class="form-control" placeholder="제작 범위, 희망 일정, 예산 등 문의 상세 내용을 적어주세요."></textarea>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn-submit" data-cursor="SEND">
-                                <span class="ko">협업 신청하기</span>
-                                <span class="en">SEND INQUIRY</span>
-                                <span class="ja">お問い合わせを送信</span>
-                                <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                            </button>
-                            <div id="form-status-msg" style="display:none; margin-top: 15px; font-size: 12px; font-family: monospace;"></div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-
     </main>
 
-    <!-- ── TWO-COLUMN DETAILED MODAL PLAYER OVERLAY ── -->
-    <div id="videoModal" class="video-modal-overlay" onclick="if(event.target===this) closeVideoModal()">
+    <!-- ── 8. VIDEO MODAL POPUP ── -->
+    <div id="video-modal" class="video-modal-overlay" role="dialog" aria-modal="true">
         <div class="video-modal-inner">
-            <!-- Left Side Player -->
             <div class="modal-left-cinema">
-                <button class="video-modal-close-mobile" onclick="closeVideoModal()" aria-label="닫기">
+                <button class="modal-close-btn" onclick="closeVideoModal()" aria-label="닫기" data-cursor="CLOSE">
                     <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
                 <div class="video-container-box">
-                    <!-- Video Loading Indicator -->
-                    <div id="modalVideoLoader" class="modal-video-loader">
-                        <div class="loader-spinner"></div>
-                        <span class="loader-text">STREAMING REEL...</span>
+                    <div id="modal-video-loader" class="modal-video-loader">
+                        <div class="spinner-editorial"></div>
                     </div>
-                    <iframe id="modalVideo" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" style="display: none;"></iframe>
-                    <video id="modalVideoPlayer" src="" controls autoplay playsinline style="display: none; width: 100%; height: 100%; object-fit: contain;"></video>
+                    <iframe id="modal-iframe" title="비디오 플레이어" allow="autoplay; fullscreen" allowfullscreen></iframe>
+                    <video id="modal-video-player" controls playsinline></video>
                 </div>
             </div>
-            
-            <!-- Right Side Project Insights -->
-            <div class="modal-right-details">
-                <div class="modal-details-head">
-                    <div style="display:flex; justify-content:space-between; align-items:flex-start; width:100%;">
-                        <span class="video-modal-client" id="modalClient">CLIENT NAME</span>
-                        <button class="video-modal-close-desktop" onclick="closeVideoModal()" aria-label="닫기">
-                            <i data-lucide="x" class="w-5 h-5"></i>
-                        </button>
-                    </div>
-                    <h3 class="video-modal-title" id="modalTitle">Project Title</h3>
-                    <p class="video-modal-category" id="modalCategory">Category Tag</p>
+            <div class="modal-right-meta">
+                <div class="modal-brand-tag" id="modal-brand-tag">COMMERCIAL AI FILM</div>
+                <h3 class="modal-project-title" id="modal-project-title">PROJECT TITLE</h3>
+                <div class="modal-spec-row">
+                    <span class="modal-spec-label">CLIENT</span>
+                    <span class="modal-spec-val" id="modal-client">BRAND</span>
                 </div>
-                
-                <div class="modal-details-body">
-                    <div class="modal-insight-section">
-                        <h5 class="insight-label">PROJECT DESCRIPTION</h5>
-                        <p class="insight-value" id="modalDesc">Insight descriptions...</p>
-                    </div>
+                <div class="modal-spec-row">
+                    <span class="modal-spec-label">CATEGORY</span>
+                    <span class="modal-spec-val" id="modal-category">Commercial Film</span>
                 </div>
-                
-                <div class="modal-details-foot">
-                    <button class="btn-modal-close" onclick="closeVideoModal()">Close</button>
+                <div class="modal-spec-row">
+                    <span class="modal-spec-label">RESOLUTION</span>
+                    <span class="modal-spec-val">4K UHD Mastered</span>
+                </div>
+                <p class="modal-project-desc" id="modal-project-desc">
+                    프로젝트 설명
+                </p>
+                <div class="modal-footer-cta">
+                    <a href="index.html#contact" onclick="closeVideoModal()" class="btn-primary w-full text-center block" style="text-decoration:none;" data-cursor="INQUIRE">
+                        <span class="ko">이 프로젝트 스타일로 문의하기</span>
+                        <span class="en">Inquire with this Style</span>
+                        <span class="ja">このスタイルでお問い合わせ</span>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- ── EDITORIAL FOOTER ── -->
+    <!-- ── 10. GLOBAL FOOTER ── -->
     <footer>
         <div class="footer-logo">SYNTH LAYERED</div>
-        <div>&copy; 2026 SYNTH LAYERED. All Rights Reserved.</div>
+        <div class="footer-copy">© 2026 SYNTH LAYERED INC. All rights reserved. Commercial AI Video Production.</div>
         <div class="footer-actions">
-            <a href="admin.html" class="footer-admin-link" data-cursor="ADMIN">
-                <i data-lucide="shield" class="w-3.5 h-3.5"></i> Admin Console
-            </a>
-            <a href="#portfolio" class="footer-back-top" data-cursor="TOP">Top &uarr;</a>
+            <a href="admin.html" class="footer-admin-link" data-cursor="ADMIN">Admin Console</a>
+            <a href="works.html#" class="footer-back-top" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;" data-cursor="TOP">Back to Top ↑</a>
         </div>
     </footer>
 
-    <!-- ── DEFERRED HIGH-PERFORMANCE SCRIPTS ── -->
-    <script src="https://unpkg.com/lucide@latest" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
-    <script type="text/javascript">
-        window.addEventListener('DOMContentLoaded', function() {
-            if (window.emailjs) {
-                emailjs.init("6inEM4Dj11nyHhAgZ");
-            }
-        });
-    </script>
-    <script src="works-data.js" defer></script>
-    <script src="app.js" defer></script>
+    <!-- Lucide Icons -->
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.js"></script>
+    
+    <!-- Static Local Database Fallback -->
+    <script src="works-data.js"></script>
+    
+    <!-- Core Application Logic -->
+    <script src="app.js"></script>
 </body>
 </html>

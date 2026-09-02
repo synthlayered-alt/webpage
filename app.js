@@ -1,23 +1,22 @@
 /* ═══════════════════════════════════════════════════════════════
-   SYNTH LAYERED — NEW PORTFOLIO APP SCRIPT (ASTRA REPLICA)
+   SYNTH LAYERED — NEW PORTFOLIO APP SCRIPT (EDITORIAL MINIMAL)
    Handles single-page smooth scrolling, dynamic link highlighting,
    multilingual toggles, dynamic grid rendering, and detailed video modals.
    ═══════════════════════════════════════════════════════════════ */
 
-let globalWorksData = [];
+let globalWorksData = (typeof window !== 'undefined' && window.SL_WORKS) ? window.SL_WORKS : [];
 
-// Supabase Global Anon API Key (깃허브 웹상에서 이곳만 본인의 키로 교체하시면 모든 기능에 즉시 일괄 적용됩니다.)
+// Supabase Global Anon API Key
 const SB_ANON_KEY = localStorage.getItem('sl-sb-anon-key') || "sb_publishable_mMGnj1JFSsnR9uDyjWOEhw_bqvYMlTw";
 
-// Supabase Database Async Loader
+// Supabase Database Async Loader (Non-blocking)
 async function loadPortfolioData() {
-  globalWorksData = window.SL_WORKS || [];
+  if (window.SL_WORKS && globalWorksData.length === 0) {
+    globalWorksData = window.SL_WORKS;
+  }
 
   const key = SB_ANON_KEY;
-  if (!key || !window.supabase) {
-    console.log("Supabase anon key or SDK is missing. Fallback to works-data.js");
-    return;
-  }
+  if (!key || !window.supabase) return;
 
   try {
     const supabase = window.supabase.createClient("https://etdhihayhlponkmmnemj.supabase.co", key);
@@ -27,33 +26,242 @@ async function loadPortfolioData() {
       .eq('key', 'worksData')
       .single();
 
-    if (data && data.value) {
+    if (data && data.value && Array.isArray(data.value) && data.value.length > 0) {
       globalWorksData = data.value;
-      console.log("Database worksData loaded successfully from Supabase.");
+      if (typeof window.renderPortfolio === 'function') {
+        window.renderPortfolio();
+      }
     }
   } catch (err) {
-    console.warn("Supabase fetch failed, fallback to works-data.js.", err);
+    console.warn("Supabase fetch fallback to works-data.js.", err);
   }
 }
 
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', () => {
+  if (window.SL_WORKS) {
+    globalWorksData = window.SL_WORKS;
+  }
+
   if (window.lucide) {
     window.lucide.createIcons();
   }
 
-  // Wait for Supabase DB load
-  await loadPortfolioData();
-
+  initIntroSplashScreen();
+  initHeroSlideshow();
+  initCustomCursor();
   initScrollSystem();
   initLanguageSystem();
   initMobileMenu();
   initPortfolioGrid();
+  initExpandingShowcase();
   initVideoModal();
-  initFaqAccordion();
   initGlobalVideoSettings();
   initScrollRevealSystem();
   initScrollProgressAndParallax();
+
+  // Load remote data in the background asynchronously without blocking
+  loadPortfolioData();
 });
+
+// ── EXPANDING SHOWCASE CAROUSEL (User Screenshot 1:1) ──
+function initExpandingShowcase() {
+  const track = document.getElementById('expandingCardsTrack');
+  if (!track) return;
+
+  const allWorks = (globalWorksData && globalWorksData.length > 0) ? globalWorksData : [];
+  renderExpandingShowcase(allWorks);
+
+  // Smooth wheel horizontal scroll
+  track.addEventListener('wheel', (e) => {
+    if (e.deltaY !== 0) {
+      e.preventDefault();
+      track.scrollLeft += e.deltaY * 0.9;
+    }
+  }, { passive: false });
+}
+
+function renderExpandingShowcase(worksList) {
+  const track = document.getElementById('expandingCardsTrack');
+  if (!track) return;
+
+  if (!worksList || worksList.length === 0) {
+    track.innerHTML = '<div style="padding:40px;color:#556c60;font-family:var(--font-display);font-size:0.9rem;">No projects found in this category.</div>';
+    return;
+  }
+
+  track.innerHTML = '';
+  worksList.forEach((w, index) => {
+    const card = document.createElement('div');
+    card.className = `expand-card ${index === 0 ? 'active' : ''}`;
+    card.setAttribute('data-id', w.id);
+    card.setAttribute('data-cursor', 'PLAY');
+
+    const thumb = w.thumbnail || 'images/work-biome.png';
+    const client = w.client || 'COMMERCIAL FILM';
+    const titleKr = w.title ? w.title.kr : 'Project';
+    const titleEn = w.title ? (w.title.en || w.title.kr) : 'Project';
+    const titleJa = w.title ? (w.title.ja || w.title.kr) : 'Project';
+
+    const descKr = w.description ? w.description.kr.replace(/\n/g, ' ').slice(0, 80) + '...' : 'Commercial AI Video';
+    const descEn = w.description ? (w.description.en || w.description.kr).replace(/\n/g, ' ').slice(0, 100) + '...' : 'Commercial AI Video';
+    const descJa = w.description ? (w.description.ja || w.description.kr).replace(/\n/g, ' ').slice(0, 80) + '...' : 'Commercial AI Video';
+
+    card.innerHTML = `
+      <div class="expand-card-bg">
+        <img src="${thumb}" alt="${titleKr}" class="expand-card-img" loading="lazy">
+        <div class="expand-card-overlay"></div>
+      </div>
+      <div class="expand-card-top-icon">
+        <button class="circle-icon-badge" aria-label="재생">
+          <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <div class="expand-card-content">
+        <span class="expand-card-category">${client}</span>
+        <h3 class="expand-card-title">
+          <span class="ko">${titleKr}</span>
+          <span class="en">${titleEn}</span>
+          <span class="ja">${titleJa}</span>
+        </h3>
+        <p class="expand-card-desc">
+          <span class="ko">${descKr}</span>
+          <span class="en">${descEn}</span>
+          <span class="ja">${descJa}</span>
+        </p>
+      </div>
+    `;
+
+    card.addEventListener('click', (e) => {
+      if (card.classList.contains('active')) {
+        openVideoModal(w.id);
+      } else {
+        document.querySelectorAll('.expand-card').forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+        card.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      }
+    });
+
+    track.appendChild(card);
+  });
+
+  if (window.lucide) {
+    window.lucide.createIcons();
+  }
+}
+
+window.scrollExpandingShowcase = function(direction) {
+  const track = document.getElementById('expandingCardsTrack');
+  if (track) {
+    track.scrollBy({ left: direction * 460, behavior: 'smooth' });
+  }
+};
+
+// ── 0.1 HERO CROSSFADE SLIDESHOW CONTROLLER ──
+let currentHeroSlideIndex = 0;
+let heroSlideTimer = null;
+
+function initHeroSlideshow() {
+  const slides = document.querySelectorAll('.hero-slide');
+  const dots = document.querySelectorAll('.slide-dot');
+  if (slides.length === 0) return;
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      if (i === index) {
+        slide.classList.add('active');
+      } else {
+        slide.classList.remove('active');
+      }
+    });
+
+    dots.forEach((dot, i) => {
+      if (i === index) {
+        dot.classList.add('active');
+      } else {
+        dot.classList.remove('active');
+      }
+    });
+
+    currentHeroSlideIndex = index;
+  }
+
+  window.goToHeroSlide = function(index) {
+    showSlide(index);
+    resetHeroSlideTimer();
+  };
+
+  function nextHeroSlide() {
+    let nextIndex = (currentHeroSlideIndex + 1) % slides.length;
+    showSlide(nextIndex);
+  }
+
+  function resetHeroSlideTimer() {
+    if (heroSlideTimer) clearInterval(heroSlideTimer);
+    heroSlideTimer = setInterval(nextHeroSlide, 4200); // Transitions every 4.2s
+  }
+
+  resetHeroSlideTimer();
+}
+
+// ── 0. INTRO SPLASH SCREEN CONTROLLER ──
+function initIntroSplashScreen() {
+  const splash = document.getElementById('intro-splash');
+  if (!splash) {
+    startHeroVideoPlayback();
+    return;
+  }
+
+  // Check if intro splash has already been shown in this browser session
+  if (sessionStorage.getItem('sl_intro_shown')) {
+    splash.style.display = 'none';
+    startHeroVideoPlayback();
+    return;
+  }
+
+  // First visit in this session: remember that it was shown and display for 3.0s
+  try {
+    sessionStorage.setItem('sl_intro_shown', 'true');
+  } catch (e) {
+    console.log("sessionStorage not available:", e);
+  }
+
+  setTimeout(() => {
+    splash.classList.add('fade-out');
+    startHeroVideoPlayback();
+    setTimeout(() => {
+      splash.style.display = 'none';
+    }, 1000);
+  }, 3000);
+}
+
+// ── LAZY HERO VIDEO STREAMING CONTROLLER ──
+function startHeroVideoPlayback() {
+  const heroVideo = document.getElementById('hero-video');
+  const heroPoster = document.getElementById('hero-poster');
+  if (!heroVideo) return;
+
+  if (heroVideo.dataset.src && !heroVideo.src) {
+    heroVideo.src = heroVideo.dataset.src;
+  }
+
+  heroVideo.onplaying = () => {
+    if (heroPoster) {
+      heroPoster.classList.add('fade-out');
+    }
+  };
+
+  heroVideo.play().catch(e => {
+    console.log("Hero autoplay deferred until user interaction:", e);
+    // On first user click/scroll, retry playing
+    const unlockPlay = () => {
+      heroVideo.play().catch(() => {});
+      window.removeEventListener('click', unlockPlay);
+      window.removeEventListener('scroll', unlockPlay);
+    };
+    window.addEventListener('click', unlockPlay, { once: true });
+    window.addEventListener('scroll', unlockPlay, { once: true });
+  });
+}
 
 // ── INERTIAL SMOOTH SCROLL STATE ──
 let currentScroll = window.scrollY;
@@ -84,8 +292,11 @@ function initScrollSystem() {
   // Smooth scroll for nav anchor clicks (Lerp 모듈 연동)
   navLinks.forEach(link => {
     link.addEventListener('click', e => {
-      e.preventDefault();
       const targetId = link.getAttribute('href');
+      if (!targetId || targetId.includes('.html') || !targetId.startsWith('#')) {
+        return; // Allow page navigation (e.g. to works.html or external links)
+      }
+      e.preventDefault();
       const targetSec = document.querySelector(targetId);
       if (targetSec) {
         const targetPos = targetSec.offsetTop - 70;
@@ -167,20 +378,21 @@ function initScrollSystem() {
 // ── 2. MULTI-LANGUAGE SYSTEM ──
 function initLanguageSystem() {
   window.setLanguage = function(lang) {
+    const selectedLang = (lang === 'en' || lang === 'ja') ? lang : 'kr';
     document.body.classList.remove('en-mode', 'ja-mode');
-    if (lang === 'en') {
+    if (selectedLang === 'en') {
       document.body.classList.add('en-mode');
-    } else if (lang === 'ja') {
+    } else if (selectedLang === 'ja') {
       document.body.classList.add('ja-mode');
     }
 
     try {
-      localStorage.setItem('sl-lang', lang);
+      localStorage.setItem('sl-lang', selectedLang);
     } catch (e) {}
 
     // Update flags active states
     document.querySelectorAll('.lang-flag-btn').forEach(btn => {
-      if (btn.getAttribute('data-lang') === lang) {
+      if (btn.getAttribute('data-lang') === selectedLang) {
         btn.classList.add('on');
       } else {
         btn.classList.remove('on');
@@ -188,7 +400,7 @@ function initLanguageSystem() {
     });
     // Mobile lang state
     document.querySelectorAll('#mobile-menu-lang button').forEach(btn => {
-      if (btn.getAttribute('data-lang') === lang) {
+      if (btn.getAttribute('data-lang') === selectedLang) {
         btn.classList.add('on');
       } else {
         btn.classList.remove('on');
@@ -196,10 +408,10 @@ function initLanguageSystem() {
     });
   };
 
-  // Restore saved lang
+  // Restore saved lang (Guaranteed default to Korean 'kr')
   try {
-    const saved = localStorage.getItem('sl-lang') || 'kr';
-    window.setLanguage(saved);
+    const saved = localStorage.getItem('sl-lang');
+    window.setLanguage((saved === 'en' || saved === 'ja') ? saved : 'kr');
   } catch (e) {
     window.setLanguage('kr');
   }
@@ -278,7 +490,18 @@ function initPortfolioGrid() {
       }
     });
 
-    renderPortfolio();
+    // Filter expanding carousel
+    const filteredForShowcase = category === 'all'
+      ? globalWorksData
+      : (globalWorksData || []).filter(item => (item.categories || []).includes(category) || (item.category && item.category.en === category));
+    
+    if (typeof renderExpandingShowcase === 'function') {
+      renderExpandingShowcase(filteredForShowcase);
+    }
+
+    if (grid) {
+      renderPortfolio();
+    }
   };
 
   window.changePage = function(page) {
@@ -317,6 +540,7 @@ function initPortfolioGrid() {
     pagedItems.forEach(w => {
       const card = document.createElement('div');
       card.setAttribute('data-id', w.id);
+      card.setAttribute('data-cursor', 'PLAY');
       card.className = 'portfolio-card reveal-element';
       card.onclick = () => openVideoModal(w.id);
 
@@ -324,7 +548,7 @@ function initPortfolioGrid() {
       const categoryText = w.category.kr;
       const parsedVideo = parseVideoUrl(w.videoUrl);
 
-      // ASTRA structured header/thumbnail/footer card markup
+      // Editorial structured header/thumbnail/footer card markup
       card.innerHTML = `
         <span class="card-header">
           <span class="brand-category">
@@ -335,7 +559,7 @@ function initPortfolioGrid() {
           <span class="arrow-indicator"><i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i></span>
         </span>
         <div class="thumbnail-container">
-          <img src="${w.thumbnail || 'images/work-biome.png'}" alt="${titleText}" class="portfolio-thumb-img" onerror="this.onerror=null; this.src='images/work-biome.png';">
+          <img src="${w.thumbnail || 'images/work-biome.png'}" alt="${titleText}" class="portfolio-thumb-img" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='images/work-biome.png';">
           <video src="${w.videoUrl}" loop muted playsinline class="portfolio-video" style="display: none;"></video>
           <div class="portfolio-play-btn">
             <i data-lucide="play" class="w-4 h-4 fill-white translate-x-0.5"></i>
@@ -397,6 +621,10 @@ function initPortfolioGrid() {
     if (window.lucide) {
       window.lucide.createIcons();
     }
+
+    if (window.bindCursorTargets) {
+      window.bindCursorTargets();
+    }
   }
 
   renderPortfolio();
@@ -407,10 +635,27 @@ function initVideoModal() {
   const modal = document.getElementById('videoModal');
   const iframe = document.getElementById('modalVideo');
   const videoPlayer = document.getElementById('modalVideoPlayer');
+  const loader = document.getElementById('modalVideoLoader');
   const modalTitle = document.getElementById('modalTitle');
   const modalClient = document.getElementById('modalClient');
   const modalDesc = document.getElementById('modalDesc');
   const modalCategory = document.getElementById('modalCategory');
+
+  function hideLoader() {
+    if (loader) {
+      loader.style.opacity = '0';
+      setTimeout(() => {
+        loader.style.display = 'none';
+      }, 300);
+    }
+  }
+
+  function showLoader() {
+    if (loader) {
+      loader.style.display = 'flex';
+      loader.style.opacity = '1';
+    }
+  }
 
   window.openVideoModal = function(id) {
     if (!modal || !iframe || !videoPlayer) return;
@@ -419,6 +664,8 @@ function initVideoModal() {
 
     const w = allWorks.find(item => item.id === id);
     if (!w) return;
+
+    showLoader();
 
     // Convert Youtube/Vimeo raw watch url to embed link
     let videoUrl = w.videoUrl || '';
@@ -435,7 +682,6 @@ function initVideoModal() {
         const match = videoUrl.match(ytReg);
         if (match && match[1]) {
           const videoId = match[1];
-          // Use standard youtube.com domain and omit origin parameter to avoid security/policy blocks on local environments
           videoUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
         }
       } else if (isVimeo && !videoUrl.includes('player.vimeo.com/video/')) {
@@ -446,6 +692,13 @@ function initVideoModal() {
         }
       }
 
+      iframe.onload = () => {
+        hideLoader();
+      };
+
+      // Fallback timer in case onload event is delayed
+      setTimeout(hideLoader, 2500);
+
       iframe.src = videoUrl;
       iframe.style.display = 'block';
     } else {
@@ -455,6 +708,9 @@ function initVideoModal() {
 
       videoPlayer.src = videoUrl;
       videoPlayer.style.display = 'block';
+      videoPlayer.oncanplay = () => {
+        hideLoader();
+      };
       videoPlayer.load();
       videoPlayer.play().catch(err => console.log("Modal auto-play blocked:", err));
     }
@@ -489,6 +745,7 @@ function initVideoModal() {
   };
 
   window.closeVideoModal = function() {
+    hideLoader();
     if (iframe) {
       iframe.src = '';
     }
@@ -536,25 +793,6 @@ window.handleContactSubmit = function(e) {
       statusMsg.textContent = '전송 중 문제가 발생했습니다. contact@synthlayered.com 으로 메일을 직접 발송 부탁드립니다.';
     });
 };
-
-// ── 7. FAQ ACCORDION ──
-function initFaqAccordion() {
-  window.toggleFaq = function(index) {
-    const content = document.getElementById('faq-content-' + index);
-    const icon = document.getElementById('faq-icon-' + index);
-
-    if (!content) return;
-
-    if (content.classList.contains('hidden')) {
-      content.classList.remove('hidden');
-      if (icon) icon.style.transform = 'rotate(180deg)';
-    } else {
-      content.classList.add('hidden');
-      if (icon) icon.style.transform = 'rotate(0deg)';
-    }
-  };
-}
-
 
 // ── 9. ABOUT WORKFLOW TABS ──
 window.setLayer = function(layerNum) {
@@ -671,21 +909,28 @@ async function initGlobalVideoSettings() {
 function initScrollRevealSystem() {
   const revealObserverOptions = {
     root: null,
-    rootMargin: '0px 0px -12% 0px', // Trigger when element is 12% above viewport bottom
-    threshold: 0.05
+    rootMargin: '0px 0px -5% 0px',
+    threshold: 0.01
   };
   
   window.revealObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('revealed');
+        entry.target.classList.add('active-revealed');
         observer.unobserve(entry.target);
       }
     });
   }, revealObserverOptions);
   
   document.querySelectorAll('.reveal-element').forEach(el => {
-    window.revealObserver.observe(el);
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight) {
+      el.classList.add('revealed');
+      el.classList.add('active-revealed');
+    } else {
+      window.revealObserver.observe(el);
+    }
   });
 }
 
@@ -741,4 +986,66 @@ function initScrollProgressAndParallax() {
   // Initial update
   updateScrollEffects();
 }
+
+// ── 13. CUSTOM MAGNETIC CURSOR (STUDIO.SITE SIGNATURE) ──
+function initCustomCursor() {
+  const dot = document.getElementById('cursor-dot');
+  const follower = document.getElementById('cursor-follower');
+  const text = document.getElementById('cursor-text');
+  if (!dot || !follower) return;
+
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+  let followerX = mouseX;
+  let followerY = mouseY;
+
+  window.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    dot.style.left = `${mouseX}px`;
+    dot.style.top = `${mouseY}px`;
+  }, { passive: true });
+
+  function renderCursor() {
+    // Smooth lerp follower movement
+    followerX += (mouseX - followerX) * 0.16;
+    followerY += (mouseY - followerY) * 0.16;
+    follower.style.left = `${followerX}px`;
+    follower.style.top = `${followerY}px`;
+
+    requestAnimationFrame(renderCursor);
+  }
+  requestAnimationFrame(renderCursor);
+
+  function onMouseEnter(e) {
+    const cursorVal = e.currentTarget.getAttribute('data-cursor') || 'VIEW';
+    if (text) text.textContent = cursorVal;
+    document.body.classList.add('cursor-hover');
+  }
+
+  function onMouseLeave() {
+    document.body.classList.remove('cursor-hover');
+    if (text) text.textContent = '';
+  }
+
+  function bindCursorTargets() {
+    document.querySelectorAll('[data-cursor]').forEach(el => {
+      el.removeEventListener('mouseenter', onMouseEnter);
+      el.removeEventListener('mouseleave', onMouseLeave);
+      el.addEventListener('mouseenter', onMouseEnter);
+      el.addEventListener('mouseleave', onMouseLeave);
+    });
+
+    document.querySelectorAll('a, button, input, textarea, .faq-trigger').forEach(el => {
+      if (!el.hasAttribute('data-cursor')) {
+        el.addEventListener('mouseenter', () => document.body.classList.add('cursor-link'));
+        el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-link'));
+      }
+    });
+  }
+
+  window.bindCursorTargets = bindCursorTargets;
+  bindCursorTargets();
+}
+
 
