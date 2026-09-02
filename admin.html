@@ -1257,11 +1257,33 @@
             }
         };
 
+        // Compile works-data.js text content
+        function compileWorksDataContent(worksDb, settings) {
+            const formatted = JSON.stringify(worksDb, null, 2);
+            return `/* ═══════════════════════════════════════════════════════════════
+   SYNTH LAYERED — PORTFOLIO WORKS DATA
+   All portfolio project information is kept in this single file.
+   Adding or editing here dynamically renders updates across the site.
+   ═══════════════════════════════════════════════════════════════ */
+
+const SL_WORKS = ${formatted};
+
+const SL_SETTINGS = {
+  "homeHeroVideo": "${settings && settings.homeHeroVideo ? settings.homeHeroVideo : 'https://etdhihayhlponkmmnemj.supabase.co/storage/v1/object/public/video/Synthlayered_1.mp4'}",
+  "portfolioHeroVideo": "${settings && settings.portfolioHeroVideo ? settings.portfolioHeroVideo : 'https://etdhihayhlponkmmnemj.supabase.co/storage/v1/object/public/video/Synthlayered_1.mp4'}"
+};
+
+// Globally expose the portfolio works data and settings
+window.SL_WORKS = SL_WORKS;
+window.SL_SETTINGS = SL_SETTINGS;
+`;
+        }
+
         // Export config text file (works-data.js)
         window.exportConfigFile = function() {
             let settings = {
-                homeHeroVideo: "https://etdhihayhlponkmmnemj.supabase.co/storage/v1/object/public/video/portfolio_1.mp4",
-                portfolioHeroVideo: "https://etdhihayhlponkmmnemj.supabase.co/storage/v1/object/public/video/portfolio_1.mp4"
+                homeHeroVideo: "https://etdhihayhlponkmmnemj.supabase.co/storage/v1/object/public/video/Synthlayered_1.mp4",
+                portfolioHeroVideo: "https://etdhihayhlponkmmnemj.supabase.co/storage/v1/object/public/video/Synthlayered_1.mp4"
             };
             try {
                 const stored = localStorage.getItem('sl-global-settings');
@@ -1279,6 +1301,7 @@
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
+            alert('📥 최신 works-data.js 파일이 다운로드되었습니다!\n이 파일을 프로젝트 폴더에 덮어쓴 후 깃허브에 업로드(Commit)하시면 됩니다.');
         };
     </script>
 </body>
