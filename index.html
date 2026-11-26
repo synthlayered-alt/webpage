@@ -1097,6 +1097,43 @@
         grid-template-columns: minmax(0, 1fr);
       }
     }
+    /* Works Section Grouping (섹션 헤더 + 섹션별 그리드) */
+    .work-section {
+      display: block;
+    }
+    .work-section + .work-section {
+      margin-top: 22px;
+    }
+    .work-section-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 4px 8px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .work-section-title {
+      margin: 0;
+      font-size: 14.5px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .work-section-count {
+      margin-left: auto;
+      flex: 0 0 auto;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-pill);
+      padding: 2px 9px;
+      background: var(--bg-card);
+      white-space: nowrap;
+    }
     .work-card {
       min-width: 0;
       overflow: hidden;
@@ -1547,6 +1584,12 @@
         grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 16px;
       }
+      .work-section + .work-section {
+        margin-top: 28px;
+      }
+      .work-section-title {
+        font-size: 15.5px;
+      }
       .work-card {
         padding: 18px;
       }
@@ -1819,286 +1862,260 @@
 
       <!-- Filter Tabs -->
       <div class="filter-tabs">
-        <button class="tab-btn active" id="i18n-tab-all" onclick="filterWorks('all', this)">전체 보기</button>
-        <button class="tab-btn" id="i18n-tab-cf" onclick="filterWorks('cf', this)">브랜드 &amp; CF</button>
-        <button class="tab-btn" id="i18n-tab-cinema" onclick="filterWorks('cinema', this)">오리지널 시네마</button>
-        <button class="tab-btn" id="i18n-tab-ip" onclick="filterWorks('ip', this)">버추얼 IP</button>
+        <button class="tab-btn active" id="i18n-tab-all" onclick="filterWorks('all', this)">전체 (14)</button>
+        <button class="tab-btn" id="i18n-tab-series" onclick="filterWorks('series', this)">시리즈 · 단편</button>
+        <button class="tab-btn" id="i18n-tab-trailer" onclick="filterWorks('trailer', this)">트레일러 · 액션</button>
+        <button class="tab-btn" id="i18n-tab-cf" onclick="filterWorks('cf', this)">브랜드 CF · 수상작</button>
+        <button class="tab-btn" id="i18n-tab-ip" onclick="filterWorks('ip', this)">버추얼 IP · MV</button>
       </div>
 
-      <div class="works-grid" id="worksContainer">
-        
-        <!-- 0-1. [신작] 11월의 교실, 너의 이름으로 남은 열아홉 (수능 단편영화) -->
-        <a class="work-card" data-cat="cinema" data-work="w16" href="https://www.youtube.com/watch?v=DrduRuhYqXs" target="_blank" rel="noopener">
-          <div class="tag-row">
-            <span class="tag-pill tag-new">🆕 신작 수능 단편</span>
-            <span class="work-duration">1:05</span>
-          </div>
-          <div>
-            <div class="work-title">11월의 교실, 너의 이름으로 남은 열아홉</div>
-            <div class="work-desc">수능 아침, 교실에 남겨진 이름들과 열아홉의 마지막 하루. 수능을 앞둔 모두에게 바치는 Layered Pictures 수능 단편영화.</div>
-          </div>
-          <div class="work-footer">
-            <span>Layered Pictures</span>
-            <span>감상하기 ↗</span>
-          </div>
-        </a>
+      <div id="worksContainer">
 
-        <!-- 0-2. [신작] 폭군의 처형식 D-30, 반역의 공작과 계약하다 (공식 트레일러) -->
-        <a class="work-card" data-cat="cinema" data-work="w17" href="https://www.youtube.com/watch?v=2XA00m8o0cY" target="_blank" rel="noopener">
-          <div class="tag-row">
-            <span class="tag-pill tag-new">🆕 신작 공식 트레일러</span>
-            <span class="work-duration">1:48</span>
+        <!-- Section: series -->
+        <section class="work-section" data-section="series">
+          <div class="work-section-head">
+            <h3 class="work-section-title" id="i18n-sec-series">오리지널 시리즈 · 단편</h3>
+            <span class="work-section-count" id="i18n-sec-series-count">4편</span>
           </div>
-          <div>
-            <div class="work-title">폭군의 처형식 D-30, 반역의 공작과 계약하다 (공식 트레일러)</div>
-            <div class="work-desc">처형식까지 남은 30일. 반역의 공작과 계약한 여인이 폭군의 궁에서 살아남는 법을 그린 오리지널 로맨스 판타지 시네마 트레일러.</div>
-          </div>
-          <div class="work-footer">
-            <span>Layered Pictures</span>
-            <span>감상하기 ↗</span>
-          </div>
-        </a>
+          <div class="works-grid">
+  <a class="work-card" data-cat="series" data-work="w1" href="https://www.youtube.com/watch?v=jgHH7GZq65g" target="_blank" rel="noopener">
+            <div class="tag-row">
+              <span class="tag-pill tag-new">🔥 전편 완결 몰아보기</span>
+              <span class="work-duration">10:20</span>
+            </div>
+            <div>
+              <div class="work-title">이 사직서는 반려합니다 (전편 1~7화)</div>
+              <div class="work-desc">실수에서 시작된 비밀 보고부터 설레는 밤의 우산까지! 퇴사 D-1 오피스 로코 AI 웹드라마 전편(10분 20초) 풀버전.</div>
+            </div>
+            <div class="work-footer">
+              <span>Layered Pictures</span>
+              <span>감상하기 ↗</span>
+            </div>
+          </a>
 
-        <!-- 1. [완결 몰아보기] 이 사직서는 반려합니다 (전편 1~7화) -->
-        <a class="work-card" data-cat="cinema" data-work="w1" href="https://www.youtube.com/watch?v=jgHH7GZq65g" target="_blank" rel="noopener">
-          <div class="tag-row">
-            <span class="tag-pill tag-new">🔥 전편 완결 몰아보기</span>
-            <span class="work-duration">10:20</span>
-          </div>
-          <div>
-            <div class="work-title">이 사직서는 반려합니다 (전편 1~7화)</div>
-            <div class="work-desc">실수에서 시작된 비밀 보고부터 설레는 밤의 우산까지! 퇴사 D-1 오피스 로코 AI 웹드라마 전편(10분 20초) 풀버전.</div>
-          </div>
-          <div class="work-footer">
-            <span>Layered Pictures</span>
-            <span>감상하기 ↗</span>
-          </div>
-        </a>
+  <a class="work-card" data-cat="series" data-work="w16" href="https://www.youtube.com/watch?v=DrduRuhYqXs" target="_blank" rel="noopener">
+            <div class="tag-row">
+              <span class="tag-pill tag-new">🆕 신작 수능 단편</span>
+              <span class="work-duration">1:05</span>
+            </div>
+            <div>
+              <div class="work-title">11월의 교실, 너의 이름으로 남은 열아홉</div>
+              <div class="work-desc">수능 아침, 교실에 남겨진 이름들과 열아홉의 마지막 하루. 수능을 앞둔 모두에게 바치는 Layered Pictures 수능 단편영화.</div>
+            </div>
+            <div class="work-footer">
+              <span>Layered Pictures</span>
+              <span>감상하기 ↗</span>
+            </div>
+          </a>
 
-        <!-- 2. [최종화] 이 사직서는 반려합니다 EP.07 -->
-        <a class="work-card" data-cat="cinema" data-work="w2" href="https://www.youtube.com/watch?v=Aon2Ty4sAhE" target="_blank" rel="noopener">
-          <div class="tag-row">
-            <span class="tag-pill tag-drama">🎬 시리즈 최종화</span>
-            <span class="work-duration">1:40</span>
-          </div>
-          <div>
-            <div class="work-title">이 사직서는 반려합니다 (EP.07 최종화)</div>
-            <div class="work-desc">"내 사직서는 무기한 보류 중." 냉혈한 팀장님과 서하의 마지막 이야기! 수많은 팬들이 기다려온 감동의 피날레.</div>
-          </div>
-          <div class="work-footer">
-            <span>Layered Pictures</span>
-            <span>감상하기 ↗</span>
-          </div>
-        </a>
+  <a class="work-card" data-cat="series" data-work="w10" href="https://www.youtube.com/watch?v=Jm3Uo8Q7w0s" target="_blank" rel="noopener">
+            <div class="tag-row">
+              <span class="tag-pill tag-drama">📺 11분 롱폼 시리즈</span>
+              <span class="work-duration">11:15</span>
+            </div>
+            <div>
+              <div class="work-title">조금 늦은 우리 (Chapter 1 &amp; 2)</div>
+              <div class="work-desc">하루의 끝에 남은 것 &amp; 다시 담다. AI 생성의 한계를 극복한 캐릭터 일관성과 섬세한 감정 호흡의 11분 드라마.</div>
+            </div>
+            <div class="work-footer">
+              <span>Layered Pictures</span>
+              <span>감상하기 ↗</span>
+            </div>
+          </a>
 
-        <!-- 3. [화제의 화] 이 사직서는 반려합니다 EP.06 -->
-        <a class="work-card" data-cat="cinema" data-work="w3" href="https://www.youtube.com/watch?v=kYv_3M190Lg" target="_blank" rel="noopener">
-          <div class="tag-row">
-            <span class="tag-pill tag-drama">✨ 화제의 에피소드</span>
-            <span class="work-duration">1:24</span>
+  <a class="work-card" data-cat="series" data-work="w13" href="https://www.youtube.com/watch?v=c1KkobgTRjY" target="_blank" rel="noopener">
+            <div class="tag-row">
+              <span class="tag-pill tag-short">🍿 오리지널 단편</span>
+              <span class="work-duration">1:02</span>
+            </div>
+            <div>
+              <div class="work-title">버려지던 엄마의 옛 그림</div>
+              <div class="work-desc">동네 카페에 몰래 걸어두었더니... 따스한 가족애와 일상의 온기를 담은 감성 AI 단편 드라마.</div>
+            </div>
+            <div class="work-footer">
+              <span>Layered Pictures</span>
+              <span>감상하기 ↗</span>
+            </div>
+          </a>
           </div>
-          <div>
-            <div class="work-title">이 사직서는 반려합니다 (EP.06)</div>
-            <div class="work-desc">"오늘 생긴 변수는 내일 같이 만회하면 됩니다." 비 내리는 퇴근길, 서하 쪽으로 기울어진 팀장님의 검은 우산.</div>
-          </div>
-          <div class="work-footer">
-            <span>Layered Pictures</span>
-            <span>감상하기 ↗</span>
-          </div>
-        </a>
+        </section>
 
-        <!-- 4. [시리즈 시작] 이 사직서는 반려합니다 EP.01 -->
-        <a class="work-card" data-cat="cinema" data-work="w4" href="https://www.youtube.com/watch?v=0xD0ctQIT5M" target="_blank" rel="noopener">
-          <div class="tag-row">
-            <span class="tag-pill tag-drama">🍿 시리즈 시작 (EP.01)</span>
-            <span class="work-duration">1:59</span>
+        <!-- Section: trailer -->
+        <section class="work-section" data-section="trailer">
+          <div class="work-section-head">
+            <h3 class="work-section-title" id="i18n-sec-trailer">트레일러 · 액션</h3>
+            <span class="work-section-count" id="i18n-sec-trailer-count">2편</span>
           </div>
-          <div>
-            <div class="work-title">이 사직서는 반려합니다 (EP.01)</div>
-            <div class="work-desc">실수로 냉혈한 팀장님 책상에 사직서를 내버렸다! 밤에 몰래 빼내려다 딱 걸린 서하의 좌충우돌 오피스 로코 첫 화.</div>
-          </div>
-          <div class="work-footer">
-            <span>Layered Pictures</span>
-            <span>감상하기 ↗</span>
-          </div>
-        </a>
+          <div class="works-grid">
+  <a class="work-card" data-cat="trailer" data-work="w17" href="https://www.youtube.com/watch?v=2XA00m8o0cY" target="_blank" rel="noopener">
+            <div class="tag-row">
+              <span class="tag-pill tag-new">🆕 신작 공식 트레일러</span>
+              <span class="work-duration">1:48</span>
+            </div>
+            <div>
+              <div class="work-title">폭군의 처형식 D-30, 반역의 공작과 계약하다 (공식 트레일러)</div>
+              <div class="work-desc">처형식까지 남은 30일. 반역의 공작과 계약한 여인이 폭군의 궁에서 살아남는 법을 그린 오리지널 로맨스 판타지 시네마 트레일러.</div>
+            </div>
+            <div class="work-footer">
+              <span>Layered Pictures</span>
+              <span>감상하기 ↗</span>
+            </div>
+          </a>
 
-        <!-- 5. [신작] 햇반 30주년 브랜드 필름 -->
-        <a class="work-card" data-cat="cf" data-work="w5" href="https://www.youtube.com/watch?v=7Mh_r3Wj7-4" target="_blank" rel="noopener">
-          <div class="tag-row">
-            <span class="tag-pill tag-cf">🏆 공모전 출품작</span>
-            <span class="work-duration">0:58</span>
+  <a class="work-card" data-cat="trailer" data-work="w8" href="https://www.youtube.com/watch?v=kYv_3M190Lg" target="_blank" rel="noopener">
+            <div class="tag-row">
+              <span class="tag-pill tag-action">⚡ SF 액션 리메이크</span>
+              <span class="work-duration">4:36</span>
+            </div>
+            <div>
+              <div class="work-title">Breaker: Zero Hour - Prologue (Remake)</div>
+              <div class="work-desc">압도적 스케일의 사이버펑크 메가시티와 하이테크 액션. 4분 36초 분량으로 고도화된 SF 시네마.</div>
+            </div>
+            <div class="work-footer">
+              <span>Layered Pictures</span>
+              <span>감상하기 ↗</span>
+            </div>
+          </a>
           </div>
-          <div>
-            <div class="work-title">햇반 30주년: 시작이 반이라면, 나머지 반은?</div>
-            <div class="work-desc">햇반 30주년 AI 공모전 '갓 지은 AI디어'. 따뜻한 일상의 감성과 하이엔드 광고 미장센을 결합한 브랜드 필름.</div>
-          </div>
-          <div class="work-footer">
-            <span>SYNTH LAYERED</span>
-            <span>감상하기 ↗</span>
-          </div>
-        </a>
+        </section>
 
-        <!-- 6. [대상 수상작] 퀴즈노스 AI 영상 챌린지 대상 -->
-        <a class="work-card" data-cat="cf" data-work="w6" href="https://www.youtube.com/watch?v=v4qEeDxHrj0" target="_blank" rel="noopener">
-          <div class="tag-row">
-            <span class="tag-pill tag-award">🏆 대상 수상작</span>
-            <span class="work-duration">0:55</span>
+        <!-- Section: cf -->
+        <section class="work-section" data-section="cf">
+          <div class="work-section-head">
+            <h3 class="work-section-title" id="i18n-sec-cf">브랜드 CF · 공모전 수상작</h3>
+            <span class="work-section-count" id="i18n-sec-cf-count">5편</span>
           </div>
-          <div>
-            <div class="work-title">[대상] 퀴즈노스: 바삭하게 구워진, 우리의 여름날</div>
-            <div class="work-desc">제4회 퀴즈노스 AI 영상 챌린지 대상 수상작. 한입 베어 무는 순간 번지는 여름의 향수와 감각적인 갓 구운 샌드위치 시네마틱.</div>
-          </div>
-          <div class="work-footer">
-            <span>SYNTH LAYERED</span>
-            <span>감상하기 ↗</span>
-          </div>
-        </a>
+          <div class="works-grid">
+  <a class="work-card" data-cat="cf" data-work="w6" href="https://www.youtube.com/watch?v=v4qEeDxHrj0" target="_blank" rel="noopener">
+            <div class="tag-row">
+              <span class="tag-pill tag-award">🏆 대상 수상작</span>
+              <span class="work-duration">0:55</span>
+            </div>
+            <div>
+              <div class="work-title">[대상] 퀴즈노스: 바삭하게 구워진, 우리의 여름날</div>
+              <div class="work-desc">제4회 퀴즈노스 AI 영상 챌린지 대상 수상작. 한입 베어 무는 순간 번지는 여름의 향수와 감각적인 갓 구운 샌드위치 시네마틱.</div>
+            </div>
+            <div class="work-footer">
+              <span>SYNTH LAYERED</span>
+              <span>감상하기 ↗</span>
+            </div>
+          </a>
 
-        <!-- 7. [대상 수상작] 오븐마루 브랜드 광고 필름 -->
-        <a class="work-card" data-cat="cf" data-work="w7" href="https://www.youtube.com/watch?v=4kzViiPKaH0" target="_blank" rel="noopener">
-          <div class="tag-row">
-            <span class="tag-pill tag-award">🏆 대상 수상작</span>
-            <span class="work-duration">0:48</span>
-          </div>
-          <div>
-            <div class="work-title">[대상] 오븐마루: 튀기지 않아도 치명적인 맛</div>
-            <div class="work-desc">제2회 OMBF 오븐마루치킨 영상공모전 대상 수상작. 오븐의 열기와 극적인 조명 미학으로 완성한 시네마틱 푸드 브랜드 필름.</div>
-          </div>
-          <div class="work-footer">
-            <span>SYNTH LAYERED</span>
-            <span>감상하기 ↗</span>
-          </div>
-        </a>
+  <a class="work-card" data-cat="cf" data-work="w7" href="https://www.youtube.com/watch?v=4kzViiPKaH0" target="_blank" rel="noopener">
+            <div class="tag-row">
+              <span class="tag-pill tag-award">🏆 대상 수상작</span>
+              <span class="work-duration">0:48</span>
+            </div>
+            <div>
+              <div class="work-title">[대상] 오븐마루: 튀기지 않아도 치명적인 맛</div>
+              <div class="work-desc">제2회 OMBF 오븐마루치킨 영상공모전 대상 수상작. 오븐의 열기와 극적인 조명 미학으로 완성한 시네마틱 푸드 브랜드 필름.</div>
+            </div>
+            <div class="work-footer">
+              <span>SYNTH LAYERED</span>
+              <span>감상하기 ↗</span>
+            </div>
+          </a>
 
-        <!-- 8. [신작 리메이크] Breaker: Zero Hour - Prologue -->
-        <a class="work-card" data-cat="cinema" data-work="w8" href="https://www.youtube.com/watch?v=kYv_3M190Lg" target="_blank" rel="noopener">
-          <div class="tag-row">
-            <span class="tag-pill tag-action">⚡ SF 액션 리메이크</span>
-            <span class="work-duration">4:36</span>
-          </div>
-          <div>
-            <div class="work-title">Breaker: Zero Hour - Prologue (Remake)</div>
-            <div class="work-desc">압도적 스케일의 사이버펑크 메가시티와 하이테크 액션. 4분 36초 분량으로 고도화된 SF 시네마.</div>
-          </div>
-          <div class="work-footer">
-            <span>Layered Pictures</span>
-            <span>감상하기 ↗</span>
-          </div>
-        </a>
+  <a class="work-card" data-cat="cf" data-work="w5" href="https://www.youtube.com/watch?v=7Mh_r3Wj7-4" target="_blank" rel="noopener">
+            <div class="tag-row">
+              <span class="tag-pill tag-cf">🏆 공모전 출품작</span>
+              <span class="work-duration">0:58</span>
+            </div>
+            <div>
+              <div class="work-title">햇반 30주년: 시작이 반이라면, 나머지 반은?</div>
+              <div class="work-desc">햇반 30주년 AI 공모전 '갓 지은 AI디어'. 따뜻한 일상의 감성과 하이엔드 광고 미장센을 결합한 브랜드 필름.</div>
+            </div>
+            <div class="work-footer">
+              <span>SYNTH LAYERED</span>
+              <span>감상하기 ↗</span>
+            </div>
+          </a>
 
-        <!-- 9. 오후 두 시의 소금빵 (윤서하 Ep.2) -->
-        <a class="work-card" data-cat="ip" data-work="w9" href="https://www.youtube.com/watch?v=P2d8WkLz5T8" target="_blank" rel="noopener">
-          <div class="tag-row">
-            <span class="tag-pill tag-drama">🍿 오리지널 단편 Ep.2</span>
-            <span class="work-duration">1:15</span>
-          </div>
-          <div>
-            <div class="work-title">오후 두 시의 소금빵 (윤서하 Ep.2)</div>
-            <div class="work-desc">아홉 번째 탈락 문자를 받고 동네 빵집으로 도망쳤다. 가상 배우 윤서하 주연의 서정적 힐링 시네마.</div>
-          </div>
-          <div class="work-footer">
-            <span>Layered Pictures · 윤서하</span>
-            <span>감상하기 ↗</span>
-          </div>
-        </a>
+  <a class="work-card" data-cat="cf" data-work="w11" href="https://www.youtube.com/watch?v=jiMnju0oZpk" target="_blank" rel="noopener">
+            <div class="tag-row">
+              <span class="tag-pill tag-cf">🎬 브랜드 광고</span>
+              <span class="work-duration">0:56</span>
+            </div>
+            <div>
+              <div class="work-title">몸이 기억하는 깊이, 천년동안</div>
+              <div class="work-desc">2026 해양심층수 AI 공모전. 깊은 심해의 청정함과 미네랄의 생명력을 감각적인 비주얼로 표현한 광고 필름.</div>
+            </div>
+            <div class="work-footer">
+              <span>SYNTH LAYERED</span>
+              <span>감상하기 ↗</span>
+            </div>
+          </a>
 
-        <!-- 10. 조금 늦은 우리 (Ch.1 & Ch.2) -->
-        <a class="work-card" data-cat="cinema" data-work="w10" href="https://www.youtube.com/watch?v=Jm3Uo8Q7w0s" target="_blank" rel="noopener">
-          <div class="tag-row">
-            <span class="tag-pill tag-drama">📺 11분 롱폼 시리즈</span>
-            <span class="work-duration">11:15</span>
+  <a class="work-card" data-cat="cf" data-work="w12" href="https://www.youtube.com/watch?v=de_FWbhniOU" target="_blank" rel="noopener">
+            <div class="tag-row">
+              <span class="tag-pill tag-cf">🎬 브랜드 CF</span>
+              <span class="work-duration">0:30</span>
+            </div>
+            <div>
+              <div class="work-title">디앤에이모터스 Lumi CF</div>
+              <div class="work-desc">나의 하루가 낭만이 되는 순간. 도심 속 감성 라이프스타일 모빌리티 필름.</div>
+            </div>
+            <div class="work-footer">
+              <span>SYNTH LAYERED</span>
+              <span>감상하기 ↗</span>
+            </div>
+          </a>
           </div>
-          <div>
-            <div class="work-title">조금 늦은 우리 (Chapter 1 &amp; 2)</div>
-            <div class="work-desc">하루의 끝에 남은 것 &amp; 다시 담다. AI 생성의 한계를 극복한 캐릭터 일관성과 섬세한 감정 호흡의 11분 드라마.</div>
-          </div>
-          <div class="work-footer">
-            <span>Layered Pictures</span>
-            <span>감상하기 ↗</span>
-          </div>
-        </a>
+        </section>
 
-        <!-- 11. [신작] 2026 해양심층수 AI 공모전 -->
-        <a class="work-card" data-cat="cf" data-work="w11" href="https://www.youtube.com/watch?v=jiMnju0oZpk" target="_blank" rel="noopener">
-          <div class="tag-row">
-            <span class="tag-pill tag-cf">🎬 브랜드 광고</span>
-            <span class="work-duration">0:56</span>
+        <!-- Section: ip -->
+        <section class="work-section" data-section="ip">
+          <div class="work-section-head">
+            <h3 class="work-section-title" id="i18n-sec-ip">버추얼 IP · MV</h3>
+            <span class="work-section-count" id="i18n-sec-ip-count">3편</span>
           </div>
-          <div>
-            <div class="work-title">몸이 기억하는 깊이, 천년동안</div>
-            <div class="work-desc">2026 해양심층수 AI 공모전. 깊은 심해의 청정함과 미네랄의 생명력을 감각적인 비주얼로 표현한 광고 필름.</div>
-          </div>
-          <div class="work-footer">
-            <span>SYNTH LAYERED</span>
-            <span>감상하기 ↗</span>
-          </div>
-        </a>
+          <div class="works-grid">
+  <a class="work-card" data-cat="ip" data-work="w9" href="https://www.youtube.com/watch?v=P2d8WkLz5T8" target="_blank" rel="noopener">
+            <div class="tag-row">
+              <span class="tag-pill tag-drama">🍿 오리지널 단편 Ep.2</span>
+              <span class="work-duration">1:15</span>
+            </div>
+            <div>
+              <div class="work-title">오후 두 시의 소금빵 (윤서하 Ep.2)</div>
+              <div class="work-desc">아홉 번째 탈락 문자를 받고 동네 빵집으로 도망쳤다. 가상 배우 윤서하 주연의 서정적 힐링 시네마.</div>
+            </div>
+            <div class="work-footer">
+              <span>Layered Pictures · 윤서하</span>
+              <span>감상하기 ↗</span>
+            </div>
+          </a>
 
-        <!-- 12. 디앤에이모터스 Lumi CF -->
-        <a class="work-card" data-cat="cf" data-work="w12" href="https://www.youtube.com/watch?v=de_FWbhniOU" target="_blank" rel="noopener">
-          <div class="tag-row">
-            <span class="tag-pill tag-cf">🎬 브랜드 CF</span>
-            <span class="work-duration">0:30</span>
-          </div>
-          <div>
-            <div class="work-title">디앤에이모터스 Lumi CF</div>
-            <div class="work-desc">나의 하루가 낭만이 되는 순간. 도심 속 감성 라이프스타일 모빌리티 필름.</div>
-          </div>
-          <div class="work-footer">
-            <span>SYNTH LAYERED</span>
-            <span>감상하기 ↗</span>
-          </div>
-        </a>
+  <a class="work-card" data-cat="ip" data-work="w14" href="https://www.instagram.com/yoon.seoha_official" target="_blank" rel="noopener">
+            <div class="tag-row">
+              <span class="tag-pill tag-drama">🎞️ 버추얼 배우 IP</span>
+              <span class="work-duration">Ongoing</span>
+            </div>
+            <div>
+              <div class="work-title">Archive of Ordinary Days (@yoon.seoha)</div>
+              <div class="work-desc">서하의 조각들 🎞️ 배역을 넘어 일상을 아카이빙하는 버추얼 인플루언서 &amp; 배우 IP.</div>
+            </div>
+            <div class="work-footer">
+              <span>Instagram @yoon.seoha</span>
+              <span>둘러보기 ↗</span>
+            </div>
+          </a>
 
-        <!-- 13. [신작] 버려지던 엄마의 옛 그림 -->
-        <a class="work-card" data-cat="cinema" data-work="w13" href="https://www.youtube.com/watch?v=c1KkobgTRjY" target="_blank" rel="noopener">
-          <div class="tag-row">
-            <span class="tag-pill tag-short">🍿 오리지널 단편</span>
-            <span class="work-duration">1:02</span>
+  <a class="work-card" data-cat="ip" data-work="w15" href="https://www.youtube.com/watch?v=e5eJhYqed2Y" target="_blank" rel="noopener">
+            <div class="tag-row">
+              <span class="tag-pill tag-short">🎵 뮤직비디오</span>
+              <span class="work-duration">3:41</span>
+            </div>
+            <div>
+              <div class="work-title">[M/V] Keon - Remnants</div>
+              <div class="work-desc">음악의 감정선을 몽환적이고 감각적인 비주얼 서사로 표현한 3분 41초 풀렝스 MV.</div>
+            </div>
+            <div class="work-footer">
+              <span>SYNTH LAYERED</span>
+              <span>감상하기 ↗</span>
+            </div>
+          </a>
           </div>
-          <div>
-            <div class="work-title">버려지던 엄마의 옛 그림</div>
-            <div class="work-desc">동네 카페에 몰래 걸어두었더니... 따스한 가족애와 일상의 온기를 담은 감성 AI 단편 드라마.</div>
-          </div>
-          <div class="work-footer">
-            <span>Layered Pictures</span>
-            <span>감상하기 ↗</span>
-          </div>
-        </a>
-
-        <!-- 14. 윤서하 아카이브 -->
-        <a class="work-card" data-cat="ip" data-work="w14" href="https://www.instagram.com/yoon.seoha_official" target="_blank" rel="noopener">
-          <div class="tag-row">
-            <span class="tag-pill tag-drama">🎞️ 버추얼 배우 IP</span>
-            <span class="work-duration">Ongoing</span>
-          </div>
-          <div>
-            <div class="work-title">Archive of Ordinary Days (@yoon.seoha)</div>
-            <div class="work-desc">서하의 조각들 🎞️ 배역을 넘어 일상을 아카이빙하는 버추얼 인플루언서 &amp; 배우 IP.</div>
-          </div>
-          <div class="work-footer">
-            <span>Instagram @yoon.seoha</span>
-            <span>둘러보기 ↗</span>
-          </div>
-        </a>
-
-        <!-- 15. Keon - Remnants M/V -->
-        <a class="work-card" data-cat="cf" data-work="w15" href="https://www.youtube.com/watch?v=e5eJhYqed2Y" target="_blank" rel="noopener">
-          <div class="tag-row">
-            <span class="tag-pill tag-short">🎵 뮤직비디오</span>
-            <span class="work-duration">3:41</span>
-          </div>
-          <div>
-            <div class="work-title">[M/V] Keon - Remnants</div>
-            <div class="work-desc">음악의 감정선을 몽환적이고 감각적인 비주얼 서사로 표현한 3분 41초 풀렝스 MV.</div>
-          </div>
-          <div class="work-footer">
-            <span>SYNTH LAYERED</span>
-            <span>감상하기 ↗</span>
-          </div>
-        </a>
-
+        </section>
       </div>
     </div>
 
@@ -2226,10 +2243,19 @@
         'i18n-ch4-tag': 'Commercial AI Film Studio &amp; 견적 안내',
         'i18n-works-label': '<span>🎞️</span> 대표 프로젝트 &amp; 포트폴리오',
         'i18n-works-desc': '카테고리별 대표 영상 작업물을 확인해보세요.',
-        'i18n-tab-all': '전체 (17)',
-        'i18n-tab-cinema': '시네마 &amp; 드라마',
-        'i18n-tab-cf': '상업 CF',
-        'i18n-tab-ip': '버추얼 IP',
+        'i18n-tab-all': '전체 (14)',
+        'i18n-tab-series': '시리즈 · 단편',
+        'i18n-tab-trailer': '트레일러 · 액션',
+        'i18n-tab-cf': '브랜드 CF · 수상작',
+        'i18n-tab-ip': '버추얼 IP · MV',
+        'i18n-sec-series': '오리지널 시리즈 · 단편',
+        'i18n-sec-series-count': '4편',
+        'i18n-sec-trailer': '트레일러 · 액션',
+        'i18n-sec-trailer-count': '2편',
+        'i18n-sec-cf': '브랜드 CF · 공모전 수상작',
+        'i18n-sec-cf-count': '5편',
+        'i18n-sec-ip': '버추얼 IP · MV',
+        'i18n-sec-ip-count': '3편',
         'i18n-contact-title': 'Collaborate with Us 🎬✨',
         'i18n-contact-desc': '브랜드 광고 필름, 숏폼 CF, 오리지널 드라마 공동 제작 및<br/>가상 배우 윤서하 협업 프로젝트 문의를 언제든 환영합니다!',
         'i18n-btn-copy': '복사하기',
@@ -2279,10 +2305,19 @@
         'i18n-ch4-tag': 'Commercial AI Film Studio &amp; Estimate Info',
         'i18n-works-label': '<span>🎞️</span> Featured Projects &amp; Portfolio',
         'i18n-works-desc': 'Explore representative cinematic works by category.',
-        'i18n-tab-all': 'All (17)',
-        'i18n-tab-cinema': 'Cinema &amp; Drama',
-        'i18n-tab-cf': 'Commercial CF',
-        'i18n-tab-ip': 'Virtual IP',
+        'i18n-tab-all': 'All (14)',
+        'i18n-tab-series': 'Series &amp; Shorts',
+        'i18n-tab-trailer': 'Trailers &amp; Action',
+        'i18n-tab-cf': 'Brand CF &amp; Awards',
+        'i18n-tab-ip': 'Virtual IP &amp; MV',
+        'i18n-sec-series': 'Original Series &amp; Shorts',
+        'i18n-sec-series-count': '4 works',
+        'i18n-sec-trailer': 'Trailers &amp; Action',
+        'i18n-sec-trailer-count': '2 works',
+        'i18n-sec-cf': 'Brand CF &amp; Awards',
+        'i18n-sec-cf-count': '5 works',
+        'i18n-sec-ip': 'Virtual IP &amp; MV',
+        'i18n-sec-ip-count': '3 works',
         'i18n-contact-title': 'Collaborate with Us 🎬✨',
         'i18n-contact-desc': 'Open for brand films, short-form commercials, original drama co-production,<br/>and collaborations featuring virtual actor Yoon Seoha!',
         'i18n-btn-copy': 'Copy Email',
@@ -2332,10 +2367,19 @@
         'i18n-ch4-tag': 'Commercial AI Film Studio ＆ 制作お問い合わせ',
         'i18n-works-label': '<span>🎞️</span> 代表プロジェクト＆ポートフォリオ',
         'i18n-works-desc': 'カテゴリー別の代表的なAI映像作品をご覧ください。',
-        'i18n-tab-all': 'すべて (17)',
-        'i18n-tab-cinema': '映画・ドラマ',
-        'i18n-tab-cf': '商業広告',
-        'i18n-tab-ip': 'バーチャルIP',
+        'i18n-tab-all': 'すべて (14)',
+        'i18n-tab-series': 'シリーズ・短編',
+        'i18n-tab-trailer': '予告編・アクション',
+        'i18n-tab-cf': 'ブランドCM・受賞作',
+        'i18n-tab-ip': 'バーチャルIP・MV',
+        'i18n-sec-series': 'オリジナルシリーズ・短編',
+        'i18n-sec-series-count': '4作品',
+        'i18n-sec-trailer': '予告編・アクション',
+        'i18n-sec-trailer-count': '2作品',
+        'i18n-sec-cf': 'ブランドCM・受賞作',
+        'i18n-sec-cf-count': '5作品',
+        'i18n-sec-ip': 'バーチャルIP・MV',
+        'i18n-sec-ip-count': '3作品',
         'i18n-contact-title': 'Collaborate with Us 🎬✨',
         'i18n-contact-desc': 'ブランド広告、ショートドラマ共同制作、<br/>バーチャル俳優ユン・ソハとのコラボレーション等、お気軽にお問い合わせください。',
         'i18n-btn-copy': 'メールコピー',
@@ -2620,19 +2664,27 @@
       setLanguage(lang);
     }
 
-    // Category Filter Function
+    // Category Filter Function — 섹션 단위로 묶인 작품 목록을 탭에 맞춰 보여준다
     function filterWorks(category, btn) {
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+      if (btn) btn.classList.add('active');
 
-      const cards = document.querySelectorAll('.work-card');
-      cards.forEach(card => {
-        if (category === 'all' || card.dataset.cat === category) {
-          card.style.display = 'flex';
-        } else {
-          card.style.display = 'none';
-        }
+      // 섹션 헤더 + 그리드를 한 덩어리로 표시/숩김
+      document.querySelectorAll('.work-section').forEach(section => {
+        section.style.display = (category === 'all' || section.dataset.section === category) ? 'block' : 'none';
       });
+
+      // 카드 단위 숨김 상태가 남아 있지 않도록 초기화
+      document.querySelectorAll('.work-card').forEach(card => {
+        card.style.display = 'flex';
+      });
+
+      // 좁은 화면에서 선택한 탭이 잘려 보이지 않도록 탭 바를 옆으로 밀어준다
+      if (btn && btn.scrollIntoView) {
+        try {
+          btn.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'smooth' });
+        } catch (e) {}
+      }
     }
 
     // Copy Email to Clipboard
