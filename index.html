@@ -1736,19 +1736,20 @@
       </div>
     </div>
 
-    <!-- 03. Featured Video Showcase (신작 트레일러 / 전편 몰아보기 슬라이드) -->
+    <!-- 03. Featured Video Showcase (공모전 수상작 / 신작 시리즈 / 전편 몰아보기 슬라이드) -->
     <div class="featured-video-card">
       <div class="showcase-switch">
-        <button type="button" class="showcase-tab active" data-slide="new" onclick="setShowcase('new')" id="i18n-sc-tab-new">🎬 신작 트레일러</button>
+        <button type="button" class="showcase-tab active" data-slide="award" onclick="setShowcase('award')" id="i18n-sc-tab-award">🏆 공모전 수상작</button>
+        <button type="button" class="showcase-tab" data-slide="new" onclick="setShowcase('new')" id="i18n-sc-tab-new">🎬 신작 시리즈</button>
         <button type="button" class="showcase-tab" data-slide="series" onclick="setShowcase('series')" id="i18n-sc-tab-series">🍿 전편 몰아보기</button>
       </div>
       <div class="showcase-desktop-grid">
         
         <!-- Left: 16:9 Video Player Container -->
-        <a class="video-container" id="showcaseVideo" href="https://www.youtube.com/watch?v=2XA00m8o0cY" target="_blank" rel="noopener" style="background-image:url('https://i.ytimg.com/vi/2XA00m8o0cY/maxresdefault.jpg');">
+        <a class="video-container" id="showcaseVideo" href="https://www.youtube.com/watch?v=v4qEeDxHrj0" target="_blank" rel="noopener" style="background-image:url('https://i.ytimg.com/vi/v4qEeDxHrj0/maxresdefault.jpg');">
           <div class="video-center-content">
             <div class="play-btn-circle">▶</div>
-            <div class="play-hint-badge" id="showcaseHint">🎬 신작 공식 트레일러(1:48) 감상하기</div>
+            <div class="play-hint-badge" id="showcaseHint">🏆 공모전 대상 수상작(0:55) 감상하기</div>
           </div>
         </a>
 
@@ -1756,34 +1757,34 @@
         <div class="showcase-info-column">
           <div class="video-header">
             <div class="video-title-row">
-              <span>🎬</span>
-              <span id="showcaseHeader">Layered Pictures 신작 트레일러</span>
+              <span id="showcaseIcon">🏆</span>
+              <span id="showcaseHeader">공모전 대상 수상작</span>
             </div>
             <div class="video-live-pill" id="showcaseLive">
-              <span>●</span> NEW · ROMANCE FANTASY · 1:48
+              <span>●</span> GRAND PRIX · 2X WINNER
             </div>
           </div>
 
           <div class="showcase-series-title" id="showcaseTitle">
-            <strong>폭군의 처형식 D-30, 반역의 공작과 계약하다</strong> · 오리지널 로맨스 판타지 트레일러
+            <strong>[대상] 퀴즈노스: 바삭하게 구워진, 우리의 여름날</strong> · 제4회 퀴즈노스 AI 영상 챌린지 대상 수상작
           </div>
 
           <div class="showcase-series-desc" id="showcaseDesc">
-            처형식까지 남은 30일. 반역의 공작과 손을 잡은 여인이 폭군의 궁에서 살아남는 법 — Layered Pictures가 새로 선보이는 오리지널 로맨스 판타지 시네마 트레일러(1분 48초).
+            2026 공모전 대상 2관왕 — 제4회 퀴즈노스 AI 영상 챌린지 대상 〈바삭하게 구워진, 우리의 여름날〉과 제2회 OMBF 오븐마루치킨 영상공모전 대상 〈튀기지 않아도 치명적인 맛〉. 맛과 온도를 시네마틱 미장센으로 옮긴 브랜드 필름.
           </div>
 
           <div class="showcase-action-grid" id="showcaseActions">
-            <a href="https://www.youtube.com/watch?v=2XA00m8o0cY" target="_blank" rel="noopener" class="showcase-action-btn btn-featured">
-              <span>🍿 신작 공식 트레일러 (1분 48초)</span>
-              <span>감상하기 ↗</span>
+            <a href="https://www.youtube.com/watch?v=v4qEeDxHrj0" target="_blank" rel="noopener" class="showcase-action-btn btn-featured">
+              <span>🏆 [대상] 퀴즈노스 · 바삭하게 구워진, 우리의 여름날</span>
+              <span>0:55 ↗</span>
             </a>
-            <a href="https://www.youtube.com/watch?v=DrduRuhYqXs" target="_blank" rel="noopener" class="showcase-action-btn">
-              <span>📺 수능 단편영화 · 11월의 교실, 너의 이름으로 남은 열아홉</span>
-              <span>1:05 ↗</span>
+            <a href="https://www.youtube.com/watch?v=4kzViiPKaH0" target="_blank" rel="noopener" class="showcase-action-btn">
+              <span>🏆 [대상] 오븐마루 · 튀기지 않아도 치명적인 맛</span>
+              <span>0:48 ↗</span>
             </a>
-            <a href="https://www.youtube.com/watch?v=jgHH7GZq65g" target="_blank" rel="noopener" class="showcase-action-btn">
-              <span>🍿 전편 완결 몰아보기 · 이 사직서는 반려합니다</span>
-              <span>10:20 ↗</span>
+            <a href="https://www.youtube.com/watch?v=nqsKQz4Gq44" target="_blank" rel="noopener" class="showcase-action-btn">
+              <span>🏆 햇반 30주년 AI 공모전 · 시작이 반이라면</span>
+              <span>0:58 ↗</span>
             </a>
           </div>
         </div>
@@ -1862,7 +1863,7 @@
 
       <!-- Filter Tabs -->
       <div class="filter-tabs">
-        <button class="tab-btn active" id="i18n-tab-all" onclick="filterWorks('all', this)">전체 (14)</button>
+        <button class="tab-btn active" id="i18n-tab-all" onclick="filterWorks('all', this)">전체 (16)</button>
         <button class="tab-btn" id="i18n-tab-series" onclick="filterWorks('series', this)">시리즈 · 단편</button>
         <button class="tab-btn" id="i18n-tab-trailer" onclick="filterWorks('trailer', this)">트레일러 · 액션</button>
         <button class="tab-btn" id="i18n-tab-cf" onclick="filterWorks('cf', this)">브랜드 CF · 수상작</button>
@@ -1875,9 +1876,39 @@
         <section class="work-section" data-section="series">
           <div class="work-section-head">
             <h3 class="work-section-title" id="i18n-sec-series">오리지널 시리즈 · 단편</h3>
-            <span class="work-section-count" id="i18n-sec-series-count">4편</span>
+            <span class="work-section-count" id="i18n-sec-series-count">6편</span>
           </div>
           <div class="works-grid">
+  <a class="work-card" data-cat="series" data-work="w18" href="https://www.youtube.com/watch?v=1tZhbeRB5Rg" target="_blank" rel="noopener">
+            <div class="tag-row">
+              <span class="tag-pill tag-new">🆕 신작 오리지널 시리즈</span>
+              <span class="work-duration">1:51</span>
+            </div>
+            <div>
+              <div class="work-title">내 한정판 라면 누가 먹었어?! [성수동 302호 EP.01]</div>
+              <div class="work-desc">성수동 302호, 한정판 라면 한 그릇을 둘러싼 사람들의 하루. Layered Pictures가 새로 시작한 오리지널 시리즈의 첫 화(1분 51초).</div>
+            </div>
+            <div class="work-footer">
+              <span>Layered Pictures</span>
+              <span>감상하기 ↗</span>
+            </div>
+          </a>
+
+  <a class="work-card" data-cat="series" data-work="w19" href="https://www.youtube.com/watch?v=XC-M0Uw-hfw" target="_blank" rel="noopener">
+            <div class="tag-row">
+              <span class="tag-pill tag-new">🆕 신작 드라마 1화</span>
+              <span class="work-duration">7:44</span>
+            </div>
+            <div>
+              <div class="work-title">폭군의 처형식 D-30 · 1화 (Part 1 &amp; 2)</div>
+              <div class="work-desc">황태자의 신용을 동결하고 가짜 성녀의 티아라를 제국 관보에 올린 여인 — 〈폭군의 처형식 D-30〉 1화 Part 1(7분 44초)과 Part 2(7분 1초).</div>
+            </div>
+            <div class="work-footer">
+              <span>Layered Pictures</span>
+              <span>감상하기 ↗</span>
+            </div>
+          </a>
+
   <a class="work-card" data-cat="series" data-work="w1" href="https://www.youtube.com/watch?v=jgHH7GZq65g" target="_blank" rel="noopener">
             <div class="tag-row">
               <span class="tag-pill tag-new">🔥 전편 완결 몰아보기</span>
@@ -2016,7 +2047,7 @@
             </div>
           </a>
 
-  <a class="work-card" data-cat="cf" data-work="w5" href="https://www.youtube.com/watch?v=7Mh_r3Wj7-4" target="_blank" rel="noopener">
+  <a class="work-card" data-cat="cf" data-work="w5" href="https://www.youtube.com/watch?v=nqsKQz4Gq44" target="_blank" rel="noopener">
             <div class="tag-row">
               <span class="tag-pill tag-cf">🏆 공모전 출품작</span>
               <span class="work-duration">0:58</span>
@@ -2225,7 +2256,8 @@
         'i18n-stat-channels': '공식 크리에이티브 채널',
         'i18n-stat-channels-num': '3개',
         'i18n-stat-workflow': 'AI 시네마틱 워크플로우',
-        'i18n-sc-tab-new': '🎬 신작 트레일러',
+        'i18n-sc-tab-award': '🏆 공모전 수상작',
+        'i18n-sc-tab-new': '🎬 신작 시리즈',
         'i18n-sc-tab-series': '🍿 전편 몰아보기',
         'i18n-channels-label': '<span>🌟</span> 공식 채널 바로가기',
         'i18n-channels-desc': '세 가지 축으로 펼쳐지는 크리에이티브 채널을 둘러보세요.',
@@ -2243,13 +2275,13 @@
         'i18n-ch4-tag': 'Commercial AI Film Studio &amp; 견적 안내',
         'i18n-works-label': '<span>🎞️</span> 대표 프로젝트 &amp; 포트폴리오',
         'i18n-works-desc': '카테고리별 대표 영상 작업물을 확인해보세요.',
-        'i18n-tab-all': '전체 (14)',
+        'i18n-tab-all': '전체 (16)',
         'i18n-tab-series': '시리즈 · 단편',
         'i18n-tab-trailer': '트레일러 · 액션',
         'i18n-tab-cf': '브랜드 CF · 수상작',
         'i18n-tab-ip': '버추얼 IP · MV',
         'i18n-sec-series': '오리지널 시리즈 · 단편',
-        'i18n-sec-series-count': '4편',
+        'i18n-sec-series-count': '6편',
         'i18n-sec-trailer': '트레일러 · 액션',
         'i18n-sec-trailer-count': '2편',
         'i18n-sec-cf': '브랜드 CF · 공모전 수상작',
@@ -2287,7 +2319,8 @@
         'i18n-stat-channels': 'Official Creative Channels',
         'i18n-stat-channels-num': '3',
         'i18n-stat-workflow': 'AI Cinematic Workflow',
-        'i18n-sc-tab-new': '🎬 New Trailer',
+        'i18n-sc-tab-award': '🏆 Award Winners',
+        'i18n-sc-tab-new': '🎬 New Series',
         'i18n-sc-tab-series': '🍿 Full Series',
         'i18n-channels-label': '<span>🌟</span> Official Channels',
         'i18n-channels-desc': 'Explore creative channels across brand films, cinema, and virtual IP.',
@@ -2305,13 +2338,13 @@
         'i18n-ch4-tag': 'Commercial AI Film Studio &amp; Estimate Info',
         'i18n-works-label': '<span>🎞️</span> Featured Projects &amp; Portfolio',
         'i18n-works-desc': 'Explore representative cinematic works by category.',
-        'i18n-tab-all': 'All (14)',
+        'i18n-tab-all': 'All (16)',
         'i18n-tab-series': 'Series &amp; Shorts',
         'i18n-tab-trailer': 'Trailers &amp; Action',
         'i18n-tab-cf': 'Brand CF &amp; Awards',
         'i18n-tab-ip': 'Virtual IP &amp; MV',
         'i18n-sec-series': 'Original Series &amp; Shorts',
-        'i18n-sec-series-count': '4 works',
+        'i18n-sec-series-count': '6 works',
         'i18n-sec-trailer': 'Trailers &amp; Action',
         'i18n-sec-trailer-count': '2 works',
         'i18n-sec-cf': 'Brand CF &amp; Awards',
@@ -2349,7 +2382,8 @@
         'i18n-stat-channels': '公式クリエイティブチャンネル',
         'i18n-stat-channels-num': '3',
         'i18n-stat-workflow': 'AIシネマティックワークフロー',
-        'i18n-sc-tab-new': '🎬 新作トレーラー',
+        'i18n-sc-tab-award': '🏆 コンテスト受賞作',
+        'i18n-sc-tab-new': '🎬 新作シリーズ',
         'i18n-sc-tab-series': '🍿 全話一挙',
         'i18n-channels-label': '<span>🌟</span> 公式チャンネル一覧',
         'i18n-channels-desc': '広告フィルム、シネマ、バーチャルIPの3つの軸で展開する公式チャンネル。',
@@ -2367,13 +2401,13 @@
         'i18n-ch4-tag': 'Commercial AI Film Studio ＆ 制作お問い合わせ',
         'i18n-works-label': '<span>🎞️</span> 代表プロジェクト＆ポートフォリオ',
         'i18n-works-desc': 'カテゴリー別の代表的なAI映像作品をご覧ください。',
-        'i18n-tab-all': 'すべて (14)',
+        'i18n-tab-all': 'すべて (16)',
         'i18n-tab-series': 'シリーズ・短編',
         'i18n-tab-trailer': '予告編・アクション',
         'i18n-tab-cf': 'ブランドCM・受賞作',
         'i18n-tab-ip': 'バーチャルIP・MV',
         'i18n-sec-series': 'オリジナルシリーズ・短編',
-        'i18n-sec-series-count': '4作品',
+        'i18n-sec-series-count': '6作品',
         'i18n-sec-trailer': '予告編・アクション',
         'i18n-sec-trailer-count': '2作品',
         'i18n-sec-cf': 'ブランドCM・受賞作',
@@ -2423,6 +2457,8 @@
         w15: { tag: '🎵 뮤직비디오', title: '[M/V] Keon - Remnants', desc: '음악의 감정선을 몽환적이고 감각적인 비주얼 서사로 표현한 3분 41초 풀렝스 MV.', action: '감상하기 ↗' },
         w16: { tag: '🆕 신작 수능 단편', title: '11월의 교실, 너의 이름으로 남은 열아홉', desc: '수능 아침, 교실에 남겨진 이름들과 열아홉의 마지막 하루. 수능을 앞둔 모두에게 바치는 Layered Pictures 수능 단편영화(1분 5초).', action: '감상하기 ↗' },
         w17: { tag: '🆕 신작 공식 트레일러', title: '폭군의 처형식 D-30, 반역의 공작과 계약하다 (공식 트레일러)', desc: '처형식까지 남은 30일. 반역의 공작과 계약한 여인이 폭군의 궁에서 살아남는 법을 그린 오리지널 로맨스 판타지 시네마 트레일러(1분 48초).', action: '감상하기 ↗' }
+        w18: { tag: '🆕 신작 오리지널 시리즈', title: '내 한정판 라면 누가 먹었어?! [성수동 302호 EP.01]', desc: '성수동 302호, 한정판 라면 한 그릇을 둘러싼 사람들의 하루. Layered Pictures가 새로 시작한 오리지널 시리즈의 첫 화(1분 51초).', action: '감상하기 ↗' },
+        w19: { tag: '🆕 신작 드라마 1화', title: '폭군의 처형식 D-30 · 1화 (Part 1 & 2)', desc: '황태자의 신용을 동결하고 가짜 성녀의 티아라를 제국 관보에 올린 여인 — 〈폭군의 처형식 D-30〉 1화 Part 1(7분 44초)과 Part 2(7분 1초).', action: '감상하기 ↗' }
       },
       en: {
         w1: { tag: '🔥 Full Series Completed', title: 'This Resignation Is Rejected (Full Ep.1~7)', desc: 'From secret reports to the romantic umbrella in the rain! The full 10m 20s movie of the office rom-com AI web drama.', action: 'Watch ↗' },
@@ -2442,6 +2478,8 @@
         w15: { tag: '🎵 Music Video', title: '[M/V] Keon - Remnants', desc: 'A 3m 41s full-length music video portraying the emotional arc of music through dreamy, sensory visual narrative.', action: 'Watch ↗' },
         w16: { tag: '🆕 New Exam-Day Short', title: 'November Classroom, Nineteen Left in Your Name', desc: 'The morning of the college entrance exam — the names left behind in a classroom and the last day of being nineteen. A 1m 5s Layered Pictures short film.', action: 'Watch ↗' },
         w17: { tag: '🆕 New Official Trailer', title: 'D-30 to the Tyrant’s Execution: A Contract with the Rebel Duke (Official Trailer)', desc: 'Thirty days until the execution. A woman who strikes a contract with the rebel duke to survive inside the tyrant’s palace — an original romance-fantasy cinema trailer (1m 48s).', action: 'Watch ↗' }
+        w18: { tag: '🆕 New Original Series', title: 'Who Ate My Limited-Edition Ramen?! [Seongsu-dong 302 EP.01]', desc: 'A day for the residents of Seongsu-dong 302 over one limited-edition bowl of ramen — the first episode (1m 51s) of a new Layered Pictures original series.', action: 'Watch ↗' },
+        w19: { tag: '🆕 New Drama Ep.1', title: 'D-30 to the Tyrant’s Execution · Ep.1 (Part 1 & 2)', desc: 'The woman who froze the crown prince’s credit and put a false saint’s tiara in the imperial gazette — Ep.1 Part 1 (7m 44s) and Part 2 (7m 1s).', action: 'Watch ↗' }
       },
       ja: {
         w1: { tag: '🔥 全話完結 一挙公開', title: 'この退職届は受理できません (全1〜7話 一挙)', desc: '誤提出から始まった秘密の報告から雨の日の相合傘まで！退職D-1オフィスラブコメAIウェブドラマ全編(10分20秒)フルバージョン。', action: '視聴する ↗' },
@@ -2461,6 +2499,8 @@
         w15: { tag: '🎵 ミュージックビデオ', title: '[M/V] Keon - Remnants', desc: '音楽の感情曲線を夢幻的かつ感覚的な映像美で描き出した3分41秒のフルレングスMV。', action: '視聴する ↗' },
         w16: { tag: '🆕 新作・入試短編', title: '11月の教室、君の名前で残った十九歳', desc: '入試の朝、教室に残された名と十九歳の最後の一日。受験を迎えるすべての人へ贈るLayered Picturesの短編映画(1分5秒)。', action: '視聴する ↗' },
         w17: { tag: '🆕 新作公式トレーラー', title: '暴君の処刑式 D-30、反逆の公爵と契約する (公式トレーラー)', desc: '処刑式まで残り30日。反逆の公爵と契約した女が暴君の宮廷で生き延びるまでを描く、オリジナル・ロマンスファンタジー映画の予告編(1分48秒)。', action: '視聴する ↗' }
+        w18: { tag: '🆕 新作オリジナルシリーズ', title: '僕の限定ラーメン、誰が食べた？！ [ソンスドン302号 EP.01]', desc: 'ソンスドン302号、限定ラーメン一杯をめぐる人々の一日。Layered Picturesが新たに始めたオリジナルシリーズの第1話(1分51秒)。', action: '視聴する ↗' },
+        w19: { tag: '🆕 新作ドラマ第1話', title: '暴君の処刑式 D-30・第1話 (Part 1 & 2)', desc: '皇太子の信用を凍結し、偽の聖女のティアラを帝国官報に載せた女 — 〈暴君の処刑式 D-30〉第1話 Part 1(7分44秒)とPart 2(7分1秒)。', action: '視聴する ↗' }
       }
     };
 
@@ -2469,21 +2509,37 @@
     // =========================================================
     const showcaseData = {
       kr: {
-        new: {
-          video: '2XA00m8o0cY',
-          hint: '🎬 신작 공식 트레일러(1:48) 감상하기',
-          header: 'Layered Pictures 신작 트레일러',
-          live: 'NEW · ROMANCE FANTASY · 1:48',
-          title: '<strong>폭군의 처형식 D-30, 반역의 공작과 계약하다</strong> · 오리지널 로맨스 판타지 트레일러',
-          desc: '처형식까지 남은 30일. 반역의 공작과 손을 잡은 여인이 폭군의 궁에서 살아남는 법 — Layered Pictures가 새로 선보이는 오리지널 로맨스 판타지 시네마 트레일러(1분 48초).',
+        award: {
+          video: 'v4qEeDxHrj0',
+          icon: '🏆',
+          hint: '🏆 공모전 대상 수상작(0:55) 감상하기',
+          header: '공모전 대상 수상작',
+          live: 'GRAND PRIX · 2X WINNER',
+          title: '<strong>[대상] 퀴즈노스: 바삭하게 구워진, 우리의 여름날</strong> · 제4회 퀴즈노스 AI 영상 챌린지 대상 수상작',
+          desc: '2026 공모전 대상 2관왕 — 제4회 퀴즈노스 AI 영상 챌린지 대상 〈바삭하게 구워진, 우리의 여름날〉과 제2회 OMBF 오븐마루치킨 영상공모전 대상 〈튀기지 않아도 치명적인 맛〉. 맛과 온도를 시네마틱 미장센으로 옮긴 브랜드 필름.',
           actions: [
-            { label: '🍿 신작 공식 트레일러 (1분 48초)', right: '감상하기 ↗', href: 'https://www.youtube.com/watch?v=2XA00m8o0cY', featured: true },
-            { label: '📺 수능 단편영화 · 11월의 교실, 너의 이름으로 남은 열아홉', right: '1:05 ↗', href: 'https://www.youtube.com/watch?v=DrduRuhYqXs' },
-            { label: '🍿 전편 완결 몰아보기 · 이 사직서는 반려합니다', right: '10:20 ↗', href: 'https://www.youtube.com/watch?v=jgHH7GZq65g' }
+            { label: '🏆 [대상] 퀴즈노스 · 바삭하게 구워진, 우리의 여름날', right: '0:55 ↗', href: 'https://www.youtube.com/watch?v=v4qEeDxHrj0', featured: true },
+            { label: '🏆 [대상] 오븐마루 · 튀기지 않아도 치명적인 맛', right: '0:48 ↗', href: 'https://www.youtube.com/watch?v=4kzViiPKaH0' },
+            { label: '🏆 햇반 30주년 AI 공모전 · 시작이 반이라면', right: '0:58 ↗', href: 'https://www.youtube.com/watch?v=nqsKQz4Gq44' }
+          ]
+        },
+        new: {
+          video: '1tZhbeRB5Rg',
+          icon: '🎬',
+          hint: '🎬 신작 오리지널 시리즈(1:51) 감상하기',
+          header: 'Layered Pictures 신작 오리지널 시리즈',
+          live: 'NEW · ORIGINAL SERIES · 1:51',
+          title: '<strong>내 한정판 라면 누가 먹었어?! [성수동 302호 EP.01]</strong> · 오리지널 시리즈 첫 화',
+          desc: '성수동 302호에 모인 사람들과 한정판 라면 한 그릇 — Layered Pictures가 새로 시작한 오리지널 시리즈의 첫 화(1분 51초). 같은 세계관의 드라마 〈폭군의 처형식 D-30〉 1화 Part 1 · Part 2도 함께 공개했습니다.',
+          actions: [
+            { label: '🎬 성수동 302호 EP.01 · 내 한정판 라면 누가 먹었어?!', right: '1:51 ↗', href: 'https://www.youtube.com/watch?v=1tZhbeRB5Rg', featured: true },
+            { label: '📺 폭군의 처형식 D-30 · 1화 Part 1', right: '7:44 ↗', href: 'https://www.youtube.com/watch?v=XC-M0Uw-hfw' },
+            { label: '📺 폭군의 처형식 D-30 · 1화 Part 2', right: '7:01 ↗', href: 'https://www.youtube.com/watch?v=SE1OfdLGQJs' }
           ]
         },
         series: {
           video: 'jgHH7GZq65g',
+          icon: '🍿',
           hint: '🎬 전편 몰아보기(10분) 감상하기',
           header: '완결 시리즈 · 전편 몰아보기',
           live: 'FULL SERIES · 10:20',
@@ -2492,27 +2548,43 @@
           actions: [
             { label: '🍿 전편 완결 몰아보기 (10분 20초)', right: '감상하기 ↗', href: 'https://www.youtube.com/watch?v=jgHH7GZq65g', featured: true },
             { label: '🏁 EP.07 최종화: "내 사직서는 무기한 보류 중"', right: '1:40 ↗', href: 'https://www.youtube.com/watch?v=Aon2Ty4sAhE' },
-            { label: '🌂 EP.06 비 오는 날의 우산', right: '1:24 ↗', href: 'https://www.youtube.com/watch?v=kYv_3M190Lg' },
+            { label: '🌂 EP.06 비 오는 날의 우산', right: '1:24 ↗', href: 'https://www.youtube.com/watch?v=XoG7Wip3Rog' },
             { label: '🎬 EP.01 첫 출근과 실수로 낸 사직서', right: '1:59 ↗', href: 'https://www.youtube.com/watch?v=0xD0ctQIT5M' }
           ]
         }
       },
       en: {
-        new: {
-          video: '2XA00m8o0cY',
-          hint: '🎬 Watch the Official Trailer (1:48)',
-          header: 'Layered Pictures New Trailer',
-          live: 'NEW · ROMANCE FANTASY · 1:48',
-          title: '<strong>D-30 to the Tyrant’s Execution: A Contract with the Rebel Duke</strong> · Original Romance Fantasy Trailer',
-          desc: 'Thirty days until the execution. A woman who strikes a contract with the rebel duke to survive inside the tyrant’s palace — Layered Pictures’ new original romance-fantasy cinema trailer (1m 48s).',
+        award: {
+          video: 'v4qEeDxHrj0',
+          icon: '🏆',
+          hint: '🏆 Watch the Grand Prix film (0:55)',
+          header: 'Grand Prix Award Winners',
+          live: 'GRAND PRIX · 2X WINNER',
+          title: '<strong>[Grand Prix] Quiznos: Crisp-Toasted Summer Days</strong> · 4th Quiznos AI Video Challenge Grand Prix',
+          desc: 'Two Grand Prix wins in 2026 — the 4th Quiznos AI Video Challenge (Crisp-Toasted Summer Days) and the 2nd OMBF Ovenmaru Chicken Film Contest (The Truth Behind Fatal Flavor). Brand films that turn taste and warmth into cinematic mise-en-scène.',
           actions: [
-            { label: '🍿 Official Trailer (1m 48s)', right: 'Watch ↗', href: 'https://www.youtube.com/watch?v=2XA00m8o0cY', featured: true },
-            { label: '📺 Exam-Day Short Film · November Classroom, Nineteen Left in Your Name', right: '1:05 ↗', href: 'https://www.youtube.com/watch?v=DrduRuhYqXs' },
-            { label: '🍿 Full Series · This Resignation Is Rejected', right: '10:20 ↗', href: 'https://www.youtube.com/watch?v=jgHH7GZq65g' }
+            { label: '🏆 [Grand Prix] Quiznos · Crisp-Toasted Summer Days', right: '0:55 ↗', href: 'https://www.youtube.com/watch?v=v4qEeDxHrj0', featured: true },
+            { label: '🏆 [Grand Prix] Ovenmaru · The Truth Behind Fatal Flavor', right: '0:48 ↗', href: 'https://www.youtube.com/watch?v=4kzViiPKaH0' },
+            { label: '🏆 Hetbahn 30th AI Contest · If Starting Is Half', right: '0:58 ↗', href: 'https://www.youtube.com/watch?v=nqsKQz4Gq44' }
+          ]
+        },
+        new: {
+          video: '1tZhbeRB5Rg',
+          icon: '🎬',
+          hint: '🎬 Watch the new original series (1:51)',
+          header: 'Layered Pictures New Original Series',
+          live: 'NEW · ORIGINAL SERIES · 1:51',
+          title: '<strong>Who Ate My Limited-Edition Ramen?! [Seongsu-dong 302 EP.01]</strong> · Original Series Premiere',
+          desc: 'A limited-edition bowl of ramen shared by the residents of Seongsu-dong 302 — the first episode (1m 51s) of a new original series from Layered Pictures. Episode 1 Part 1 and Part 2 of <D-30 to the Tyrant’s Execution> are out as well.',
+          actions: [
+            { label: '🎬 Seongsu-dong 302 EP.01 · Limited-Edition Ramen', right: '1:51 ↗', href: 'https://www.youtube.com/watch?v=1tZhbeRB5Rg', featured: true },
+            { label: '📺 D-30 to the Tyrant’s Execution · Ep.1 Part 1', right: '7:44 ↗', href: 'https://www.youtube.com/watch?v=XC-M0Uw-hfw' },
+            { label: '📺 D-30 to the Tyrant’s Execution · Ep.1 Part 2', right: '7:01 ↗', href: 'https://www.youtube.com/watch?v=SE1OfdLGQJs' }
           ]
         },
         series: {
           video: 'jgHH7GZq65g',
+          icon: '🍿',
           hint: '🎬 Watch Full Series (10 mins)',
           header: 'Series Completed · Full Movie',
           live: 'FULL SERIES · 10:20',
@@ -2521,27 +2593,43 @@
           actions: [
             { label: '🍿 Full Series Completed (10m 20s)', right: 'Watch ↗', href: 'https://www.youtube.com/watch?v=jgHH7GZq65g', featured: true },
             { label: '🏁 EP.07 Finale: “My Resignation Is on Hold Indefinitely”', right: '1:40 ↗', href: 'https://www.youtube.com/watch?v=Aon2Ty4sAhE' },
-            { label: '🌂 EP.06 Umbrella on a Rainy Day', right: '1:24 ↗', href: 'https://www.youtube.com/watch?v=kYv_3M190Lg' },
+            { label: '🌂 EP.06 Umbrella on a Rainy Day', right: '1:24 ↗', href: 'https://www.youtube.com/watch?v=XoG7Wip3Rog' },
             { label: '🎬 EP.01 First Day and the Resignation I Never Meant to Send', right: '1:59 ↗', href: 'https://www.youtube.com/watch?v=0xD0ctQIT5M' }
           ]
         }
       },
       ja: {
-        new: {
-          video: '2XA00m8o0cY',
-          hint: '🎬 新作公式トレーラー(1:48)を視聴する',
-          header: 'Layered Pictures 新作トレーラー',
-          live: 'NEW · ROMANCE FANTASY · 1:48',
-          title: '<strong>暴君の処刑式 D-30、反逆の公爵と契約する</strong> · オリジナル・ロマンスファンタジー予告編',
-          desc: '処刑式まで残り30日。反逆の公爵と手を組んだ女が暴君の宮廷で生き延びるまでを描く、Layered Picturesの新作オリジナル・ロマンスファンタジー映画予告編(1分48秒)。',
+        award: {
+          video: 'v4qEeDxHrj0',
+          icon: '🏆',
+          hint: '🏆 コンテスト大賞作品(0:55)を視聴する',
+          header: 'コンテスト大賞受賞作',
+          live: 'GRAND PRIX · 2X WINNER',
+          title: '<strong>[大賞] クイズノス：香ばしく焼き上げた、僕らの夏の日</strong> · 第4回クイズノスAI映像チャレンジ大賞受賞作',
+          desc: '2026年コンテスト大賞2冠 — 第4回クイズノスAI映像チャレンジ大賞〈香ばしく焼き上げた、僕らの夏の日〉と第2回OMBFオーブンマルチキン映像コンテスト大賞〈揚げなくても致命的な美味しさ〉。味と温度をシネマティックなミザンセーヌに描いたブランドフィルム。',
           actions: [
-            { label: '🍿 新作公式トレーラー(1分48秒)', right: '視聴する ↗', href: 'https://www.youtube.com/watch?v=2XA00m8o0cY', featured: true },
-            { label: '📺 入試短編映画・11月の教室、君の名前で残った十九歳', right: '1:05 ↗', href: 'https://www.youtube.com/watch?v=DrduRuhYqXs' },
-            { label: '🍿 全話一挙・この退職届は受理できません', right: '10:20 ↗', href: 'https://www.youtube.com/watch?v=jgHH7GZq65g' }
+            { label: '🏆 [大賞] クイズノス・香ばしく焼き上げた、僕らの夏の日', right: '0:55 ↗', href: 'https://www.youtube.com/watch?v=v4qEeDxHrj0', featured: true },
+            { label: '🏆 [大賞] オーブンマル・揚げなくても致命的な美味しさ', right: '0:48 ↗', href: 'https://www.youtube.com/watch?v=4kzViiPKaH0' },
+            { label: '🏆 ヘッパン30周年AIコンテスト・始まりが半分なら', right: '0:58 ↗', href: 'https://www.youtube.com/watch?v=nqsKQz4Gq44' }
+          ]
+        },
+        new: {
+          video: '1tZhbeRB5Rg',
+          icon: '🎬',
+          hint: '🎬 新作オリジナルシリーズ(1:51)を視聴する',
+          header: 'Layered Pictures 新作オリジナルシリーズ',
+          live: 'NEW · ORIGINAL SERIES · 1:51',
+          title: '<strong>僕の限定ラーメン、誰が食べた？！ [ソンスドン302号 EP.01]</strong> · オリジナルシリーズ第1話',
+          desc: 'ソンスドン302号に集まった人々と限定ラーメン一杯 — Layered Picturesが新たに始めたオリジナルシリーズの第1話(1分51秒)。同じ世界観のドラマ〈暴君の処刑式 D-30〉第1話 Part 1・Part 2も公開しました。',
+          actions: [
+            { label: '🎬 ソンスドン302号 EP.01・僕の限定ラーメン', right: '1:51 ↗', href: 'https://www.youtube.com/watch?v=1tZhbeRB5Rg', featured: true },
+            { label: '📺 暴君の処刑式 D-30・第1話 Part 1', right: '7:44 ↗', href: 'https://www.youtube.com/watch?v=XC-M0Uw-hfw' },
+            { label: '📺 暴君の処刑式 D-30・第1話 Part 2', right: '7:01 ↗', href: 'https://www.youtube.com/watch?v=SE1OfdLGQJs' }
           ]
         },
         series: {
           video: 'jgHH7GZq65g',
+          icon: '🍿',
           hint: '🎬 全話一挙(10分)を視聴する',
           header: '完結シリーズ・全話一挙公開',
           live: '全7話完結 · 10:20',
@@ -2550,17 +2638,17 @@
           actions: [
             { label: '🍿 全話完結 一挙公開 (10分20秒)', right: '視聴する ↗', href: 'https://www.youtube.com/watch?v=jgHH7GZq65g', featured: true },
             { label: '🏁 EP.07 最終話：「私の退職届は無期限保留中」', right: '1:40 ↗', href: 'https://www.youtube.com/watch?v=Aon2Ty4sAhE' },
-            { label: '🌂 EP.06 雨の日の傘', right: '1:24 ↗', href: 'https://www.youtube.com/watch?v=kYv_3M190Lg' },
+            { label: '🌂 EP.06 雨の日の傘', right: '1:24 ↗', href: 'https://www.youtube.com/watch?v=XoG7Wip3Rog' },
             { label: '🎬 EP.01 初出社と、誤って出した退職届', right: '1:59 ↗', href: 'https://www.youtube.com/watch?v=0xD0ctQIT5M' }
           ]
         }
       }
     };
 
-    let currentShowcase = 'new';
+    let currentShowcase = 'award';
 
     function renderShowcase(slide) {
-      if (slide === 'new' || slide === 'series') currentShowcase = slide;
+      if (slide === 'award' || slide === 'new' || slide === 'series') currentShowcase = slide;
       const lang = localStorage.getItem('sl_lang') || 'kr';
       const pack = showcaseData[lang] || showcaseData.kr;
       const data = pack[currentShowcase] || pack.new;
@@ -2572,6 +2660,8 @@
       }
       const hintEl = document.getElementById('showcaseHint');
       if (hintEl) hintEl.textContent = data.hint;
+      const iconEl = document.getElementById('showcaseIcon');
+      if (iconEl && data.icon) iconEl.textContent = data.icon;
       const headerEl = document.getElementById('showcaseHeader');
       if (headerEl) headerEl.textContent = data.header;
       const liveEl = document.getElementById('showcaseLive');
